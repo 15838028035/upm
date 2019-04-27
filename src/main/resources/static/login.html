@@ -226,8 +226,9 @@ var loginAjax = {
 	                          if(data.respCode=="0"){
 	                              bootbox.alert(data.respMsg);
 	                          }else {
+	                        	  var jtwTokenTimeOut = data.dataCode;
 	                              var expire= new Date();
-	                              expire.setTime(expire.getTime() + (24*60*60 * 1000));
+	                              expire.setTime(expire.getTime() + (jtwTokenTimeOut * 60*24));
 	    
 	                              $.cookie('bearcktkaeskey', data.token, { expires: expire, path: '/' });
 	                              $.cookie('userName', data.respData.userName, { expires: expire, path: '/' });

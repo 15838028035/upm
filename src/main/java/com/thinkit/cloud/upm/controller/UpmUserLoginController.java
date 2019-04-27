@@ -70,6 +70,7 @@ public class UpmUserLoginController extends BaseController {
 			String token = JwtUtil.generateToken(list.get(0).getUserNo(), String.valueOf(list.get(0).getId()),
 					jtwTokenTimeOut);
 			restAPIResult.setToken(token);
+			restAPIResult.setDataCode(String.valueOf(jtwTokenTimeOut));
 		}
 
 		return restAPIResult;
