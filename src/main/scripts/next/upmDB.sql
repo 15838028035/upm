@@ -48,3 +48,29 @@ CREATE TABLE `UPM_ROLE` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='角色信息表';
+
+-- ----------------------------
+-- Table structure for upm_Permission
+-- ----------------------------
+DROP TABLE IF EXISTS `upm_Permission`;
+CREATE TABLE `upm_Permission` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `app_id` varchar(255) DEFAULT NULL COMMENT '应用ID',
+  `parent_Id` bigint(10)  NULL  COMMENT '父ID',
+  `per_name` varchar(255) DEFAULT NULL COMMENT '权限名称',
+  `per_type` varchar(255) DEFAULT NULL COMMENT '权限类型',
+  `url` varchar(255) DEFAULT NULL COMMENT 'URL',
+  `code` varchar(255) DEFAULT NULL COMMENT '编码',
+  `key_code` varchar(255) DEFAULT NULL COMMENT '编码key',
+  `state` varchar(255) DEFAULT NULL COMMENT '1:正常，0：加锁',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `sort_no` bigint(10)  NULL  COMMENT '排序编号',
+  
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(255) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `update_user_name` varchar(255) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='权限信息表';
