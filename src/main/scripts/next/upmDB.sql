@@ -6,7 +6,7 @@ USE `UPM`;
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for SYS_USER
+-- Table structure for UPM_USER
 -- ----------------------------
 DROP TABLE IF EXISTS `UPM_USER`;
 CREATE TABLE `UPM_USER` (
@@ -27,3 +27,24 @@ CREATE TABLE `UPM_USER` (
 -- ----------------------------
 INSERT INTO `UPM_USER` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '0', 'admin', '2019-03-31 04:07:57', '1', 'admin', '2019-03-31 04:07:57');
 SET FOREIGN_KEY_CHECKS=1;
+
+
+-- ----------------------------
+-- Table structure for UPM_ROLE
+-- ----------------------------
+DROP TABLE IF EXISTS `UPM_ROLE`;
+CREATE TABLE `UPM_ROLE` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `role_code` varchar(255) DEFAULT NULL COMMENT '角色编码',
+  `app_id` varchar(255) DEFAULT NULL COMMENT '应用ID',
+  `role_name` varchar(255) DEFAULT NULL COMMENT '角色名称',
+  `role_desc` varchar(255) DEFAULT NULL COMMENT '角色描述',
+  `lock_Status` varchar(255) DEFAULT NULL COMMENT '加锁状态,1:加锁，0:未加锁',
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(255) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `update_user_name` varchar(255) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='角色信息表';

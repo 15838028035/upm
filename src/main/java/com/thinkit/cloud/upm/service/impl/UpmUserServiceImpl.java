@@ -1,6 +1,5 @@
 package com.thinkit.cloud.upm.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.thinkit.cloud.upm.bean.UpmUser;
 import com.thinkit.cloud.upm.dao.UpmUserMapper;
 import com.thinkit.cloud.upm.service.UpmUserService;
-import com.thinkit.cloud.upm.bean.UpmUser;
-
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 

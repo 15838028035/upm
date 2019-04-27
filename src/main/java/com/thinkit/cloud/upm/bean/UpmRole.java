@@ -4,10 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
-*系统用户表
+*角色信息表
 */
-@ApiModel(value = "系统用户表")
-public class UpmUser extends MyBaseEntity{
+@ApiModel(value = "角色信息表")
+public class UpmRole extends MyBaseEntity{
 	
 	/**
 	 * ID  id
@@ -16,16 +16,34 @@ public class UpmUser extends MyBaseEntity{
 	private java.lang.Long id;
 	
 	/**
-	 * 登陆账号  user_no
+	 * 角色编码  role_code
 	 */
-	@ApiModelProperty(value = "登陆账号")
-	private String userNo = "";
+	@ApiModelProperty(value = "角色编码")
+	private String roleCode = "";
 	
 	/**
-	 * 登陆密码  user_pass
+	 * 应用ID  app_id
 	 */
-	@ApiModelProperty(value = "登陆密码")
-	private String userPass = "";
+	@ApiModelProperty(value = "应用ID")
+	private String appId = "";
+	
+	/**
+	 * 角色名称  role_name
+	 */
+	@ApiModelProperty(value = "角色名称")
+	private String roleName = "";
+	
+	/**
+	 * 角色描述  role_desc
+	 */
+	@ApiModelProperty(value = "角色描述")
+	private String roleDesc = "";
+	
+	/**
+	 * 加锁状态,1:加锁，0:未加锁  lock_Status
+	 */
+	@ApiModelProperty(value = "加锁状态,1:加锁，0:未加锁")
+	private String lockStatus = "";
 	
 	/**
 	 * 创建人  create_user_id
@@ -88,19 +106,40 @@ public class UpmUser extends MyBaseEntity{
 	public java.lang.Long getId() {
 		return this.id;
 	}
-	public void setUserNo(String value) {
-		this.userNo = value;
+	public void setRoleCode(String value) {
+		this.roleCode = value;
 	}
 	
-	public String getUserNo() {
-		return this.userNo;
+	public String getRoleCode() {
+		return this.roleCode;
 	}
-	public void setUserPass(String value) {
-		this.userPass = value;
+	public void setAppId(String value) {
+		this.appId = value;
 	}
 	
-	public String getUserPass() {
-		return this.userPass;
+	public String getAppId() {
+		return this.appId;
+	}
+	public void setRoleName(String value) {
+		this.roleName = value;
+	}
+	
+	public String getRoleName() {
+		return this.roleName;
+	}
+	public void setRoleDesc(String value) {
+		this.roleDesc = value;
+	}
+	
+	public String getRoleDesc() {
+		return this.roleDesc;
+	}
+	public void setLockStatus(String value) {
+		this.lockStatus = value;
+	}
+	
+	public String getLockStatus() {
+		return this.lockStatus;
 	}
 	public void setCreateUserId(java.lang.Long value) {
 		this.createUserId = value;
