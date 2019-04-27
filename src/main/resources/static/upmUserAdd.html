@@ -70,11 +70,6 @@
 	<form  class="form-horizontal" method="post" name="upmUserForm" id="upmUserForm">
 	<input type="hidden" name="id" id="id" />
 	<input type="hidden" name="operate" id="operate"  />
-           
-      		<div class="form-group">
-			 <label for="id">ID</label>
-		 	     <input class="form-control" type="text"  name="id" id="id"  />
-		 	</div>
       		<div class="form-group">
 			 <label for="userNo">登陆账号</label>
 		 	     <input class="form-control" type="text"  name="userNo" id="userNo"  />
@@ -82,30 +77,6 @@
       		<div class="form-group">
 			 <label for="userPass">登陆密码</label>
 		 	     <input class="form-control" type="text"  name="userPass" id="userPass"  />
-		 	</div>
-      		<div class="form-group">
-			 <label for="createUserId">创建人</label>
-		 	     <input class="form-control" type="text"  name="createUserId" id="createUserId"  />
-		 	</div>
-      		<div class="form-group">
-			 <label for="createUserName">创建人姓名</label>
-		 	     <input class="form-control" type="text"  name="createUserName" id="createUserName"  />
-		 	</div>
-      		<div class="form-group">
-			 <label for="createTime">创建时间</label>
-				<input class="form-control" type="text" name="createTime" id = "createTime"  class="datetimepicker"  readonly="readonly"/>
-		 	</div>
-      		<div class="form-group">
-			 <label for="updateUserId">更新人</label>
-		 	     <input class="form-control" type="text"  name="updateUserId" id="updateUserId"  />
-		 	</div>
-      		<div class="form-group">
-			 <label for="updateUserName">更新人姓名</label>
-		 	     <input class="form-control" type="text"  name="updateUserName" id="updateUserName"  />
-		 	</div>
-      		<div class="form-group">
-			 <label for="updateTime">更新时间</label>
-				<input class="form-control" type="text" name="updateTime" id = "updateTime"  class="datetimepicker"  readonly="readonly"/>
 		 	</div>
        
  	  <div class="form-group"> 
@@ -144,12 +115,6 @@
                             $("#id").val(data.id);
                             $("#userNo").val(data.userNo);
                             $("#userPass").val(data.userPass);
-                            $("#createUserId").val(data.createUserId);
-                            $("#createUserName").val(data.createUserName);
-                            $("#createTime").val(data.createTime);
-                            $("#updateUserId").val(data.updateUserId);
-                            $("#updateUserName").val(data.updateUserName);
-                            $("#updateTime").val(data.updateTime);
                     },
                     error: function(data){
                         bootbox.alert("异常");
@@ -160,16 +125,6 @@
           $("#upmUserForm").bootstrapValidator({
 			
 			fields: {
-		 		 "id": {
-					message: 'ID不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: 'ID不能为空'  
-                        			} 
-                        			
-                    			}  
-				
-		       },
 		 		 "userNo": {
 					message: '登陆账号不能为空',
 					validators: {  
@@ -189,67 +144,8 @@
                         			
                     			}  
 				
-		       },
-		 		 "createUserId": {
-					message: '创建人不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: '创建人不能为空'  
-                        			} 
-                        			
-                    			}  
-				
-		       },
-		 		 "createUserName": {
-					message: '创建人姓名不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: '创建人姓名不能为空'  
-                        			} 
-                        			
-                    			}  
-				
-		       },
-		 		 "createTime": {
-					message: '创建时间不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: '创建时间不能为空'  
-                        			} 
-                        			
-                    			}  
-				
-		       },
-		 		 "updateUserId": {
-					message: '更新人不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: '更新人不能为空'  
-                        			} 
-                        			
-                    			}  
-				
-		       },
-		 		 "updateUserName": {
-					message: '更新人姓名不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: '更新人姓名不能为空'  
-                        			} 
-                        			
-                    			}  
-				
-		       },
-		 		 "updateTime": {
-					message: '更新时间不能为空',
-					validators: {  
-                       				 notEmpty: {  
-                        				message: '更新时间不能为空'  
-                        			} 
-                        			
-                    			}  
-				
 		       }
+		 		 
 		    }
 		}
  		);
@@ -265,21 +161,12 @@
                     }else {
                     	$("#id").val(0);
                     }
+                    
+                    var data = $('#upmUserForm').serialize();
+                    
                     $.ajax({
                         url: url,
-                        data: {
-						      "id":$("#id").val(),
-						      "userNo":$("#userNo").val(),
-						      "userPass":$("#userPass").val(),
-						      "createUserId":$("#createUserId").val(),
-						      "createUserName":$("#createUserName").val(),
-    						 "createTimeBegin":createTimeBegin,
-    						 "createTimeEnd":createTimeEnd ,
-						      "updateUserId":$("#updateUserId").val(),
-						      "updateUserName":$("#updateUserName").val(),
-    						 "updateTimeBegin":updateTimeBegin,
-    						 "updateTimeEnd":updateTimeEnd 
-                        },
+                        data:data,
                         type: type,
                         dataType: "json",
                         success: function (data) {

@@ -78,39 +78,8 @@
             <div class="panel-body">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:15px">
-
-			 	<label class="control-label col-sm-1" for="id">ID</label>
-				<div class="col-sm-2"> <input type="text" class="form-control" id="id"></div>
-			 		
 			 	<label class="control-label col-sm-1" for="userNo">登陆账号</label>
 				<div class="col-sm-2"> <input type="text" class="form-control" id="userNo"></div>
-			 		
-			 	<label class="control-label col-sm-1" for="userPass">登陆密码</label>
-				<div class="col-sm-2"> <input type="text" class="form-control" id="userPass"></div>
-			 		
-			 	<label class="control-label col-sm-1" for="createUserId">创建人</label>
-				<div class="col-sm-2"> <input type="text" class="form-control" id="createUserId"></div>
-			 		
-			 	<label class="control-label col-sm-1" for="createUserName">创建人姓名</label>
-				<div class="col-sm-2"> <input type="text" class="form-control" id="createUserName"></div>
-			 		
-			 	<label class="control-label col-sm-1" for="createTime">创建时间</label>
-			  <div class="col-sm-4">
-                <input type="text" name="createTimeBegin" id = "createTimeBegin"  class="datetimepicker"  readonly="readonly"/>
-				<input type="text" name="createTimeEnd" id = "createTimeEnd"  class="datetimepicker"  readonly="readonly"/>
-              </div>
-			 	<label class="control-label col-sm-1" for="updateUserId">更新人</label>
-				<div class="col-sm-2"> <input type="text" class="form-control" id="updateUserId"></div>
-			 		
-			 	<label class="control-label col-sm-1" for="updateUserName">更新人姓名</label>
-				<div class="col-sm-2"> <input type="text" class="form-control" id="updateUserName"></div>
-			 		
-			 	<label class="control-label col-sm-1" for="updateTime">更新时间</label>
-			  <div class="col-sm-4">
-                <input type="text" name="updateTimeBegin" id = "updateTimeBegin"  class="datetimepicker"  readonly="readonly"/>
-				<input type="text" name="updateTimeEnd" id = "updateTimeEnd"  class="datetimepicker"  readonly="readonly"/>
-              </div>
-
 				<div class="col-sm-12" style="text-align:left;">
 					<button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">查询</button>
 				</div>
@@ -206,10 +175,8 @@
                     {field:'id',title:'ID', sortable:true},
                     {field:'user_no',title:'登陆账号', sortable:true},
                     {field:'user_pass',title:'登陆密码', sortable:true},
-                    {field:'create_user_id',title:'创建人', sortable:true},
                     {field:'create_user_name',title:'创建人姓名', sortable:true},
                     {field:'create_time',title:'创建时间', sortable:true},
-                    {field:'update_user_id',title:'更新人', sortable:true},
                     {field:'update_user_name',title:'更新人姓名', sortable:true},
                     {field:'update_time',title:'更新时间', sortable:true}
                         ],                      
@@ -238,34 +205,13 @@
  
         //得到查询的参数
       oTableInit.queryParams = function (params) {
-            var id=$("#id").val();
             var userNo=$("#userNo").val();
-            var userPass=$("#userPass").val();
-            var createUserId=$("#createUserId").val();
-            var createUserName=$("#createUserName").val();
-                var createTimeBegin=$("#createTimeBegin").val();
-                var createTimeEnd=$("#createTimeEnd").val();
-            var updateUserId=$("#updateUserId").val();
-            var updateUserName=$("#updateUserName").val();
-                var updateTimeBegin=$("#updateTimeBegin").val();
-                var updateTimeEnd=$("#updateTimeEnd").val();
-
             var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                  limit:params.pageSize,
                  page:params.pageNumber,
                 "sortName":this.sortName,
                 "sortOrder":this.sortOrder,
-                "id":id,
-                "userNo":userNo,
-                "userPass":userPass,
-                "createUserId":createUserId,
-                "createUserName":createUserName,
-                "createTimeBegin":createTimeBegin,
-                "createTimeEnd":createTimeEnd,
-                "updateUserId":updateUserId,
-                "updateUserName":updateUserName,
-                "updateTimeBegin":updateTimeBegin,
-                "updateTimeEnd":updateTimeEnd
+                "userNo":userNo
             };
             return temp;
         };
@@ -323,7 +269,7 @@
 
             bootbox.confirm('确认要删除么?',function (result) {  
                 if(result) {  
-                    doDelete();
+                	del.doDelete();
                 }
             });
         })

@@ -107,10 +107,7 @@ public class UpmUserController extends BaseController{
 	@ApiOperation(value = "逻辑删除")
 	@RequestMapping(value="/api/UpmUser/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		UpmUser upmUser = upmUserService.selectByPrimaryKey(id);
-		 upmUser.setEnableFlag("0");//失效
-		 upmUserService.updateByPrimaryKey(upmUser);
-			
+		upmUserService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
 
