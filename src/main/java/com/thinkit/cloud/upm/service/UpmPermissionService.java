@@ -1,7 +1,6 @@
 package com.thinkit.cloud.upm.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.thinkit.cloud.upm.bean.UpmPermission;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
@@ -25,4 +24,12 @@ public interface UpmPermissionService  {
     public LayUiTableResultResponse	 selectByQuery(Query query) ;
 
     public  List<UpmPermission> selectByExample(Query query);
+    
+    /**
+     * 根据appId查询permissionId
+     * 
+     * @param appId 应用 ID
+     * @return 根据appId查询permissionId
+     */
+  public Long findRootPermissionIdByAppId(String appId) throws Exception ;
 }

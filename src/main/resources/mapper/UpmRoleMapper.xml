@@ -334,5 +334,26 @@
 		</if>
 			
   </select>
+  
+  <delete id="deleteRolePermissionByRoleId">
+        <![CDATA[
+            DELETE FROM upm_role_and_permission_rel WHERE role_id = #roleId#
+        ]]>
+    </delete>
+    
+    <select id="findRolePermissionIds" resultClass="java.lang.Integer">
+        <![CDATA[
+            SELECT PERMISSION_ID FROM    upm_role_and_permission_rel  WHERE role_id = #roleId#
+        ]]>
+    </select>
+    
+    <!-- 根据权限查找对应的角色信息 -->
+    <select id="findRoleByPermisonId" resultMap="upmRoleResult">
+        <![CDATA[
+           SELECT b.*  FROM    upm_role_and_permission_rel  a , upm_role b
+        where a.role_id=b.id
+        and permission_id=#permissionId#
+        ]]>
+</select>
 
 </mapper>

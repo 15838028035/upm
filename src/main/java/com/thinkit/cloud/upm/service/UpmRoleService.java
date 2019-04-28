@@ -1,7 +1,6 @@
 package com.thinkit.cloud.upm.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.thinkit.cloud.upm.bean.UpmRole;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
@@ -25,4 +24,14 @@ public interface UpmRoleService  {
     public LayUiTableResultResponse	 selectByQuery(Query query) ;
 
     public  List<UpmRole> selectByExample(Query query);
+    
+    /**
+     * @Description : 查询权限菜单树（没有复选框）
+     * 
+     * @param roleId 角色ID
+     * @param appId 应用Id
+     * @return 查询权限菜单树
+     * @throws Exception 异常
+     */
+  public String getPermissionTreeDataJson(Integer roleId, String appId, Integer operatorId) throws Exception;
 }

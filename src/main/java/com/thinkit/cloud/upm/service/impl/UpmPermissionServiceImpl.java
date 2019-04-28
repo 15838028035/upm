@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.thinkit.cloud.upm.bean.UpmPermission;
 import com.thinkit.cloud.upm.dao.UpmPermissionMapper;
 import com.thinkit.cloud.upm.service.UpmPermissionService;
-import com.thinkit.cloud.upm.bean.UpmPermission;
-
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 
@@ -60,6 +59,21 @@ public class UpmPermissionServiceImpl  implements UpmPermissionService{
 	@Override
 	public List<UpmPermission> selectByExample(Query query) {
 		return upmPermissionMapper.selectByExample(query);
+	}
+	
+	/**
+	   * 根据appId查询permissionId
+	   * 
+	   * @param appId 应用 ID
+	   * @return 根据appId查询permissionId
+	   */
+	  public Long findRootPermissionIdByAppId(String appId) throws Exception {
+		  List<UpmPermission> list =  upmPermissionMapper.selectByExample(new Query().putFilter("appId", appId).putFilter("state", "0"));
+		  
+		  if(list.isEmpty()){
+			  return null;
+		  }
+	    return list.get(0).getId();
 	}
 
 }

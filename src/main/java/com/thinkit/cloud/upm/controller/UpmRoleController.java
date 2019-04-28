@@ -23,6 +23,7 @@ import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 import com.zhongkexinli.micro.serv.common.util.DateUtil;
+import com.zhongkexinli.micro.serv.common.util.StringUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -129,6 +130,22 @@ public class UpmRoleController extends BaseController{
 			Query query= new Query(params);
 			List<UpmRole> list = upmRoleService.selectByExample(query);
 			return new RestAPIResult2().respData(list);
+	}
+	
+	@ApiOperation(value = "权限树")
+	@RequestMapping(value = "/api/UpmRole/getPermissionTree", method = RequestMethod.GET)
+	  public String getPermissionTree(String strRoleId, String appId) throws Exception {
+	    // 根据当前登录人员获取权限菜单树
+	    if (StringUtil.isBlank(strRoleId)) {
+	      strRoleId = "0";
+	    }
+	    String jsonData = upmRoleService.getPermissionTreeDataJson(Integer.valueOf(strRoleId), appId,
+	        this.getLoginId());
+
+	    if (StringUtil.isBlank(jsonData)) {
+	      jsonData = "";
+	    }
+	    return jsonData;
 	}
 }
 
