@@ -34,11 +34,4 @@ public interface UpmRoleMapper  {
      */
     public List<Map<String,Object>> selectByPageExample(Object mapAndObject);
 
-    /**
-	   * 查找角色对应的权限
-	   * 
-	   * @param roleId 角色ID
-	   * @return 权限ID列表
-	   */
-    public List<Integer> findRolePermissionIds(Map<String, Integer> condition);
 }

@@ -74,3 +74,21 @@ CREATE TABLE `upm_Permission` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='权限信息表';
+
+-- 2019-04-11 刘杰
+DROP TABLE IF EXISTS `upm_role_and_permission_rel`;
+CREATE TABLE `upm_role_and_permission_rel` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `role_id` varchar(255) DEFAULT NULL COMMENT '角色ID',
+  `permission_id` bigint(10)  NULL  COMMENT '权限ID',
+  
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(255) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `update_user_name` varchar(255) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='角色权限关联表';
+
+

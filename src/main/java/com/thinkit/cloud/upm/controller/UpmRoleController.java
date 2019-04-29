@@ -134,13 +134,13 @@ public class UpmRoleController extends BaseController{
 	
 	@ApiOperation(value = "权限树")
 	@RequestMapping(value = "/api/UpmRole/getPermissionTree", method = RequestMethod.GET)
-	  public String getPermissionTree(String strRoleId, String appId) throws Exception {
+	  public String getPermissionTree(String strRoleId, String appId,HttpServletRequest request) throws Exception {
 	    // 根据当前登录人员获取权限菜单树
 	    if (StringUtil.isBlank(strRoleId)) {
 	      strRoleId = "0";
 	    }
 	    String jsonData = upmRoleService.getPermissionTreeDataJson(Integer.valueOf(strRoleId), appId,
-	        this.getLoginId());
+	        this.getLoginId(request));
 
 	    if (StringUtil.isBlank(jsonData)) {
 	      jsonData = "";

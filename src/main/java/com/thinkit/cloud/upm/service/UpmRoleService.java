@@ -33,5 +33,5 @@ public interface UpmRoleService  {
      * @return 查询权限菜单树
      * @throws Exception 异常
      */
-  public String getPermissionTreeDataJson(Integer roleId, String appId, Integer operatorId) throws Exception;
+  public String getPermissionTreeDataJson(Integer roleId, String appId, Long operatorId) throws Exception;
 }

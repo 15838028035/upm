@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>用户权限管理系统</title>
+    <title>学生选课管理系统</title>
 
 
     <meta charset="utf-8"/>
@@ -72,6 +72,7 @@
         }
         .form-bg {
             height:100%;
+            background: url('images/bg.png') no-repeat;
             background-size: 100% 100%;
         }
 
@@ -155,7 +156,7 @@
     <div >
         <div class="col-md-offset-3 col-md-6 ">
             <form class="form-horizontal" method="post" name="loginForm" id="loginForm">
-                <span class="heading">用户权限管理系统</span>
+                <span class="heading">学生选课管理系统</span>
 
                 <div class="form-group">
                     <span class="userIcon"></span>
@@ -226,9 +227,8 @@ var loginAjax = {
 	                          if(data.respCode=="0"){
 	                              bootbox.alert(data.respMsg);
 	                          }else {
-	                        	  var jtwTokenTimeOut = data.dataCode;
 	                              var expire= new Date();
-	                              expire.setTime(expire.getTime() + (jtwTokenTimeOut * 60*24));
+	                              expire.setTime(expire.getTime() + (24*60*60 * 1000));
 	    
 	                              $.cookie('bearcktkaeskey', data.token, { expires: expire, path: '/' });
 	                              $.cookie('userName', data.respData.userName, { expires: expire, path: '/' });

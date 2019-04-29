@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.thinkit.cloud.upm.bean.UpmPermission;
 import com.thinkit.cloud.upm.bean.UpmRole;
+import com.thinkit.cloud.upm.dao.UpmRoleAndPermissionRelMapper;
 import com.thinkit.cloud.upm.dao.UpmRoleMapper;
 import com.thinkit.cloud.upm.service.UpmPermissionService;
 import com.thinkit.cloud.upm.service.UpmRoleService;
@@ -27,6 +28,9 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	
 	@Autowired
 	private UpmPermissionService upmPermissionService;
+	
+	@Autowired
+	private UpmRoleAndPermissionRelMapper upmRoleAndPermissionRelMapper;
 	
 	@Override
 	public java.lang.Long deleteByPrimaryKey(java.lang.Long id) {
@@ -78,12 +82,12 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @return 查询权限菜单树
 	   * @throws Exception 异常
 	   */
-	  public String getPermissionTreeDataJson(Integer roleId, String appId, Integer operatorId) throws Exception {
+	  public String getPermissionTreeDataJson(Integer roleId, String appId, Long operatorId) throws Exception {
 	    Query query = new Query().putFilter("appId", appId).putFilter("operatorId", operatorId).putFilter("parentId", 0).putFilter("sortName", " parent_id id sort_no");
 	    List<UpmPermission> list = upmPermissionService.selectByExample(query);
 
 	    if (null != list && !list.isEmpty()) {
-	      List<Integer> permissionIds = getRolePermissionIds(roleId);
+	      List<Long> permissionIds = getRolePermissionIds(roleId);
 	      List<BootStrapTreeView> treeNodeList = new ArrayList();
 	      for (int i = 0; i < list.size(); i++) {
 	        UpmPermission up = list.get(i);
@@ -91,7 +95,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	        String text = up.getPerName();
 	        Boolean checked = false;
 	        for (int j = 0; j < permissionIds.size(); j++) {
-	          Integer tmpId = permissionIds.get(j);
+	        	Long tmpId = permissionIds.get(j);
 	          if (up.getId().equals(tmpId)) {
 	            checked = true;
 	            break;
@@ -113,10 +117,8 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @param roleId 角色ID
 	   * @return 权限ID列表
 	   */
-	  public List<Integer> getRolePermissionIds(Integer roleId) {
-	    Map<String, Integer> condition = new HashMap<String, Integer>();
-	    condition.put("roleId", roleId);
-	    List<Integer> permissionIds = upmRoleMapper.findRolePermissionIds(condition);
+	  public List<Long> getRolePermissionIds(Integer roleId) {
+	    List<Long> permissionIds = upmRoleAndPermissionRelMapper.findRolePermissionIds(roleId);
 	    return permissionIds;
 	  }
 
