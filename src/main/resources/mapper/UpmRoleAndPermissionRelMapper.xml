@@ -284,7 +284,7 @@
 			
   </select>
 
-<select id="findRolePermissionIds" resultClass="java.lang.Integer">
+<select id="findRolePermissionIds" resultType="java.lang.Integer">
         <![CDATA[
             SELECT PERMISSION_ID FROM    upm_role_and_permission_rel  WHERE role_id = #roleId#
         ]]>
