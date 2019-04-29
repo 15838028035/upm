@@ -51,14 +51,25 @@ public class UpmRoleController extends BaseController{
 	 
 		@ApiOperation(value = "新增")
 		@RequestMapping(value = "/api/UpmRole",method=RequestMethod.POST)
-		public RestAPIResult2 create(@ModelAttribute UpmRole upmRole,HttpServletRequest request)  {
+		public RestAPIResult2 create(@ModelAttribute UpmRole upmRole,String operate ,HttpServletRequest request)  {
 			
 			try {
+				
 					Long createBy = getLoginId(request);
-					upmRole.setCreateUserId(createBy);
-					upmRole.setCreateUserName(getUserName(request));
-					upmRole.setCreateTime(new Date());
-					upmRoleService.insertSelective(upmRole);
+					
+					if("edit".equals(operate)) {
+						upmRole.setUpdateUserId(createBy);
+						upmRole.setUpdateByUname(getUserName(request));
+						upmRole.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+						upmRoleService.updateByPrimaryKeySelective(upmRole);
+					}else {
+						upmRole.setCreateUserId(createBy);
+						upmRole.setCreateUserName(getUserName(request));
+						upmRole.setCreateTime(new Date());
+						upmRoleService.insertSelective(upmRole);
+					}
+					
+					upmRoleService.addPermissionToRole(upmRole.getPermissions(), upmRole.getAppId(), upmRole.getId());
 					
 				}catch(Exception e) {
 					logger.error("[角色信息表]-->新增失败" ,e);
@@ -102,10 +113,7 @@ public class UpmRoleController extends BaseController{
 	@ApiOperation(value = "逻辑删除")
 	@RequestMapping(value="/api/UpmRole/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		UpmRole upmRole = upmRoleService.selectByPrimaryKey(id);
-		 upmRole.setEnableFlag("0");//失效
-		 upmRoleService.updateByPrimaryKey(upmRole);
-			
+		upmRoleService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
 
@@ -146,6 +154,30 @@ public class UpmRoleController extends BaseController{
 	      jsonData = "";
 	    }
 	    return jsonData;
+	}
+	
+	@ApiOperation(value = "权限树")
+	@RequestMapping(value = "/api/UpmRole/checkRoleIsExist/{appId}/{roleName}/{roleId}", method = RequestMethod.GET)
+	  public RestAPIResult2 checkRoleIsExist(@PathVariable("appId") String appId, @PathVariable("roleName") String roleName, @PathVariable("roleId") Long roleId ) throws Exception {
+
+	    List result = upmRoleService.selectByExample(new Query().putFilter("appId", appId).putFilter("roleName", roleName));
+
+	    if (roleId != null ) {
+		      UpmRole upmRole = (UpmRole) upmRoleService.selectByPrimaryKey(roleId);
+		      if (!upmRole.getRoleName().equals(roleName) && result.size() != 0) {
+		    	  return   new RestAPIResult2().respCode(1).respMsg("名称不存在").respData("{\"valid\":false}"); 
+		      } else {
+		    	  return new RestAPIResult2().respCode(1).respMsg("已经存在").respData("{\"valid\":true}");
+		      }
+	    } else {
+
+	      if (result != null && result.size() > 0) {
+	        return new RestAPIResult2().respCode(1).respMsg("已经存在").respData("{\"valid\":false}");
+	      } else {
+	    	return   new RestAPIResult2().respCode(1).respMsg("名称不存在").respData("{\"valid\":true}");	   
+	    	}
+	    }
+
 	}
 }
 

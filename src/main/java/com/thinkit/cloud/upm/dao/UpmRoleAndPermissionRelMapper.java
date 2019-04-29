@@ -41,4 +41,10 @@ public interface UpmRoleAndPermissionRelMapper  {
 	   * @return 权限ID列表
 	   */
     public List<Long> findRolePermissionIds(Integer roleId);
+
+    /**
+     * 根据roleId删除
+     * @param roleId
+     */
+	public void deletePermissionById(Long roleId);
 }

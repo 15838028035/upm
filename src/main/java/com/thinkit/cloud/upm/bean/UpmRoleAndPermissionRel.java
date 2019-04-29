@@ -1,4 +1,6 @@
 package com.thinkit.cloud.upm.bean;
+import com.zhongkexinli.micro.serv.common.base.entity.BaseEntity;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -19,7 +21,7 @@ public class UpmRoleAndPermissionRel extends MyBaseEntity{
 	 * 角色ID  role_id
 	 */
 	@ApiModelProperty(value = "角色ID")
-	private String roleId = "";
+	private java.lang.Long roleId;
 	
 	/**
 	 * 权限ID  permission_id
@@ -88,11 +90,11 @@ public class UpmRoleAndPermissionRel extends MyBaseEntity{
 	public java.lang.Long getId() {
 		return this.id;
 	}
-	public void setRoleId(String value) {
+	public void setRoleId(java.lang.Long value) {
 		this.roleId = value;
 	}
 	
-	public String getRoleId() {
+	public java.lang.Long getRoleId() {
 		return this.roleId;
 	}
 	public void setPermissionId(java.lang.Long value) {

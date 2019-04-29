@@ -74,9 +74,12 @@
                  clearBtn:true // 自定义属性,true 显示 清空按钮 false 隐藏 默认:true
              });
           
+          var id = getUrlParam('id');
+          var appId = getUrlParam('appId');
+          
             //获取权限菜单树
             var jsonData = $.ajax({
-                          url:ctx+"/api/UpmRole/getPermissionTree?strRoleId=${id}&appId=${appId}",
+                          url:ctx+"/api/UpmRole/getPermissionTree?strRoleId=" + id +"&appId="+appId,
                           async:false,
                           cache:false,
                           dataType:"text"
@@ -123,6 +126,8 @@
 	<form  class="form-horizontal" method="post" name="upmRoleForm" id="upmRoleForm">
 	<input type="hidden" name="id" id="id" />
 	<input type="hidden" name="operate" id="operate"  />
+	<input type="hidden" name="permissions" id="permissions"  />
+	
       		<div class="form-group">
 			 <label for="roleCode">角色编码</label>
 		 	     <input class="form-control" type="text"  name="roleCode" id="roleCode"  />
@@ -192,7 +197,7 @@
                             $("#appId").val(data.appId);
                             $("#roleName").val(data.roleName);
                             $("#roleDesc").val(data.roleDesc);
-                            $("'[name=lockStatus'][value='+data.lockStatus+']").prop("checked", "checked");
+                            $("[name=lockStatus][value='+data.lockStatus+']").prop("checked", "checked");
                     },
                     error: function(data){
                         bootbox.alert("异常");
@@ -295,7 +300,7 @@
                     async: false,
                     globle:false,
                     success: function(data) {
-                        bootbox.alert(data.opResult);
+                        bootbox.alert(data.respMsg);
                     }
              });
         }

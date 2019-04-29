@@ -34,4 +34,13 @@ public interface UpmRoleService  {
      * @throws Exception 异常
      */
   public String getPermissionTreeDataJson(Integer roleId, String appId, Long operatorId) throws Exception;
+  
+  /**
+   * 将权限分配给角色
+   * 
+   * @param permissions 权限
+   * @param appId 应用Id
+   * @param roleId 角色Id
+   */
+  public void addPermissionToRole(String permissions, String appId, Long roleId) throws Exception ;
 }

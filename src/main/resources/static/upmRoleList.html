@@ -240,7 +240,7 @@
         },
         btn_add:function(){
             $("#btn_add").click(function() {
-                window.location.href = ctx+'/upmRoleAdd.html';
+                window.location.href = ctx+'/upmRoleAdd.html?appId='+ getUrlParam('appId')+"&id=";
             })
         }
     };//end add
@@ -263,7 +263,7 @@
                 bootbox.alert('请选择一条操作的记录');
                 return;
             }
-            window.location.href = ctx+"/upmRoleAdd.html?operate=edit&id=" + ids;
+            window.location.href = ctx+"/upmRoleAdd.html?operate=edit&id=" + ids+"&appId="+ getUrlParam('appId');
             })
         }
     };//end edit

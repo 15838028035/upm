@@ -1,16 +1,17 @@
 package com.thinkit.cloud.upm.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.thinkit.cloud.upm.bean.UpmPermission;
 import com.thinkit.cloud.upm.bean.UpmRole;
+import com.thinkit.cloud.upm.bean.UpmRoleAndPermissionRel;
 import com.thinkit.cloud.upm.dao.UpmRoleAndPermissionRelMapper;
 import com.thinkit.cloud.upm.dao.UpmRoleMapper;
 import com.thinkit.cloud.upm.service.UpmPermissionService;
@@ -33,7 +34,9 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	private UpmRoleAndPermissionRelMapper upmRoleAndPermissionRelMapper;
 	
 	@Override
+	@Transactional
 	public java.lang.Long deleteByPrimaryKey(java.lang.Long id) {
+		upmRoleAndPermissionRelMapper.deletePermissionById(id);
 		return upmRoleMapper.deleteByPrimaryKey(id);
 	}
 
@@ -110,6 +113,45 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	    }
 	    return null;
 	}
+	  
+	  
+	  /**
+	   * 将权限分配给角色
+	   * 
+	   * @param permissions 权限
+	   * @param appId 应用Id
+	   * @param roleId 角色Id
+	   */
+	  public void addPermissionToRole(String permissions, String appId, Long roleId) throws Exception {
+		  
+		  upmRoleAndPermissionRelMapper.deletePermissionById(roleId);
+
+		    String[] permission = new String[] {};
+		    if (permissions != null && !"".equals(permissions)) {
+		      permission = permissions.split(",");
+		    }
+		    for (int i = 0; i < permission.length; i++) {
+		      addPermissionToRole(roleId, appId, Long.valueOf(permission[i]));
+		}
+	  }
+	  
+	  /**
+	   * 将权限分配给角色
+	   * 
+	   * @param roleId 角色ID
+	   * @param appId 应用Id
+	   * @param permissionId 权限
+	   */
+	  public void addPermissionToRole(Long roleId, String appId, Long permissionId) throws Exception {
+	   
+	   UpmRoleAndPermissionRel upmRoleAndPermissionRel = new UpmRoleAndPermissionRel();
+	   upmRoleAndPermissionRel.setRoleId(roleId);
+	   upmRoleAndPermissionRel.setAppId(appId);
+	   upmRoleAndPermissionRel.setPermissionId(permissionId);;
+	   
+	   upmRoleAndPermissionRelMapper.insertSelective(upmRoleAndPermissionRel);
+	  }
+
 
 	  /**
 	   * 查找角色对应的权限

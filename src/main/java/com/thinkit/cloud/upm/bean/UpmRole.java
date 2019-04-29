@@ -97,7 +97,12 @@ public class UpmRole extends MyBaseEntity{
 	 * 更新时间End
 	 */
 	private String updateTimeEnd;
-
+	
+	
+	/**
+	 * 权限信息ids
+	 */
+	 private String permissions;
 
 	public void setId(java.lang.Long value) {
 		this.id = value;
@@ -182,6 +187,46 @@ public class UpmRole extends MyBaseEntity{
 	
 	public java.util.Date getUpdateTime() {
 		return this.updateTime;
+	}
+
+	public String getCreateTimeBegin() {
+		return createTimeBegin;
+	}
+
+	public void setCreateTimeBegin(String createTimeBegin) {
+		this.createTimeBegin = createTimeBegin;
+	}
+
+	public String getCreateTimeEnd() {
+		return createTimeEnd;
+	}
+
+	public void setCreateTimeEnd(String createTimeEnd) {
+		this.createTimeEnd = createTimeEnd;
+	}
+
+	public String getUpdateTimeBegin() {
+		return updateTimeBegin;
+	}
+
+	public void setUpdateTimeBegin(String updateTimeBegin) {
+		this.updateTimeBegin = updateTimeBegin;
+	}
+
+	public String getUpdateTimeEnd() {
+		return updateTimeEnd;
+	}
+
+	public void setUpdateTimeEnd(String updateTimeEnd) {
+		this.updateTimeEnd = updateTimeEnd;
+	}
+
+	public String getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(String permissions) {
+		this.permissions = permissions;
 	}
 
 	
