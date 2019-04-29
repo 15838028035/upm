@@ -175,7 +175,9 @@
                 columns: [  
                         { field: 'checkStatus', title: '',checkbox:true }, 
                            {field : 'Number', title : '行号', formatter : function(value, row, index) {  
-                                        return index+1;
+                        	   var pageSize = $('#tableList').bootstrapTable('getOptions').pageSize;     //通过table的#id 得到每页多少条
+                               var pageNumber = $('#tableList').bootstrapTable('getOptions').pageNumber; //通过table的#id 得到当前第几页
+                               return pageSize * (pageNumber - 1) + index + 1;
                                     }  
                            },
                     {field:'id',title:'ID', sortable:true},
