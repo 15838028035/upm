@@ -4,10 +4,10 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
-*角色权限关联表
+*用户角色关联表
 */
-@ApiModel(value = "角色权限关联表")
-public class UpmRoleAndPermissionRel extends MyBaseEntity{
+@ApiModel(value = "用户角色关联表")
+public class UpmUserAndUpmRole extends MyBaseEntity{
 	
 	/**
 	 * ID  id
@@ -16,16 +16,16 @@ public class UpmRoleAndPermissionRel extends MyBaseEntity{
 	private java.lang.Long id;
 	
 	/**
+	 * 用户ID  user_id
+	 */
+	@ApiModelProperty(value = "用户ID")
+	private java.lang.Long userId;
+	
+	/**
 	 * 角色ID  role_id
 	 */
 	@ApiModelProperty(value = "角色ID")
 	private java.lang.Long roleId;
-	
-	/**
-	 * 权限ID  permission_id
-	 */
-	@ApiModelProperty(value = "权限ID")
-	private java.lang.Long permissionId;
 	
 	/**
 	 * 创建人  create_user_id
@@ -88,19 +88,19 @@ public class UpmRoleAndPermissionRel extends MyBaseEntity{
 	public java.lang.Long getId() {
 		return this.id;
 	}
+	public void setUserId(java.lang.Long value) {
+		this.userId = value;
+	}
+	
+	public java.lang.Long getUserId() {
+		return this.userId;
+	}
 	public void setRoleId(java.lang.Long value) {
 		this.roleId = value;
 	}
 	
 	public java.lang.Long getRoleId() {
 		return this.roleId;
-	}
-	public void setPermissionId(java.lang.Long value) {
-		this.permissionId = value;
-	}
-	
-	public java.lang.Long getPermissionId() {
-		return this.permissionId;
 	}
 	public void setCreateUserId(java.lang.Long value) {
 		this.createUserId = value;

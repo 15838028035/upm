@@ -91,3 +91,20 @@ CREATE TABLE `upm_role_and_permission_rel` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='角色权限关联表';
 
+
+-- 2019-04-30 刘杰
+DROP TABLE IF EXISTS `upm_user_and_upm_role`;
+CREATE TABLE `upm_user_and_upm_role` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `user_id` bigint NULL COMMENT '用户ID',
+  `role_id` bigint(10)  NULL  COMMENT '角色ID',
+  
+  `create_user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `create_user_name` varchar(255) DEFAULT NULL COMMENT '创建人姓名',
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_user_id` bigint(20) DEFAULT NULL COMMENT '更新人',
+  `update_user_name` varchar(255) DEFAULT NULL COMMENT '更新人姓名',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户角色关联表';
+
