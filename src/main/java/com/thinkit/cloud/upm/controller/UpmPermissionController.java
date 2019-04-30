@@ -111,8 +111,8 @@ public class UpmPermissionController extends BaseController{
 	/** 显示 */
 	@ApiOperation(value = "显示")
 	@RequestMapping(value="/api/UpmPermission/showInfo/{id}", method = RequestMethod.GET)
-	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
-		Map<String,Object> retMap =new HashMap();
+	public  HashMap<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
+		HashMap<String,Object> retMap =new HashMap();
 		UpmPermission upmPermission =upmPermissionService.selectByPrimaryKey(id);
 		if(upmPermission== null) {
 			upmPermission = new UpmPermission();
