@@ -1,6 +1,4 @@
 package com.thinkit.cloud.upm.bean;
-import com.zhongkexinli.micro.serv.common.base.entity.BaseEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
