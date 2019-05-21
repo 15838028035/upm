@@ -76,7 +76,10 @@ public class Swagger2Config {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title(swagger2Title).description(swagger2description)
-                .version(swagger2Version).build();
+        return new ApiInfoBuilder()
+        		.title(swagger2Title)
+        		.description(swagger2description)
+                .version(swagger2Version)
+                .build();
     }
 }
