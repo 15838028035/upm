@@ -91,7 +91,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 
 	    if (null != list && !list.isEmpty()) {
 	      List<Long> permissionIds = getRolePermissionIds(roleId);
-	      List<BootStrapTreeView> treeNodeList = new ArrayList();
+	      List<BootStrapTreeView> treeNodeList = new ArrayList<>();
 	      for (int i = 0; i < list.size(); i++) {
 	        UpmPermission up = list.get(i);
 	        String id = up.getId() + "";

@@ -159,18 +159,18 @@ public class UpmRoleController extends BaseController{
 	@RequestMapping(value = "/api/UpmRole/checkRoleIsExist/{appId}/{roleName}/{roleId}", method = RequestMethod.GET)
 	  public RestAPIResult2 checkRoleIsExist(@PathVariable("appId") String appId, @PathVariable("roleName") String roleName, @PathVariable("roleId") Long roleId ) throws Exception {
 
-	    List result = upmRoleService.selectByExample(new Query().putFilter("appId", appId).putFilter("roleName", roleName));
+	    List<UpmRole> result = upmRoleService.selectByExample(new Query().putFilter("appId", appId).putFilter("roleName", roleName));
 
 	    if (roleId != null ) {
-		      UpmRole upmRole = (UpmRole) upmRoleService.selectByPrimaryKey(roleId);
-		      if (!upmRole.getRoleName().equals(roleName) && result.size() != 0) {
+		      UpmRole upmRole =  upmRoleService.selectByPrimaryKey(roleId);
+		      if (!upmRole.getRoleName().equals(roleName) && !result.isEmpty()) {
 		    	  return   new RestAPIResult2().respCode(1).respMsg("名称不存在").respData("{\"valid\":false}"); 
 		      } else {
 		    	  return new RestAPIResult2().respCode(1).respMsg("已经存在").respData("{\"valid\":true}");
 		      }
 	    } else {
 
-	      if (result != null && result.size() > 0) {
+	      if (!result.isEmpty()) {
 	        return new RestAPIResult2().respCode(1).respMsg("已经存在").respData("{\"valid\":false}");
 	      } else {
 	    	return   new RestAPIResult2().respCode(1).respMsg("名称不存在").respData("{\"valid\":true}");	   
