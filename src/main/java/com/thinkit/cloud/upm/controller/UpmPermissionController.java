@@ -101,10 +101,7 @@ public class UpmPermissionController extends BaseController{
 	@ApiOperation(value = "逻辑删除")
 	@RequestMapping(value="/api/UpmPermission/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		UpmPermission upmPermission = upmPermissionService.selectByPrimaryKey(id);
-		 upmPermission.setEnableFlag("0");//失效
-		 upmPermissionService.updateByPrimaryKey(upmPermission);
-			
+		 upmPermissionService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
 
