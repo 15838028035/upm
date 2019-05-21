@@ -147,7 +147,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   UpmRoleAndPermissionRel upmRoleAndPermissionRel = new UpmRoleAndPermissionRel();
 	   upmRoleAndPermissionRel.setRoleId(roleId);
 	   upmRoleAndPermissionRel.setAppId(appId);
-	   upmRoleAndPermissionRel.setPermissionId(permissionId);;
+	   upmRoleAndPermissionRel.setPermissionId(permissionId);
 	   
 	   upmRoleAndPermissionRelMapper.insertSelective(upmRoleAndPermissionRel);
 	  }

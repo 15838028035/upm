@@ -86,7 +86,7 @@ public class UpmApplication {
 	  private class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationListener<ContextClosedEvent> {
 	    private final Logger log = LoggerFactory.getLogger(GracefulShutdown.class);
 	    private volatile Connector connector;
-	    private static final int waitTime = 10;
+	    private static final int WAIT_TIME = 10;
 	 
 	    @Override
 	    public void customize(Connector connector) {
@@ -100,10 +100,10 @@ public class UpmApplication {
 	      if (executor instanceof ThreadPoolExecutor) {
 	        try {
 	          ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
-	          log.info("Tomcat 进程在 {} s 进行结束shutdown操作",waitTime);
+	          log.info("Tomcat 进程在 {} s 进行结束shutdown操作",WAIT_TIME);
 	          threadPoolExecutor.shutdown();
-	          if (!threadPoolExecutor.awaitTermination(waitTime, TimeUnit.SECONDS)) {
-	            log.warn("Tomcat 进程在{}s内无法结束，尝试强制结束",waitTime);
+	          if (!threadPoolExecutor.awaitTermination(WAIT_TIME, TimeUnit.SECONDS)) {
+	            log.warn("Tomcat 进程在{}s内无法结束，尝试强制结束",WAIT_TIME);
 	          }
 	        } catch (InterruptedException ex) {
 	          Thread.currentThread().interrupt();
