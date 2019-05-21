@@ -86,7 +86,7 @@ public class UpmApplication {
 	  private class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationListener<ContextClosedEvent> {
 	    private final Logger log = LoggerFactory.getLogger(GracefulShutdown.class);
 	    private volatile Connector connector;
-	    private final int waitTime = 10;
+	    private static final int waitTime = 10;
 	 
 	    @Override
 	    public void customize(Connector connector) {

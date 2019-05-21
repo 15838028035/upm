@@ -16,6 +16,12 @@ public class MyBaseEntity extends BaseEntity{
 	 */
 	@ApiModelProperty(value = "创建人ID")
 	private Long createUserId;
+
+  /**
+   * 创建人ID  create_User_Name
+   */
+  @ApiModelProperty(value = "创建人姓名")
+	private String createUserName;
 	
 	/**
 	 * 修改人ID  update_User_Id
@@ -100,5 +106,11 @@ public class MyBaseEntity extends BaseEntity{
 	public void setModifiyTimeEnd(String modifiyTimeEnd) {
 		this.modifiyTimeEnd = modifiyTimeEnd;
 	}
+    public String getCreateUserName() {
+        return createUserName;
+    }
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
 
 }
