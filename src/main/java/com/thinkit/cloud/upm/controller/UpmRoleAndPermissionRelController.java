@@ -115,7 +115,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	@ApiOperation(value = "显示")
 	@RequestMapping(value="/api/UpmRoleAndPermissionRel/showInfo/{id}", method = RequestMethod.GET)
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
-		Map<String,Object> retMap =new HashMap();
+		Map<String,Object> retMap =new HashMap<>();
 		UpmRoleAndPermissionRel upmRoleAndPermissionRel =upmRoleAndPermissionRelService.selectByPrimaryKey(id);
 		if(upmRoleAndPermissionRel== null) {
 			upmRoleAndPermissionRel = new UpmRoleAndPermissionRel();
