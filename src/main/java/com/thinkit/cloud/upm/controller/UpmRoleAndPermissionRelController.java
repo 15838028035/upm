@@ -1,19 +1,14 @@
 package com.thinkit.cloud.upm.controller;
 
-import com.thinkit.cloud.upm.bean.UpmRoleAndPermissionRel;
-import com.thinkit.cloud.upm.service.UpmRoleAndPermissionRelService;
-
-
 import java.util.Date;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.thinkit.cloud.upm.bean.UpmRoleAndPermissionRel;
+import com.thinkit.cloud.upm.service.UpmRoleAndPermissionRelService;
 import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
-import com.zhongkexinli.micro.serv.common.util.DateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -77,8 +73,8 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 					
 					Long createBy = getLoginId(request);
 					upmRoleAndPermissionRel.setUpdateUserId(createBy);
-					upmRoleAndPermissionRel.setUpdateByUname(getUserName(request));
-					upmRoleAndPermissionRel.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+					upmRoleAndPermissionRel.setUpdateUserName(getUserName(request));
+					upmRoleAndPermissionRel.setUpdateTime(new Date());
 					upmRoleAndPermissionRelService.updateByPrimaryKeySelective(upmRoleAndPermissionRel);
 					
 				}catch(Exception e) {
@@ -104,10 +100,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	@ApiOperation(value = "逻辑删除")
 	@RequestMapping(value="/api/UpmRoleAndPermissionRel/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		UpmRoleAndPermissionRel upmRoleAndPermissionRel = upmRoleAndPermissionRelService.selectByPrimaryKey(id);
-		 upmRoleAndPermissionRel.setEnableFlag("0");//失效
-		 upmRoleAndPermissionRelService.updateByPrimaryKey(upmRoleAndPermissionRel);
-			
+		 upmRoleAndPermissionRelService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
 

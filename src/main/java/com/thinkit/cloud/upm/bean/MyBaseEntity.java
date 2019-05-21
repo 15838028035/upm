@@ -1,7 +1,5 @@
 package com.thinkit.cloud.upm.bean;
 
-import com.zhongkexinli.micro.serv.common.base.entity.BaseEntity;
-
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -9,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 自定义基础base实体类
  *
  */
-public class MyBaseEntity extends BaseEntity{
+public class MyBaseEntity {
 
 	/**
 	 * 创建人ID  create_User_Id
@@ -29,6 +27,12 @@ public class MyBaseEntity extends BaseEntity{
 	@ApiModelProperty(value = "修改人ID")
 	private Long updateUserId;
 	
+  /**
+   * 修改人ID  update_user_name
+   */
+  @ApiModelProperty(value = "修改人ID")
+	private String updateUserName;
+	
 	/**
 	 * 创建时间  create_Time
 	 */
@@ -44,19 +48,19 @@ public class MyBaseEntity extends BaseEntity{
 	 */
 	private String createTimeEnd;
 	/**
-	 * 更新时间  modifiy_Time
+	 * 更新时间  update_Time
 	 */
 	@ApiModelProperty(value = "更新时间")
-	private java.util.Date modifiyTime;
+	private java.util.Date updateTime;
 	
 	 /**
 	 * 更新时间Begin
 	 */
-	private String  modifiyTimeBegin;
+	private String  updateTimeBegin;
 	/**
 	 * 更新时间End
 	 */
-	private String modifiyTimeEnd;
+	private String updateTimeEnd;
 	
 	public Long getCreateUserId() {
 		return createUserId;
@@ -88,29 +92,36 @@ public class MyBaseEntity extends BaseEntity{
 	public void setCreateTimeEnd(String createTimeEnd) {
 		this.createTimeEnd = createTimeEnd;
 	}
-	public java.util.Date getModifiyTime() {
-		return modifiyTime;
-	}
-	public void setModifiyTime(java.util.Date modifiyTime) {
-		this.modifiyTime = modifiyTime;
-	}
-	public String getModifiyTimeBegin() {
-		return modifiyTimeBegin;
-	}
-	public void setModifiyTimeBegin(String modifiyTimeBegin) {
-		this.modifiyTimeBegin = modifiyTimeBegin;
-	}
-	public String getModifiyTimeEnd() {
-		return modifiyTimeEnd;
-	}
-	public void setModifiyTimeEnd(String modifiyTimeEnd) {
-		this.modifiyTimeEnd = modifiyTimeEnd;
-	}
+	
+    public java.util.Date getUpdateTime() {
+        return updateTime;
+    }
+    public void setUpdateTime(java.util.Date updateTime) {
+        this.updateTime = updateTime;
+    }
+    public String getUpdateTimeBegin() {
+        return updateTimeBegin;
+    }
+    public void setUpdateTimeBegin(String updateTimeBegin) {
+        this.updateTimeBegin = updateTimeBegin;
+    }
+    public String getUpdateTimeEnd() {
+        return updateTimeEnd;
+    }
+    public void setUpdateTimeEnd(String updateTimeEnd) {
+        this.updateTimeEnd = updateTimeEnd;
+    }
     public String getCreateUserName() {
         return createUserName;
     }
     public void setCreateUserName(String createUserName) {
         this.createUserName = createUserName;
+    }
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
     }
 
 }

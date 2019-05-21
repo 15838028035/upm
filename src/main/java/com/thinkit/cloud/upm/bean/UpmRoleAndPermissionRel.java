@@ -26,6 +26,8 @@ public class UpmRoleAndPermissionRel extends MyBaseEntity{
 	 */
 	@ApiModelProperty(value = "权限ID")
 	private java.lang.Long permissionId;
+	
+	private String appId;
 
 	public void setId(java.lang.Long value) {
 		this.id = value;
@@ -48,6 +50,14 @@ public class UpmRoleAndPermissionRel extends MyBaseEntity{
 	public java.lang.Long getPermissionId() {
 		return this.permissionId;
 	}
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public String getAppId() {
+        return appId;
+    }
 	
 }
 

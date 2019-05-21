@@ -23,7 +23,6 @@ import com.thinkit.cloud.upm.util.Md5Util;
 import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
-import com.zhongkexinli.micro.serv.common.util.DateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,8 +79,8 @@ public class UpmUserController extends BaseController{
 	            
 					Long createBy = getLoginId(request);
 					upmUser.setUpdateUserId(createBy);
-					upmUser.setUpdateByUname(getUserName(request));
-					upmUser.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+					upmUser.setUpdateUserName(getUserName(request));
+					upmUser.setUpdateTime(new Date());
 					upmUserService.updateByPrimaryKeySelective(upmUser);
 					
 				}catch(Exception e) {

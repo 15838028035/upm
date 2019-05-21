@@ -22,7 +22,6 @@ import com.thinkit.cloud.upm.service.UpmPermissionService;
 import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
-import com.zhongkexinli.micro.serv.common.util.DateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,8 +73,8 @@ public class UpmPermissionController extends BaseController{
 					
 					Long createBy = getLoginId(request);
 					upmPermission.setUpdateUserId(createBy);
-					upmPermission.setUpdateByUname(getUserName(request));
-					upmPermission.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+					upmPermission.setUpdateUserName(getUserName(request));
+					upmPermission.setUpdateTime(new Date());
 					upmPermissionService.updateByPrimaryKeySelective(upmPermission);
 					
 				}catch(Exception e) {
@@ -101,10 +100,7 @@ public class UpmPermissionController extends BaseController{
 	@ApiOperation(value = "逻辑删除")
 	@RequestMapping(value="/api/UpmPermission/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		UpmPermission upmPermission = upmPermissionService.selectByPrimaryKey(id);
-		 upmPermission.setEnableFlag("0");//失效
-		 upmPermissionService.updateByPrimaryKey(upmPermission);
-			
+		 upmPermissionService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
 

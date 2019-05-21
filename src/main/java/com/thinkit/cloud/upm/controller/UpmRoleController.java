@@ -22,7 +22,6 @@ import com.thinkit.cloud.upm.service.UpmRoleService;
 import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
-import com.zhongkexinli.micro.serv.common.util.DateUtil;
 import com.zhongkexinli.micro.serv.common.util.StringUtil;
 
 import io.swagger.annotations.Api;
@@ -59,8 +58,8 @@ public class UpmRoleController extends BaseController{
 					
 					if("edit".equals(operate)) {
 						upmRole.setUpdateUserId(createBy);
-						upmRole.setUpdateByUname(getUserName(request));
-						upmRole.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+						upmRole.setUpdateUserName(getUserName(request));
+						upmRole.setUpdateTime(new Date());
 						upmRoleService.updateByPrimaryKeySelective(upmRole);
 					}else {
 						upmRole.setCreateUserId(createBy);
@@ -86,8 +85,8 @@ public class UpmRoleController extends BaseController{
 					
 					Long createBy = getLoginId(request);
 					upmRole.setUpdateUserId(createBy);
-					upmRole.setUpdateByUname(getUserName(request));
-					upmRole.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+					upmRole.setUpdateUserName(getUserName(request));
+					upmRole.setUpdateTime(new Date());
 					upmRoleService.updateByPrimaryKeySelective(upmRole);
 					
 				}catch(Exception e) {

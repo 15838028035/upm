@@ -22,7 +22,6 @@ import com.thinkit.cloud.upm.service.UpmUserAndUpmRoleService;
 import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
-import com.zhongkexinli.micro.serv.common.util.DateUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,8 +73,8 @@ public class UpmUserAndUpmRoleController extends BaseController{
 					
 					Long createBy = getLoginId(request);
 					upmUserAndUpmRole.setUpdateUserId(createBy);
-					upmUserAndUpmRole.setUpdateByUname(getUserName(request));
-					upmUserAndUpmRole.setUpdateDate(DateUtil.getNowDateYYYYMMddHHMMSS());
+					upmUserAndUpmRole.setUpdateUserName(getUserName(request));
+					upmUserAndUpmRole.setUpdateTime(new Date());
 					upmUserAndUpmRoleService.updateByPrimaryKeySelective(upmUserAndUpmRole);
 					
 				}catch(Exception e) {
@@ -101,10 +100,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	@ApiOperation(value = "逻辑删除")
 	@RequestMapping(value="/api/UpmUserAndUpmRole/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		UpmUserAndUpmRole upmUserAndUpmRole = upmUserAndUpmRoleService.selectByPrimaryKey(id);
-		 upmUserAndUpmRole.setEnableFlag("0");//失效
-		 upmUserAndUpmRoleService.updateByPrimaryKey(upmUserAndUpmRole);
-			
+		 upmUserAndUpmRoleService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
 
