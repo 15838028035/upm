@@ -42,11 +42,11 @@
            
             <div class="form-group">
              <label for="appId">应用ID</label>
-                 <input class="form-control" type="text"  name="appId" id="appId"  />
+                 <input class="form-control" type="text"  name="appId" id="appId"  readonly="readonly"/>
             </div>
             <div class="form-group">
              <label for="parentId">父ID</label>
-                 <input class="form-control" type="text"  name="parentId" id="parentId"  />
+                 <input class="form-control" type="text"  name="parentId" id="parentId"  readonly="readonly" />
             </div>
             <div class="form-group">
              <label for="perName">权限名称</label>
@@ -99,6 +99,10 @@
     //加载
     var loadInfo = {
         init: function () {
+            var appId = getUrlParam("appId");
+        	var parentId = getUrlParam("parentId");
+        	 $("#appId").val(appId);
+             $("#parentId").val(parentId);
             this.load_Info();
         },
         load_Info:function(){

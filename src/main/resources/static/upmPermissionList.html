@@ -106,13 +106,14 @@
           $tableList.bootstrapTable('refresh');
         }
         
+        var appId = getUrlParam("appId");
      
      var TableInit = function () {
         var oTableInit = new Object();
         //初始化Table
         oTableInit.Init = function () {
             $('#tableList').bootstrapTable({
-                url: ctx+'/api/UpmPermission?TOKEN='+token,         //请求后台的URL（*）
+                url: ctx+'/api/UpmPermission?TOKEN='+token +"&appId="+appId+"&parentId="+getUrlParam("parentId"),         //请求后台的URL（*）
                 method: 'get',                     //请求方式（*）
                 dataType: "json",
                 contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -208,7 +209,9 @@
                 "sortOrder":this.sortOrder,
                 "perName":perName,
                 "code":code,
-                "keyCode":keyCode
+                "keyCode":keyCode,
+                "appId":getUrlParam("appId"),
+                "parentId":getUrlParam("parentId")
             };
             return temp;
         };
@@ -221,7 +224,10 @@
         },
         btn_add:function(){
             $("#btn_add").click(function() {
-                window.location.href = ctx+'/upmPermissionAdd.html';
+            	//parentId 
+            	var parentId = getUrlParam("parentId");
+            	var appId = getUrlParam("appId");
+                window.location.href = ctx+'/upmPermissionAdd.html?parentId='+parentId+"&appId="+appId;
             })
         }
     };//end add
@@ -244,7 +250,9 @@
                 bootbox.alert('请选择一条操作的记录');
                 return;
             }
-            window.location.href = ctx+"/upmPermissionAdd.html?operate=edit&id=" + ids;
+            var parentId = getUrlParam("parentId");
+            var appId = getUrlParam("appId");
+            window.location.href = ctx+"/upmPermissionAdd.html?operate=edit&id=" + ids+"&parentId="+parentId+"&appId="+appId;
             })
         }
     };//end edit
