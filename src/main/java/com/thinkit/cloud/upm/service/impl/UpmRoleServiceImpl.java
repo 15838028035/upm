@@ -122,7 +122,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @param appId 应用Id
 	   * @param roleId 角色Id
 	   */
-	  public void addPermissionToRole(String permissions, String appId, Long roleId) throws Exception {
+	  public void addPermissionToRole(String permissions, String appId, Long roleId)  {
 		  
 		  upmRoleAndPermissionRelMapper.deletePermissionById(roleId);
 
@@ -142,7 +142,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @param appId 应用Id
 	   * @param permissionId 权限
 	   */
-	  public void addPermissionToRole(Long roleId, String appId, Long permissionId) throws Exception {
+	  public void addPermissionToRole(Long roleId, String appId, Long permissionId)  {
 	   
 	   UpmRoleAndPermissionRel upmRoleAndPermissionRel = new UpmRoleAndPermissionRel();
 	   upmRoleAndPermissionRel.setRoleId(roleId);

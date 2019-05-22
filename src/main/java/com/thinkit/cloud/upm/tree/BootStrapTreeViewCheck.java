@@ -39,7 +39,7 @@ public class BootStrapTreeViewCheck {
    * @return bootstrap树
    */
   public BootStrapTreeView addNode(String id, Boolean checked, String text) {
-    return addNode(id, text, true, null);
+    return addNode(id, text, checked, null);
   }
 
   /**
@@ -77,12 +77,9 @@ public class BootStrapTreeViewCheck {
    * 以json方式返回对象
    * 
    * @return String 以json方式返回对象
-   * @throws Exception
-   *           异常信息
    */
   public String toJsonString()  {
-    JSONObject jsonObject = new JSONObject();
-    return jsonObject.fromObject(rootNode).toString();
+    return JSONObject.fromObject(rootNode).toString();
   }
 
   /**
@@ -96,8 +93,7 @@ public class BootStrapTreeViewCheck {
    */
   public static String defaultBootStrapTreeViewCheck(String rootId, String rootText) {
     BootStrapTreeViewCheck bootStrapTreeViewCheck = new BootStrapTreeViewCheck(rootId, rootText);
-    JSONObject jsonObject = new JSONObject();
-    return jsonObject.fromObject(bootStrapTreeViewCheck.getRootNode()).toString();
+    return JSONObject.fromObject(bootStrapTreeViewCheck.getRootNode()).toString();
   }
 
   /**
@@ -109,8 +105,7 @@ public class BootStrapTreeViewCheck {
    *          根节点
    * @return bootstrap树
    */
-  public static BootStrapTreeViewCheck valueOf(List<BootStrapTreeView> bootStrapTreeViewList, String rootNodeId)
-      throws Exception {
+  public static BootStrapTreeViewCheck valueOf(List<BootStrapTreeView> bootStrapTreeViewList, String rootNodeId) {
     if (null == bootStrapTreeViewList || bootStrapTreeViewList.isEmpty() || null == rootNodeId) {
       return null;
     }
@@ -120,12 +115,12 @@ public class BootStrapTreeViewCheck {
       bootStrapTreeViewList.remove(rootNode);
 
       BootStrapTreeViewCheck bootStrapTreeViewCheck = new BootStrapTreeViewCheck(rootNode.getId(), rootNode.getText());
-      List<BootStrapTreeView> whileList = new ArrayList<BootStrapTreeView>();
+      List<BootStrapTreeView> whileList = new ArrayList<>();
       whileList.addAll(bootStrapTreeViewList);
-      List<BootStrapTreeView> swapList = new ArrayList<BootStrapTreeView>();
+      List<BootStrapTreeView> swapList = new ArrayList<>();
       swapList.addAll(bootStrapTreeViewList);
-      List<BootStrapTreeView> parentList = new ArrayList<BootStrapTreeView>();
-      List<BootStrapTreeView> swapParentList = new ArrayList<BootStrapTreeView>();
+      List<BootStrapTreeView> parentList = new ArrayList<>();
+      List<BootStrapTreeView> swapParentList = new ArrayList<>();
       parentList.add(bootStrapTreeViewCheck.rootNode);
       while (parentList.size() > 0 && !whileList.isEmpty()) { // 必须是并且关系，否则会死循环（因为里面有的节点可能根本就没有对应的父节点）
         for (int j = 0; j < parentList.size(); j++) {
@@ -135,20 +130,20 @@ public class BootStrapTreeViewCheck {
             BootStrapTreeView tmpNode = whileList.get(i);
             if (parentNodeId.equals(tmpNode.getParentId())) {
               BootStrapTreeView node = bootStrapTreeViewCheck.addNode(tmpNode.getId(), tmpNode.getText(),
-                  Boolean.valueOf(tmpNode.getState().get("checked")), parentNode);
+                  tmpNode.getState().get("checked"), parentNode);
               swapList.remove(tmpNode);
               swapParentList.add(node);
             }
           }
-          whileList = new ArrayList<BootStrapTreeView>();
+          whileList = new ArrayList<>();
           whileList.addAll(swapList);
           if ((whileList.isEmpty())) {
             return bootStrapTreeViewCheck;
           }
         }
-        parentList = new ArrayList<BootStrapTreeView>();
+        parentList = new ArrayList<>();
         parentList.addAll(swapParentList);
-        swapParentList = new ArrayList<BootStrapTreeView>();
+        swapParentList = new ArrayList<>();
       }
       return bootStrapTreeViewCheck;
     }
@@ -181,12 +176,12 @@ public class BootStrapTreeViewCheck {
       // bootStrapTreeViewList.remove(rootNode);
 
       BootStrapTreeViewCheck bootStrapTreeViewCheck = new BootStrapTreeViewCheck(rootNode.getId(), rootNode.getText());
-      List<BootStrapTreeView> whileList = new ArrayList<BootStrapTreeView>();
+      List<BootStrapTreeView> whileList = new ArrayList<>();
       whileList.addAll(bootStrapTreeViewList);
-      List<BootStrapTreeView> swapList = new ArrayList<BootStrapTreeView>();
+      List<BootStrapTreeView> swapList = new ArrayList<>();
       swapList.addAll(bootStrapTreeViewList);
-      List<BootStrapTreeView> parentList = new ArrayList<BootStrapTreeView>();
-      List<BootStrapTreeView> swapParentList = new ArrayList<BootStrapTreeView>();
+      List<BootStrapTreeView> parentList = new ArrayList<>();
+      List<BootStrapTreeView> swapParentList = new ArrayList<>();
       parentList.add(bootStrapTreeViewCheck.rootNode);
       while (parentList.size() > 0 && !whileList.isEmpty()) { // 必须是并且关系，否则会死循环（因为里面有的节点可能根本就没有对应的父节点）
         for (int j = 0; j < parentList.size(); j++) {
@@ -198,7 +193,7 @@ public class BootStrapTreeViewCheck {
               Boolean isCheck = true;
 
               if (tmpNode.getState().get("checked") != null) {
-                isCheck = Boolean.valueOf(tmpNode.getState().get("checked"));
+                isCheck = tmpNode.getState().get("checked");
               }
               BootStrapTreeView node = bootStrapTreeViewCheck.addNode(tmpNode.getId(), tmpNode.getText(), isCheck,
                   parentNode);
@@ -206,15 +201,15 @@ public class BootStrapTreeViewCheck {
               swapParentList.add(node);
             }
           }
-          whileList = new ArrayList<BootStrapTreeView>();
+          whileList = new ArrayList<>();
           whileList.addAll(swapList);
           if ((whileList.isEmpty())) {
             return bootStrapTreeViewCheck.toJsonString();
           }
         }
-        parentList = new ArrayList<BootStrapTreeView>();
+        parentList = new ArrayList<>();
         parentList.addAll(swapParentList);
-        swapParentList = new ArrayList<BootStrapTreeView>();
+        swapParentList = new ArrayList<>();
       }
 
       return bootStrapTreeViewCheck.toJsonString();

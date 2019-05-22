@@ -69,7 +69,7 @@ public class BootStrapTreeView {
    */
   public void addNodes(BootStrapTreeView childrenNode) {
     if (null == nodes) {
-      nodes = new ArrayList<BootStrapTreeView>();
+      nodes = new ArrayList<>();
     }
     nodes.add(childrenNode);
   }

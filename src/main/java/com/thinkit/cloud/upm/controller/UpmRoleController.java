@@ -141,7 +141,7 @@ public class UpmRoleController extends BaseController{
 	
 	@ApiOperation(value = "权限树")
 	@RequestMapping(value = "/api/UpmRole/getPermissionTree", method = RequestMethod.GET)
-	  public String getPermissionTree(String strRoleId, String appId,HttpServletRequest request) throws Exception {
+	  public String getPermissionTree(String strRoleId, String appId,HttpServletRequest request)  {
 	    // 根据当前登录人员获取权限菜单树
 	    if (StringUtil.isBlank(strRoleId)) {
 	      strRoleId = "0";
@@ -155,28 +155,5 @@ public class UpmRoleController extends BaseController{
 	    return jsonData;
 	}
 	
-	@ApiOperation(value = "权限树")
-	@RequestMapping(value = "/api/UpmRole/checkRoleIsExist/{appId}/{roleName}/{roleId}", method = RequestMethod.GET)
-	  public RestAPIResult2 checkRoleIsExist(@PathVariable("appId") String appId, @PathVariable("roleName") String roleName, @PathVariable("roleId") Long roleId ) throws Exception {
-
-	    List<UpmRole> result = upmRoleService.selectByExample(new Query().putFilter("appId", appId).putFilter("roleName", roleName));
-
-	    if (roleId != null ) {
-		      UpmRole upmRole =  upmRoleService.selectByPrimaryKey(roleId);
-		      if (!upmRole.getRoleName().equals(roleName) && !result.isEmpty()) {
-		    	  return   new RestAPIResult2().respCode(1).respMsg("名称不存在").respData("{\"valid\":false}"); 
-		      } else {
-		    	  return new RestAPIResult2().respCode(1).respMsg("已经存在").respData("{\"valid\":true}");
-		      }
-	    } else {
-
-	      if (!result.isEmpty()) {
-	        return new RestAPIResult2().respCode(1).respMsg("已经存在").respData("{\"valid\":false}");
-	      } else {
-	    	return   new RestAPIResult2().respCode(1).respMsg("名称不存在").respData("{\"valid\":true}");	   
-	    	}
-	    }
-
-	}
 }
 

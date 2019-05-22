@@ -42,5 +42,5 @@ public interface UpmRoleService  {
    * @param appId 应用Id
    * @param roleId 角色Id
    */
-  public void addPermissionToRole(String permissions, String appId, Long roleId) throws Exception ;
+  public void addPermissionToRole(String permissions, String appId, Long roleId)  ;
 }
