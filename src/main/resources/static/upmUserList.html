@@ -156,10 +156,8 @@
                     {field:'id',title:'ID', sortable:true},
                     {field:'user_no',title:'登陆账号', sortable:true},
                     {field:'user_pass',title:'登陆密码', sortable:true},
-                    {field:'create_user_id',title:'创建人', sortable:true},
                     {field:'create_user_name',title:'创建人姓名', sortable:true},
                     {field:'create_time',title:'创建时间', sortable:true},
-                    {field:'update_user_id',title:'更新人', sortable:true},
                     {field:'update_user_name',title:'更新人姓名', sortable:true},
                     {field:'update_time',title:'更新时间', sortable:true}
                         ],                      
@@ -196,7 +194,7 @@
                  page:params.pageNumber,
                 "sortName":this.sortName,
                 "sortOrder":this.sortOrder,
-                "userNo":userNo,
+                "userNo":userNo
             };
             return temp;
         };
