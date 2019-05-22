@@ -77,9 +77,14 @@
           var id = getUrlParam('id');
           var appId = getUrlParam('appId');
           
+          var token = $.cookie('bearcktkaeskey');
+          if (token == ""||token==undefined) {
+                 location.href = ctx + '/login.html';
+           }
+          
             //获取权限菜单树
             var jsonData = $.ajax({
-                          url:ctx+"/api/UpmRole/getPermissionTree?strRoleId=" + id +"&appId="+appId,
+                          url:ctx+"/api/UpmRole/getPermissionTree?strRoleId=" + id +"&appId="+appId+"&TOKEN="+token,
                           async:false,
                           cache:false,
                           dataType:"text"
@@ -245,21 +250,6 @@
                     	$("#id").val(0);
                     }
                     
-                   /*  var data = $('#upmRoleForm').serialize();
-                    $.ajax({
-                        url: url,
-                        data:data,
-                        type: type,
-                        dataType: "json",
-                        success: function (data) {
-                            bootbox.alert(data.respMsg);
-                        },
-                        error: function (data) {
-                            bootbox.alert("异常");
-                            return false;
-                        }
-                    }); */
-                    
                     addRoleAction();
                 }
 
@@ -294,7 +284,7 @@
                 
              $.ajax({
                     type:'POST',
-                    url:ctx+"/api/UpmRole",
+                    url:ctx+"/api/UpmRole?TOKEN="+token,
                     contentType:'application/x-www-form-urlencoded; charset=UTF-8',
                     data: $("#upmRoleForm").serialize(),
                     dataType:'json',
