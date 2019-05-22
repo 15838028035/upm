@@ -204,6 +204,7 @@
                 if ($("#upmPermissionForm").data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
                     var type = "post";
                     var url = ctx + "/api/UpmPermission?TOKEN="+token;
+                    var operate = $.getUrlParam('operate');
                     if (operate == "edit"){
                         type = "put";
                         url = ctx + "/api/UpmPermission/"+id+"?TOKEN="+token;
