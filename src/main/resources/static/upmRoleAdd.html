@@ -142,12 +142,12 @@
 		 	</div>
       		<div class="form-group">
 			 <label for="roleDesc">角色描述</label>
-		 	     <input class="form-control" type="text"  name="roleDesc" id="roleDesc"  />
+		 	      <textarea class="form-control" id="roleDesc" name="roleDesc" rows="5" ></textarea>
 		 	</div>
       		<div class="form-group">
 			 <label for="lockStatus">加锁状态</label>
-                <input type="radio" name="lockStatus" id="lockStatusA" value="1">是
-                <input type="radio" name="lockStatus" id="lockStatusB" value="0">否
+                <input type="radio" name="lockStatus"  value="1">是
+                <input type="radio" name="lockStatus"  value="0">否
 		 	</div>
 		 	
 		 	<div class="form-group">
@@ -198,7 +198,7 @@
                             $("#appId").val(data.appId);
                             $("#roleName").val(data.roleName);
                             $("#roleDesc").val(data.roleDesc);
-                            $("[name=lockStatus][value='+data.lockStatus+']").prop("checked", "checked");
+                            $("input [name='lockStatus'][value='+data.lockStatus+']").prop("checked", "checked");
                     },
                     error: function(data){
                         bootbox.alert("异常");
