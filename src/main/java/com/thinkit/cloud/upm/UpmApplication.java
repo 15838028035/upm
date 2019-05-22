@@ -4,6 +4,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 
 import org.apache.catalina.connector.Connector;
@@ -46,8 +47,8 @@ public class UpmApplication {
 	private String maxRequestSize;
 
 	@Bean
-	public FilterRegistrationBean jwtFilter() {
-		final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+	public FilterRegistrationBean<Filter> jwtFilter() {
+		final FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
 		JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
 		registrationBean.setFilter(filter);
 		return registrationBean;

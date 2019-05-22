@@ -16,6 +16,9 @@ public class JwtUtil {
     public static final String TOKEN_PREFIX = "Bearer";
     public static final String HEADER_STRING = "TOKEN";
     
+    private JwtUtil (){
+        //空实现
+    }
     public static String generateToken(String username,String userId, Long jtwTokenTimeOut) {
         HashMap<String, Object> map = new HashMap<>();
         //you can put any data in the map
@@ -50,7 +53,6 @@ public class JwtUtil {
 
         if (token == null)
             throw new TokenValidationException("Missing token");
-        // parse the token. exception when token is invalid
        return  Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))

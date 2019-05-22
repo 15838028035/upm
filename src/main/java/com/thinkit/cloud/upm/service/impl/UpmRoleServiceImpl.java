@@ -152,7 +152,6 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   upmRoleAndPermissionRelMapper.insertSelective(upmRoleAndPermissionRel);
 	  }
 
-
 	  /**
 	   * 查找角色对应的权限
 	   * 
@@ -160,8 +159,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @return 权限ID列表
 	   */
 	  public List<Long> getRolePermissionIds(Integer roleId) {
-	    List<Long> permissionIds = upmRoleAndPermissionRelMapper.findRolePermissionIds(roleId);
-	    return permissionIds;
+	    return  upmRoleAndPermissionRelMapper.findRolePermissionIds(roleId);
 	  }
 
 }

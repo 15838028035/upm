@@ -25,7 +25,7 @@ public class BootStrapTreeView {
   // disabled: true,
   // expanded: true,
   // selected: true
-  private Map<String, Boolean> state = new HashMap();
+  private Map<String, Boolean> state = new HashMap<>();
 
   private List<BootStrapTreeView> nodes;
 

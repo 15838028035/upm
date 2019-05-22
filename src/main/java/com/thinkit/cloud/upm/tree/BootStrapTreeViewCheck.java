@@ -122,7 +122,7 @@ public class BootStrapTreeViewCheck {
       List<BootStrapTreeView> parentList = new ArrayList<>();
       List<BootStrapTreeView> swapParentList = new ArrayList<>();
       parentList.add(bootStrapTreeViewCheck.rootNode);
-      while (parentList.size() > 0 && !whileList.isEmpty()) { // 必须是并且关系，否则会死循环（因为里面有的节点可能根本就没有对应的父节点）
+      while (!parentList.isEmpty() && !whileList.isEmpty()) { // 必须是并且关系，否则会死循环（因为里面有的节点可能根本就没有对应的父节点）
         for (int j = 0; j < parentList.size(); j++) {
           BootStrapTreeView parentNode = parentList.get(j);
           String parentNodeId = parentNode.getId();
@@ -173,7 +173,6 @@ public class BootStrapTreeViewCheck {
     }
 
     if (null != rootNode) {
-      // bootStrapTreeViewList.remove(rootNode);
 
       BootStrapTreeViewCheck bootStrapTreeViewCheck = new BootStrapTreeViewCheck(rootNode.getId(), rootNode.getText());
       List<BootStrapTreeView> whileList = new ArrayList<>();
@@ -183,7 +182,7 @@ public class BootStrapTreeViewCheck {
       List<BootStrapTreeView> parentList = new ArrayList<>();
       List<BootStrapTreeView> swapParentList = new ArrayList<>();
       parentList.add(bootStrapTreeViewCheck.rootNode);
-      while (parentList.size() > 0 && !whileList.isEmpty()) { // 必须是并且关系，否则会死循环（因为里面有的节点可能根本就没有对应的父节点）
+      while (!parentList.isEmpty() && !whileList.isEmpty()) { // 必须是并且关系，否则会死循环（因为里面有的节点可能根本就没有对应的父节点）
         for (int j = 0; j < parentList.size(); j++) {
           BootStrapTreeView parentNode = parentList.get(j);
           String parentNodeId = parentNode.getId();
