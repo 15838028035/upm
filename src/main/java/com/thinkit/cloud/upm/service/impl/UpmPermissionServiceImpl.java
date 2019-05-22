@@ -67,7 +67,7 @@ public class UpmPermissionServiceImpl  implements UpmPermissionService{
 	   * @param appId 应用 ID
 	   * @return 根据appId查询permissionId
 	   */
-	  public Long findRootPermissionIdByAppId(String appId) throws Exception {
+	  public Long findRootPermissionIdByAppId(String appId)  {
 		  List<UpmPermission> list =  upmPermissionMapper.selectByExample(new Query().putFilter("appId", appId).putFilter("state", "1"));
 		  
 		  if(list.isEmpty()){

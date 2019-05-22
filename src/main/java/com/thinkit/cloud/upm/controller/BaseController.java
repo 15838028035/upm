@@ -1,6 +1,10 @@
 package com.thinkit.cloud.upm.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
+import com.thinkit.cloud.upm.util.JwtUtil;
 
 /**
  * 
@@ -10,15 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
 	public Long getLoginId(HttpServletRequest request) {
-		/*Map<String, Object> map = JwtUtil.validateTokenAndGetClaims(request);
-		return Long.valueOf((String) map.get("USER_ID"));*/
-		return 1L;
+		Map<String, Object> map = JwtUtil.validateTokenAndGetClaims(request);
+		return Long.valueOf((String) map.get("USER_ID"));
 	}
 
 	public String getUserName(HttpServletRequest request) {
-	/*	Map<String, Object> map = JwtUtil.validateTokenAndGetClaims(request);
-		return (String) map.get("USER_NAME");*/
-		return "admin";
+		Map<String, Object> map = JwtUtil.validateTokenAndGetClaims(request);
+		return (String) map.get("USER_NAME");
 	}
 
 	/**

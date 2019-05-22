@@ -85,7 +85,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @return 查询权限菜单树
 	   * @throws Exception 异常
 	   */
-	  public String getPermissionTreeDataJson(Integer roleId, String appId, Long operatorId) throws Exception {
+	  public String getPermissionTreeDataJson(Integer roleId, String appId, Long operatorId)  {
 	    Query query = new Query().putFilter("appId", appId).putFilter("operatorId", operatorId).putFilter("parentId", 0).putFilter("sortName", " parent_id id sort_no");
 	    List<UpmPermission> list = upmPermissionService.selectByExample(query);
 

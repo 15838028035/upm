@@ -23,12 +23,9 @@ public class WebConfigBeans {
 
 		ConfigurableWebBindingInitializer initializer = (ConfigurableWebBindingInitializer) handlerAdapter
 				.getWebBindingInitializer();
-		if (initializer.getConversionService() != null) {
 			GenericConversionService genericConversionService = (GenericConversionService) initializer
 					.getConversionService();
 			genericConversionService.addConverter(new StringToDateConverter());
-
-		}
 
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.thinkit.cloud.upm.util.JwtUtil;
 import com.zhongkexinli.micro.serv.common.util.StringUtil;
 
 
@@ -27,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                }
                    
                 //检查jwt令牌, 如果令牌不合法或者过期, 里面会直接抛出异常, 下面的catch部分会直接返回
-              //  JwtUtil.validateToken(token);
+                JwtUtil.validateToken(token);
             }
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
@@ -39,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     //我们只对地址 /api 开头的api检查jwt. 不然的话登录/login也需要jwt
     private boolean isProtectedUrl(HttpServletRequest request) {
-    	if(request.getServletPath().contains("/api/SecUser/login")){//登陆不校验
+    	if(request.getServletPath().contains("/api/UpmUser/login")){//登陆不校验
     		return false;
     	}
     	

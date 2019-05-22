@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToDateConverter implements Converter<String, Date> {
 	
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
 	 private static final List<String> formarts = new ArrayList<>(4);
 	    static{
 	        formarts.add("yyyy-MM");
@@ -49,7 +53,7 @@ public class StringToDateConverter implements Converter<String, Date> {
 	            DateFormat dateFormat = new SimpleDateFormat(format);
 	            date = dateFormat.parse(dateStr);
 	        } catch (Exception e) {
-	 
+	            logger.error("日期转换失败",e);
 	        }
 	        return date;
 	    }

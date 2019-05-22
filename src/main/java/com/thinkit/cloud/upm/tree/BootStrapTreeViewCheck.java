@@ -80,7 +80,7 @@ public class BootStrapTreeViewCheck {
    * @throws Exception
    *           异常信息
    */
-  public String toJsonString() throws Exception {
+  public String toJsonString()  {
     JSONObject jsonObject = new JSONObject();
     return jsonObject.fromObject(rootNode).toString();
   }
@@ -165,7 +165,7 @@ public class BootStrapTreeViewCheck {
    * @return bootstrap树
    */
   public static String valueOfString(List<BootStrapTreeView> bootStrapTreeViewList, String rootNodeId)
-      throws Exception {
+       {
     if (null == bootStrapTreeViewList || bootStrapTreeViewList.isEmpty() || null == rootNodeId) {
       return null;
     }

@@ -31,5 +31,5 @@ public interface UpmPermissionService  {
      * @param appId 应用 ID
      * @return 根据appId查询permissionId
      */
-  public Long findRootPermissionIdByAppId(String appId) throws Exception ;
+  public Long findRootPermissionIdByAppId(String appId) ;
 }
