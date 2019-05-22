@@ -61,7 +61,9 @@ var loadInfo = {
     	loadInfo.loadFrame2();
     },
     loadFrame1:function () {
-    	$("#LT_menu").attr("src",ctx + "upmPermissionsTree.html");
+    	var appId = getUrlParam("appId");
+        $("#appId").val(appId);
+    	$("#LT_menu").attr("src",ctx + "upmPermissionsTree.html?appId="+appId);
     }
     ,
     loadFrame2:function () {

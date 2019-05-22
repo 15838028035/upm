@@ -47,10 +47,15 @@
         
         <script   type="text/javascript">
         $(function(){
+        	  var token = $.cookie('bearcktkaeskey');
+       	     if (token == ""||token==undefined) {
+       	            location.href = ctx + '/login.html';
+       	        }
+        	     
              var appId=parent.document.getElementById("appId").value;
             //获取权限菜单树
             var jsonData = $.ajax({
-                          url:ctx + "/api/UpmRole/getPermissionTree?appId="+appId,
+                          url:ctx + "/api/UpmRole/getPermissionTree?appId="+appId+"&TOKEN="+token,
                           async:false,
                           cache:false,
                           dataType:"text"
