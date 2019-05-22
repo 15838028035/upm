@@ -26,6 +26,10 @@
     <script src="scripts/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
 
     <script src="scripts/bootbox/bootbox.min.js"></script>
+    
+    <link href="scripts/bootstrap3-dialog/css/bootstrap-dialog.css" rel="stylesheet">
+    <script src="scripts/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
+    <script src="scripts/bootstrap3-dialog/bootstrap3-dialog-ext.js"></script>
 
     <script src="scripts/bootstrap-datetimepicker/js/moment.js"></script>
     <script src="scripts/bootstrap-datetimepicker/js/moment_zh-CN.js"></script>
@@ -71,6 +75,10 @@
     
             <button id="btn_delete" type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+            
+            <button id="btn_assign_role" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>分配角色
             </button>
     
         </div>
@@ -268,6 +276,56 @@
         }
         
     };//end del
+     
+    //分配角色
+    var assignRole = {
+            init: function () {
+                this.btn_assignRole();
+            },
+            btn_assignRole:function(){
+                $("#btn_assign_role").click(function() {
+                    var ids = $.map($tableList.bootstrapTable('getSelections'), function (row) {
+                 return row.id;
+                    });
+                if(ids == ''|| ids==null){
+                    bootbox.alert('请选择要操作的记录');
+                    return;
+                }
+                
+                if(ids.length>1){
+                    bootbox.alert('请选择一条操作的记录');
+                    return;
+                }
+                
+                //分配角色
+                var url =ctx+"/upmassignRoleList.html?operate=edit&userId=" + ids+"&appId="+ getUrlParam('appId');
+                var dialog = new BootstrapDialog({
+                    title:"分配角色",
+                  cssClass :"speial-dialog",
+                  size:BootstrapDialog.SIZE_WIDE,
+                    message: $("<iframe id=\"iframe\" width=\"100%;\" height=\"800px\"; src="+url+"></iframe>"),
+                  buttons: [ 
+                	  {
+                          label: "提交",
+                          cssClass:"btn-primary",
+                          action: function(dialog){
+                        	  document.getElementById("iframe").contentWindow.btnSubmit();
+                          }
+                	  },
+                	  {
+                      label: "关闭",
+                      cssClass:"btn-primary",
+                      action: function(dialogRef){
+                          dialogRef.close();
+                      }
+                  }]
+                });
+                dialog.open();
+                
+                })
+                
+            }
+        };//end assignRole
         
      $(function () {
         var oTable = new TableInit();
@@ -284,6 +342,7 @@
         add.init();
         edit.init();
         del.init();
+        assignRole.init();
     });
     
     </script>

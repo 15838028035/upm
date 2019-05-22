@@ -85,6 +85,48 @@ public class UpmUserAndUpmRoleController extends BaseController{
 				return new RestAPIResult2();
 	}
 		
+		@ApiOperation(value = "批量保存")
+		@RequestMapping(value="/api/UpmUserAndUpmRole/{userId}/{multiSelected}",method=RequestMethod.PUT)
+		public RestAPIResult2 doBatchSaveRel(@PathVariable("userId") java.lang.Long userId , @PathVariable("multiSelected") String multiSelected ,HttpServletRequest request)  {
+		    String[] multiSelectedTmp;
+		    if (multiSelected.indexOf(",") > 0) {
+		      multiSelectedTmp = multiSelected.split(",");
+		    } else {
+		      multiSelectedTmp = new String[] { multiSelected };
+		    }
+		    
+		    Long createBy = getLoginId(request);
+		    
+		    for (int i = 0; i < multiSelectedTmp.length; i++) {
+		      Long selectedId = Long.parseLong(multiSelectedTmp[i].trim());
+
+		        List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(new Query().putFilter("userId", userId));
+		        if (list.isEmpty()) {
+			         UpmUserAndUpmRole upmUserAndUpmRole = new UpmUserAndUpmRole();
+			         upmUserAndUpmRole.setUserId(userId);
+			         upmUserAndUpmRole.setRoleId(selectedId);
+		          
+		          	upmUserAndUpmRole.setCreateUserId(createBy);
+					upmUserAndUpmRole.setCreateUserName(getUserName(request));
+					upmUserAndUpmRole.setCreateTime(new Date());
+					upmUserAndUpmRoleService.insertSelective(upmUserAndUpmRole);
+
+		        } else {
+		        		UpmUserAndUpmRole upmUserAndUpmRole =  list.get(0);
+				         upmUserAndUpmRole.setUserId(userId);
+				         upmUserAndUpmRole.setRoleId(selectedId);
+			          
+			          	upmUserAndUpmRole.setUpdateUserId(createBy);
+						upmUserAndUpmRole.setUpdateUserName(getUserName(request));
+						upmUserAndUpmRole.setUpdateTime(new Date());
+						upmUserAndUpmRoleService.updateByPrimaryKeySelective(upmUserAndUpmRole);
+		        }
+		        
+		}
+				
+		return new RestAPIResult2();
+	}
+		
 	/** 显示 */
 	@ApiOperation(value = "查看")
 	@RequestMapping(value="/api/UpmUserAndUpmRole/{id}", method = RequestMethod.GET)
@@ -125,6 +167,14 @@ public class UpmUserAndUpmRoleController extends BaseController{
 			Query query= new Query(params);
 			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);
 			return new RestAPIResult2().respData(list);
+	}
+	
+	@ApiOperation(value = "列表")
+	@RequestMapping(value = "/api/UpmUserAndUpmRole/exist", method = RequestMethod.GET)
+	public Boolean exist(@RequestParam Map<String, Object> params) {
+			Query query= new Query(params);
+			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);
+			return !list.isEmpty();
 	}
 }
 
