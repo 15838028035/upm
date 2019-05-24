@@ -25,17 +25,7 @@
     <script src="scripts/bootstrap-table/extensions/export/tableExport.js"></script>
     <script src="scripts/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
 
-    <link href="scripts/bootstrap-treeview/bootstrap-treeview.css" rel="stylesheet">
-    <script src="scripts/bootstrap-treeview/bootstrap-treeview.min.js"></script>
-
-    <link href="scripts/BootStrap-addTabs/bootstrap.addtabs.css" rel="stylesheet">
-    <script src="scripts/BootStrap-addTabs/bootstrap.addtabs.js"></script>
-
     <script src="scripts/bootbox/bootbox.min.js"></script>
-
-    <link href="scripts/bootstrap3-dialog/css/bootstrap-dialog.css" rel="stylesheet">
-    <script src="scripts/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
-    <script src="scripts/bootstrap3-dialog/bootstrap3-dialog-ext.js"></script>
 
     <script src="scripts/bootstrap-datetimepicker/js/moment.js"></script>
     <script src="scripts/bootstrap-datetimepicker/js/moment_zh-CN.js"></script>
@@ -47,23 +37,8 @@
     <script src="scripts/bootstrapvalidator/js/bootstrapValidator.js"></script>
     <script src="scripts/bootstrapvalidator/js/language/zh_CN.js"></script>
 
-
-    <link href="scripts/Magnific-Popup/magnific-popup.css" rel="stylesheet">
-    <script src="scripts/Magnific-Popup/jquery.magnific-popup.js"></script>
-
-
-    <script src="scripts/jquery/jqueryui/jquery-ui-1.8.1.custom.min.js" type="text/javascript"></script>
-
-    <link href="scripts/bootstrap-fileinput/css/fileinput.css" rel="stylesheet">
-    <script src="scripts/bootstrap-fileinput/js/fileinput.js"></script>
-
-
-    <link href="scripts/bootstrap-wysihtml5/bootstrap3-wysihtml5.css" rel="stylesheet">
-    <script src="scripts/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
-
     <script src="scripts/jquery.cookie.js"></script>
     <script src="scripts/common.js"></script>
-
 
 <script language="javascript"  type="text/javascript">
 </script>
@@ -186,7 +161,13 @@
                     {field:'app_id',title:'应用ID', sortable:true},
                     {field:'role_name',title:'角色名称', sortable:true},
                     {field:'role_desc',title:'角色描述', sortable:true},
-                    {field:'lock_Status',title:'加锁状态,1:加锁，0:未加锁', sortable:true},
+                    {field:'lock_Status',title:'加锁状态', formatter : function(value, row, index) {  
+                        if(row.lock_Status=='1'){
+                            return "加锁";
+                        }
+                        return "未加锁";
+                     }  
+                    , sortable:true},
                     {field:'create_user_name',title:'创建人姓名', sortable:true},
                     {field:'create_time',title:'创建时间', sortable:true},
                     {field:'update_user_name',title:'更新人姓名', sortable:true},

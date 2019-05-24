@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkit.cloud.upm.bean.UpmPermission;
+import com.thinkit.cloud.upm.bean.UpmRoleAndPermissionRel;
 import com.thinkit.cloud.upm.service.UpmPermissionService;
+import com.thinkit.cloud.upm.service.UpmRoleAndPermissionRelService;
 import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
@@ -38,6 +40,9 @@ public class UpmPermissionController extends BaseController{
 	
 	@Autowired
 	private UpmPermissionService upmPermissionService;
+	
+	@Autowired
+	private UpmRoleAndPermissionRelService upmRoleAndPermissionRelService;
 	
 	@ApiOperation(value = "列表")
 	@RequestMapping(value = "/api/UpmPermission", method = RequestMethod.GET)
@@ -96,10 +101,18 @@ public class UpmPermissionController extends BaseController{
 		return upmPermission;
 	}
 		
-	/** 逻辑删除 */
-	@ApiOperation(value = "逻辑删除")
+	/** 物理删除 */
+	@ApiOperation(value = "物理删除")
 	@RequestMapping(value="/api/UpmPermission/{id}",method=RequestMethod.DELETE)
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
+		
+		Query query= new Query().putFilter("permissionId", id);
+		List<UpmRoleAndPermissionRel> list = upmRoleAndPermissionRelService.selectByExample(query);
+		
+		if(!list.isEmpty()) {
+			return new RestAPIResult2().respCode(0).respMsg("对不起，存在有关联的{} 个角色,请先解除角色权限关系", String.valueOf(list.size()));
+		}
+		
 		 upmPermissionService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
 	}
