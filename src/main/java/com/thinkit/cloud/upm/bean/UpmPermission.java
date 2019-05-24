@@ -19,7 +19,7 @@ public class UpmPermission extends MyBaseEntity{
 	 * 应用ID  app_id
 	 */
 	@ApiModelProperty(value = "应用ID")
-	private String appId = "";
+	private String appId ;
 	
 	/**
 	 * 父ID  parent_Id
@@ -31,43 +31,43 @@ public class UpmPermission extends MyBaseEntity{
 	 * 权限名称  per_name
 	 */
 	@ApiModelProperty(value = "权限名称")
-	private String perName = "";
+	private String perName;
 	
 	/**
 	 * 权限类型  per_type
 	 */
 	@ApiModelProperty(value = "权限类型")
-	private String perType = "";
+	private String perType;
 	
 	/**
 	 * URL  url
 	 */
 	@ApiModelProperty(value = "URL")
-	private String url = "";
+	private String url;
 	
 	/**
 	 * 编码  code
 	 */
 	@ApiModelProperty(value = "编码")
-	private String code = "";
+	private String code;
 	
 	/**
 	 * 编码key  key_code
 	 */
 	@ApiModelProperty(value = "编码key")
-	private String keyCode = "";
+	private String keyCode;
 	
 	/**
 	 * 1:正常，0：加锁  state
 	 */
 	@ApiModelProperty(value = "1:正常，0：加锁")
-	private String state = "";
+	private String state;
 	
 	/**
 	 * 备注  remark
 	 */
 	@ApiModelProperty(value = "备注")
-	private String remark = "";
+	private String remark;
 	
 	/**
 	 * 排序编号  sort_no

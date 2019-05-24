@@ -19,13 +19,13 @@ public class UpmUser extends MyBaseEntity{
 	 * 登陆账号  user_no
 	 */
 	@ApiModelProperty(value = "登陆账号")
-	private String userNo = "";
+	private String userNo;
 	
 	/**
 	 * 登陆密码  user_pass
 	 */
 	@ApiModelProperty(value = "登陆密码")
-	private String userPass = "";
+	private String userPass;
 
 	public void setId(java.lang.Long value) {
 		this.id = value;

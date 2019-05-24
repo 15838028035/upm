@@ -19,31 +19,31 @@ public class UpmRole extends MyBaseEntity{
 	 * 角色编码  role_code
 	 */
 	@ApiModelProperty(value = "角色编码")
-	private String roleCode = "";
+	private String roleCode;
 	
 	/**
 	 * 应用ID  app_id
 	 */
 	@ApiModelProperty(value = "应用ID")
-	private String appId = "";
+	private String appId;
 	
 	/**
 	 * 角色名称  role_name
 	 */
 	@ApiModelProperty(value = "角色名称")
-	private String roleName = "";
+	private String roleName;
 	
 	/**
 	 * 角色描述  role_desc
 	 */
 	@ApiModelProperty(value = "角色描述")
-	private String roleDesc = "";
+	private String roleDesc;
 	
 	/**
 	 * 加锁状态,1:加锁，0:未加锁  lock_Status
 	 */
 	@ApiModelProperty(value = "加锁状态,1:加锁，0:未加锁")
-	private String lockStatus = "";
+	private String lockStatus;
 	
 	/**
 	 * 权限信息ids
