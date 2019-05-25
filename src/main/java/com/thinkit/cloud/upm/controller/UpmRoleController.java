@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +43,7 @@ public class UpmRoleController extends BaseController{
 	private UpmRoleService upmRoleService;
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmRole", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmRole")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
@@ -49,7 +51,7 @@ public class UpmRoleController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "新增")
-		@RequestMapping(value = "/api/UpmRole",method=RequestMethod.POST)
+		@PostMapping(value = "/api/UpmRole")
 		public RestAPIResult2 create(@ModelAttribute UpmRole upmRole,String operate ,HttpServletRequest request)  {
 			
 			try {
@@ -79,7 +81,7 @@ public class UpmRoleController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "更新")
-		@RequestMapping(value="/api/UpmRole/{id}",method=RequestMethod.PUT)
+		@PutMapping(value="/api/UpmRole/{id}")
 		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRole upmRole,HttpServletRequest request)  {
 			try {
 					
@@ -99,7 +101,7 @@ public class UpmRoleController extends BaseController{
 		
 	/** 显示 */
 	@ApiOperation(value = "查看")
-	@RequestMapping(value="/api/UpmRole/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmRole/{id}")
 	public UpmRole show(@PathVariable("id") java.lang.Long id )  {
 		UpmRole upmRole =upmRoleService.selectByPrimaryKey(id);
 		if(upmRole== null) {
@@ -110,7 +112,7 @@ public class UpmRoleController extends BaseController{
 		
 	/** 逻辑删除 */
 	@ApiOperation(value = "逻辑删除")
-	@RequestMapping(value="/api/UpmRole/{id}",method=RequestMethod.DELETE)
+	@DeleteMapping(value="/api/UpmRole/{id}")
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		upmRoleService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
@@ -118,7 +120,7 @@ public class UpmRoleController extends BaseController{
 
 	/** 显示 */
 	@ApiOperation(value = "显示")
-	@RequestMapping(value="/api/UpmRole/showInfo/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmRole/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
 		UpmRole upmRole =upmRoleService.selectByPrimaryKey(id);
@@ -132,7 +134,7 @@ public class UpmRoleController extends BaseController{
 	}
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmRole/queryList", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmRole/queryList")
 	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmRole> list = upmRoleService.selectByExample(query);
@@ -140,7 +142,7 @@ public class UpmRoleController extends BaseController{
 	}
 	
 	@ApiOperation(value = "权限树")
-	@RequestMapping(value = "/api/UpmRole/getPermissionTree", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmRole/getPermissionTree")
 	  public String getPermissionTree(String strRoleId, String appId,HttpServletRequest request)  {
 	    // 根据当前登录人员获取权限菜单树
 	    if (StringUtil.isBlank(strRoleId)) {

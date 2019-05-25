@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +43,7 @@ public class UpmUserController extends BaseController{
 	private UpmUserService upmUserService;
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmUser", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmUser")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
@@ -49,7 +51,7 @@ public class UpmUserController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "新增")
-		@RequestMapping(value = "/api/UpmUser",method=RequestMethod.POST)
+		@PostMapping(value = "/api/UpmUser")
 		public RestAPIResult2 create(@ModelAttribute UpmUser upmUser,HttpServletRequest request)  {
 			
 			try {
@@ -69,7 +71,7 @@ public class UpmUserController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "更新")
-		@RequestMapping(value="/api/UpmUser/{id}",method=RequestMethod.PUT)
+		@PutMapping(value="/api/UpmUser/{id}")
 		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUser upmUser,HttpServletRequest request)  {
 			try {
 					UpmUser user = upmUserService.selectByPrimaryKey(id);
@@ -93,7 +95,7 @@ public class UpmUserController extends BaseController{
 		
 	/** 显示 */
 	@ApiOperation(value = "查看")
-	@RequestMapping(value="/api/UpmUser/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmUser/{id}")
 	public UpmUser show(@PathVariable("id") java.lang.Long id )  {
 		UpmUser upmUser =upmUserService.selectByPrimaryKey(id);
 		if(upmUser== null) {
@@ -102,9 +104,9 @@ public class UpmUserController extends BaseController{
 		return upmUser;
 	}
 		
-	/** 逻辑删除 */
-	@ApiOperation(value = "逻辑删除")
-	@RequestMapping(value="/api/UpmUser/{id}",method=RequestMethod.DELETE)
+	/** 物理删除 */
+	@ApiOperation(value = "物理删除")
+	@DeleteMapping(value="/api/UpmUser/{id}")
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		upmUserService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
@@ -112,7 +114,7 @@ public class UpmUserController extends BaseController{
 
 	/** 显示 */
 	@ApiOperation(value = "显示")
-	@RequestMapping(value="/api/UpmUser/showInfo/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmUser/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
 		UpmUser upmUser =upmUserService.selectByPrimaryKey(id);
@@ -126,7 +128,7 @@ public class UpmUserController extends BaseController{
 	}
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmUser/queryList", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmUser/queryList")
 	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmUser> list = upmUserService.selectByExample(query);

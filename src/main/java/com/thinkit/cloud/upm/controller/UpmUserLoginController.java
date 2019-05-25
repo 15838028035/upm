@@ -6,8 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -43,7 +42,7 @@ public class UpmUserLoginController extends BaseController {
 	 * @return
 	 */
 	@ApiOperation(value = "登录")
-	@RequestMapping(value = "/api/UpmUser/login", method = RequestMethod.POST)
+	@PostMapping(value = "/api/UpmUser/login")
 	public RestAPIResult2 login( UpmUser upmUser, HttpServletRequest request, RedirectAttributes attributes) {
 
 		RestAPIResult2 restAPIResult = new RestAPIResult2();

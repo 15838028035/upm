@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +42,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	private UpmUserAndUpmRoleService upmUserAndUpmRoleService;
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmUserAndUpmRole", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmUserAndUpmRole")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
@@ -48,7 +50,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "新增")
-		@RequestMapping(value = "/api/UpmUserAndUpmRole",method=RequestMethod.POST)
+		@PostMapping(value = "/api/UpmUserAndUpmRole")
 		public RestAPIResult2 create(@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
 			
 			try {
@@ -67,7 +69,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "更新")
-		@RequestMapping(value="/api/UpmUserAndUpmRole/{id}",method=RequestMethod.PUT)
+		@PutMapping(value="/api/UpmUserAndUpmRole/{id}")
 		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
 			try {
 					
@@ -86,10 +88,10 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	}
 		
 		@ApiOperation(value = "批量保存")
-		@RequestMapping(value="/api/UpmUserAndUpmRole/{userId}/{multiSelected}",method=RequestMethod.PUT)
+		@PutMapping(value="/api/UpmUserAndUpmRole/{userId}/{multiSelected}")
 		public RestAPIResult2 doBatchSaveRel(@PathVariable("userId") java.lang.Long userId , @PathVariable("multiSelected") String multiSelected ,HttpServletRequest request)  {
 		    String[] multiSelectedTmp;
-		    if (multiSelected.indexOf(",") > 0) {
+		    if (multiSelected.indexOf(',') >= 0) {
 		      multiSelectedTmp = multiSelected.split(",");
 		    } else {
 		      multiSelectedTmp = new String[] { multiSelected };
@@ -129,7 +131,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 		
 	/** 显示 */
 	@ApiOperation(value = "查看")
-	@RequestMapping(value="/api/UpmUserAndUpmRole/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmUserAndUpmRole/{id}")
 	public UpmUserAndUpmRole show(@PathVariable("id") java.lang.Long id )  {
 		UpmUserAndUpmRole upmUserAndUpmRole =upmUserAndUpmRoleService.selectByPrimaryKey(id);
 		if(upmUserAndUpmRole== null) {
@@ -138,9 +140,9 @@ public class UpmUserAndUpmRoleController extends BaseController{
 		return upmUserAndUpmRole;
 	}
 		
-	/** 逻辑删除 */
-	@ApiOperation(value = "逻辑删除")
-	@RequestMapping(value="/api/UpmUserAndUpmRole/{id}",method=RequestMethod.DELETE)
+	/** 物理删除 */
+	@ApiOperation(value = "物理删除")
+	@DeleteMapping(value="/api/UpmUserAndUpmRole/{id}")
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		 upmUserAndUpmRoleService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
@@ -148,7 +150,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 
 	/** 显示 */
 	@ApiOperation(value = "显示")
-	@RequestMapping(value="/api/UpmUserAndUpmRole/showInfo/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmUserAndUpmRole/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
 		UpmUserAndUpmRole upmUserAndUpmRole =upmUserAndUpmRoleService.selectByPrimaryKey(id);
@@ -162,7 +164,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	}
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmUserAndUpmRole/queryList", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmUserAndUpmRole/queryList")
 	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);
@@ -170,7 +172,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	}
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmUserAndUpmRole/exist", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmUserAndUpmRole/exist")
 	public Boolean exist(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);

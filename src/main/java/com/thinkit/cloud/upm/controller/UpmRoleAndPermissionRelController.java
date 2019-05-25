@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,7 +42,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	private UpmRoleAndPermissionRelService upmRoleAndPermissionRelService;
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmRoleAndPermissionRel", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmRoleAndPermissionRel")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
@@ -48,7 +50,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "新增")
-		@RequestMapping(value = "/api/UpmRoleAndPermissionRel",method=RequestMethod.POST)
+		@PostMapping(value = "/api/UpmRoleAndPermissionRel")
 		public RestAPIResult2 create(@ModelAttribute UpmRoleAndPermissionRel upmRoleAndPermissionRel,HttpServletRequest request)  {
 			
 			try {
@@ -67,7 +69,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	}
 	 
 		@ApiOperation(value = "更新")
-		@RequestMapping(value="/api/UpmRoleAndPermissionRel/{id}",method=RequestMethod.PUT)
+		@PutMapping(value="/api/UpmRoleAndPermissionRel/{id}")
 		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRoleAndPermissionRel upmRoleAndPermissionRel,HttpServletRequest request)  {
 			try {
 					
@@ -87,7 +89,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 		
 	/** 显示 */
 	@ApiOperation(value = "查看")
-	@RequestMapping(value="/api/UpmRoleAndPermissionRel/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmRoleAndPermissionRel/{id}")
 	public UpmRoleAndPermissionRel show(@PathVariable("id") java.lang.Long id )  {
 		UpmRoleAndPermissionRel upmRoleAndPermissionRel =upmRoleAndPermissionRelService.selectByPrimaryKey(id);
 		if(upmRoleAndPermissionRel== null) {
@@ -98,7 +100,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 		
 	/** 逻辑删除 */
 	@ApiOperation(value = "逻辑删除")
-	@RequestMapping(value="/api/UpmRoleAndPermissionRel/{id}",method=RequestMethod.DELETE)
+	@DeleteMapping(value="/api/UpmRoleAndPermissionRel/{id}")
 	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		 upmRoleAndPermissionRelService.deleteByPrimaryKey(id);
 		return new RestAPIResult2();
@@ -106,7 +108,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 
 	/** 显示 */
 	@ApiOperation(value = "显示")
-	@RequestMapping(value="/api/UpmRoleAndPermissionRel/showInfo/{id}", method = RequestMethod.GET)
+	@GetMapping(value="/api/UpmRoleAndPermissionRel/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
 		UpmRoleAndPermissionRel upmRoleAndPermissionRel =upmRoleAndPermissionRelService.selectByPrimaryKey(id);
@@ -120,7 +122,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	}
 	
 	@ApiOperation(value = "列表")
-	@RequestMapping(value = "/api/UpmRoleAndPermissionRel/queryList", method = RequestMethod.GET)
+	@GetMapping(value = "/api/UpmRoleAndPermissionRel/queryList")
 	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmRoleAndPermissionRel> list = upmRoleAndPermissionRelService.selectByExample(query);
