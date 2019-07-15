@@ -1,4 +1,4 @@
-package com.thinkit.cloud.upm.util;
+package com.thinkit.cloud.upm.config;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -6,20 +6,25 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
 import com.zhongkexinli.micro.serv.common.util.StringUtil;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+@Configuration
 public class JwtUtil {
     static final String SECRET = "ThisIsASecret";
-    public static final String TOKEN_PREFIX = "Bearer";
+    /**
+     * token前缀
+     */
+    @Value("${jtwTokenPrefix}")
+    public   String tokenPrefix;
     public static final String HEADER_STRING = "TOKEN";
     
-    private JwtUtil (){
-        //空实现
-    }
-    public static String generateToken(String username,String userId, Long jtwTokenTimeOut) {
+    public  String generateToken(String username,String userId, Long jtwTokenTimeOut) {
         HashMap<String, Object> map = new HashMap<>();
         //you can put any data in the map
         map.put("USER_NAME", username);
@@ -30,22 +35,22 @@ public class JwtUtil {
                 //.setExpiration(new Date(System.currentTimeMillis() + jtwTokenTimeOut))// 24h
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-        return "Bearer "+jwt; //jwt前面一般都会加Bearer
+        return tokenPrefix +jwt; //jwt前面一般都会加Bearer
     }
     
 
-    public static void validateToken(String token) {
+    public  void validateToken(String token) {
         try {
         	Jwts.parser()
                     .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace("Bearer ",""))
+                    .parseClaimsJws(token.replace(tokenPrefix,""))
                     .getBody();
         }catch (Exception e){
             throw new IllegalStateException("Invalid Token. "+e.getMessage());
         }
     }
 
-    public static Map<String, Object> validateTokenAndGetClaims(HttpServletRequest request) {
+    public  Map<String, Object> validateTokenAndGetClaims(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (StringUtil.isBlank(token)) {
             token = request.getParameter(HEADER_STRING);
@@ -55,7 +60,7 @@ public class JwtUtil {
             throw new TokenValidationException("Missing token");
        return  Jwts.parser()
                 .setSigningKey(SECRET)
-                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                .parseClaimsJws(token.replace(tokenPrefix, ""))
                 .getBody();
     
     }
