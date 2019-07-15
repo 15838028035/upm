@@ -1,6 +1,8 @@
 package com.thinkit.cloud.upm.filter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,6 +20,11 @@ import com.zhongkexinli.micro.serv.common.util.StringUtil;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
+    /**
+     * token黑名单
+     */
+    private  static final Map<String,String> TOKEN_BLACK_MAP = new HashMap<>();
+    
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -26,7 +33,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                if (StringUtil.isBlank(token)) {
                    token = request.getParameter("TOKEN");
                }
-                   
+                  
+               if(TOKEN_BLACK_MAP.get(token)!=null) {
+            	   response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "当前token在黑名单中，无法进行请求");
+                   return;
+               }
                 //检查jwt令牌, 如果令牌不合法或者过期, 里面会直接抛出异常, 下面的catch部分会直接返回
                 JwtUtil.validateToken(token);
             }
@@ -47,4 +58,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return pathMatcher.match("/api/**", request.getServletPath());
     }
 
+    /**
+     * 添加token到黑名单中
+     * @param token
+     */
+    public static void addToken(String token) {
+    	TOKEN_BLACK_MAP.put(token, token);
+    }
 }

@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;
@@ -22,9 +23,14 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkit.cloud.upm.filter.JwtAuthenticationFilter;
+import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+
+import io.swagger.annotations.ApiOperation;
 
 /**
  *启动类
@@ -33,6 +39,8 @@ import com.thinkit.cloud.upm.filter.JwtAuthenticationFilter;
 @RestController
 @EnableCaching
 public class UpmApplication {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	/**
 	 * 上传文件最大值
@@ -61,6 +69,22 @@ public class UpmApplication {
         config.setMaxRequestSize(maxRequestSize);
         return config.createMultipartConfig();
     }
+	
+	@ApiOperation(value = "添加token到黑名单中")
+	@PostMapping(value = "/api/addTokenToBlack/{token}")
+	public RestAPIResult2 addTokenToBlack(@PathVariable("token") java.lang.String token,HttpServletRequest request)  {
+		
+		try {
+				
+			JwtAuthenticationFilter.addToken(token);
+			}catch(Exception e) {
+				logger.error("添加token到黑名单中失败" ,e);
+				return new RestAPIResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
+			}
+			
+			return new RestAPIResult2();
+	}
+	
 	 /**
 	   * 用于接受 shutdown 事件
 	   */
