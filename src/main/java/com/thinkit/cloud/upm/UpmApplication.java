@@ -53,12 +53,17 @@ public class UpmApplication {
 	 */
 	@Value("${maxRequestSize}")
 	private String maxRequestSize;
-
+	
+	@Bean
+	public JwtAuthenticationFilter filter() {
+		JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
+		return filter;
+	}
+	
 	@Bean
 	public FilterRegistrationBean<Filter> jwtFilter() {
 		final FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
-		JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
-		registrationBean.setFilter(filter);
+		registrationBean.setFilter(filter());
 		return registrationBean;
 	}
 	
