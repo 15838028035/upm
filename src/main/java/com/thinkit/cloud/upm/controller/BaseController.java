@@ -4,7 +4,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.thinkit.cloud.upm.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.thinkit.cloud.upm.config.JwtUtil;
 
 /**
  * 
@@ -13,13 +15,16 @@ import com.thinkit.cloud.upm.util.JwtUtil;
  */
 public class BaseController {
 
+	@Autowired
+	private JwtUtil jwtUtil;
+	
 	public Long getLoginId(HttpServletRequest request) {
-		Map<String, Object> map = JwtUtil.validateTokenAndGetClaims(request);
+		Map<String, Object> map = jwtUtil.validateTokenAndGetClaims(request);
 		return Long.valueOf((String) map.get("USER_ID"));
 	}
 
 	public String getUserName(HttpServletRequest request) {
-		Map<String, Object> map = JwtUtil.validateTokenAndGetClaims(request);
+		Map<String, Object> map = jwtUtil.validateTokenAndGetClaims(request);
 		return (String) map.get("USER_NAME");
 	}
 

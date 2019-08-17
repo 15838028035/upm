@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkit.cloud.upm.bean.UpmUser;
+import com.thinkit.cloud.upm.config.JwtUtil;
 import com.thinkit.cloud.upm.service.UpmUserService;
-import com.thinkit.cloud.upm.util.JwtUtil;
 import com.thinkit.cloud.upm.util.Md5Util;
 import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
@@ -27,6 +27,8 @@ import io.swagger.annotations.ApiOperation;
 @RestController()
 public class UpmUserLoginController extends BaseController {
 
+	@Autowired
+	private JwtUtil jwtUtil;
 	/**
 	 * token超时时间
 	 */
@@ -66,7 +68,7 @@ public class UpmUserLoginController extends BaseController {
 		} else {
 			restAPIResult.setRespData(list.get(0));
 
-			String token = JwtUtil.generateToken(list.get(0).getUserNo(), String.valueOf(list.get(0).getId()),
+			String token = jwtUtil.generateToken(list.get(0).getUserNo(), String.valueOf(list.get(0).getId()),
 					jtwTokenTimeOut);
 			restAPIResult.setToken(token);
 			restAPIResult.setDataCode(String.valueOf(jtwTokenTimeOut));
