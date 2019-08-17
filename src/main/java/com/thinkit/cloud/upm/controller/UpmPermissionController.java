@@ -23,7 +23,7 @@ import com.thinkit.cloud.upm.bean.UpmPermission;
 import com.thinkit.cloud.upm.bean.UpmRoleAndPermissionRel;
 import com.thinkit.cloud.upm.service.UpmPermissionService;
 import com.thinkit.cloud.upm.service.UpmRoleAndPermissionRelService;
-import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 
@@ -56,7 +56,7 @@ public class UpmPermissionController extends BaseController{
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmPermission")
-		public RestAPIResult2 create(@ModelAttribute UpmPermission upmPermission,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmPermission upmPermission,HttpServletRequest request)  {
 			
 			try {
 					Long createBy = getLoginId(request);
@@ -67,15 +67,15 @@ public class UpmPermissionController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[权限信息表]-->新增失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmPermission/{id}")
-		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmPermission upmPermission,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmPermission upmPermission,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
@@ -86,10 +86,10 @@ public class UpmPermissionController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[权限信息表]-->更新失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 		
 	/** 显示 */
@@ -106,17 +106,17 @@ public class UpmPermissionController extends BaseController{
 	/** 物理删除 */
 	@ApiOperation(value = "物理删除")
 	@DeleteMapping(value="/api/UpmPermission/{id}")
-	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
+	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		
 		Query query= new Query().putFilter("permissionId", id);
 		List<UpmRoleAndPermissionRel> list = upmRoleAndPermissionRelService.selectByExample(query);
 		
 		if(!list.isEmpty()) {
-			return new RestAPIResult2().respCode(0).respMsg("对不起，存在有关联的{} 个角色,请先解除角色权限关系", String.valueOf(list.size()));
+			return new RestApiResult2().respCode(0).respMsg("对不起，存在有关联的{} 个角色,请先解除角色权限关系", String.valueOf(list.size()));
 		}
 		
 		 upmPermissionService.deleteByPrimaryKey(id);
-		return new RestAPIResult2();
+		return new RestApiResult2();
 	}
 
 	/** 显示 */
@@ -136,10 +136,10 @@ public class UpmPermissionController extends BaseController{
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmPermission/queryList")
-	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
+	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmPermission> list = upmPermissionService.selectByExample(query);
-			return new RestAPIResult2().respData(list);
+			return new RestApiResult2().respData(list);
 	}
 }
 

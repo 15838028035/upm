@@ -282,8 +282,8 @@
 			</if>
 		
 		<if test="sortName!= null and  sortName != ''" >
-			order by $sortName$ $sortOrder$ 
-		</if>
+            order by ${sortName} ${sortOrder}
+        </if>
 			
   </select>
 

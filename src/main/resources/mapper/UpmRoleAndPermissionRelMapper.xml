@@ -275,8 +275,8 @@
             and   update_time = #{updateTime,jdbcType=TIMESTAMP}
             </if>
         
-        <if test="sortName!= null and  sortName != ''" >
-            order by $sortName$ $sortOrder$ 
+       <if test="sortName!= null and  sortName != ''" >
+            order by ${sortName} ${sortOrder}
         </if>
             
   </select>

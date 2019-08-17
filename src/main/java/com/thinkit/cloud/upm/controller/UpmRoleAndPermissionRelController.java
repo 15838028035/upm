@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkit.cloud.upm.bean.UpmRoleAndPermissionRel;
 import com.thinkit.cloud.upm.service.UpmRoleAndPermissionRelService;
-import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 
@@ -51,7 +51,7 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmRoleAndPermissionRel")
-		public RestAPIResult2 create(@ModelAttribute UpmRoleAndPermissionRel upmRoleAndPermissionRel,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmRoleAndPermissionRel upmRoleAndPermissionRel,HttpServletRequest request)  {
 			
 			try {
 					Long createBy = getLoginId(request);
@@ -62,15 +62,15 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[角色权限关联表]-->新增失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmRoleAndPermissionRel/{id}")
-		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRoleAndPermissionRel upmRoleAndPermissionRel,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRoleAndPermissionRel upmRoleAndPermissionRel,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
@@ -81,10 +81,10 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[角色权限关联表]-->更新失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 		
 	/** 显示 */
@@ -101,9 +101,9 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	/** 逻辑删除 */
 	@ApiOperation(value = "逻辑删除")
 	@DeleteMapping(value="/api/UpmRoleAndPermissionRel/{id}")
-	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
+	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		 upmRoleAndPermissionRelService.deleteByPrimaryKey(id);
-		return new RestAPIResult2();
+		return new RestApiResult2();
 	}
 
 	/** 显示 */
@@ -123,10 +123,10 @@ public class UpmRoleAndPermissionRelController extends BaseController{
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmRoleAndPermissionRel/queryList")
-	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
+	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmRoleAndPermissionRel> list = upmRoleAndPermissionRelService.selectByExample(query);
-			return new RestAPIResult2().respData(list);
+			return new RestApiResult2().respData(list);
 	}
 }
 

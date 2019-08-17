@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkit.cloud.upm.bean.UpmUserAndUpmRole;
 import com.thinkit.cloud.upm.service.UpmUserAndUpmRoleService;
-import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 
@@ -51,7 +51,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmUserAndUpmRole")
-		public RestAPIResult2 create(@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
 			
 			try {
 					Long createBy = getLoginId(request);
@@ -62,15 +62,15 @@ public class UpmUserAndUpmRoleController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[用户角色关联表]-->新增失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmUserAndUpmRole/{id}")
-		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
@@ -81,15 +81,15 @@ public class UpmUserAndUpmRoleController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[用户角色关联表]-->更新失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 		
 		@ApiOperation(value = "批量保存")
 		@PutMapping(value="/api/UpmUserAndUpmRole/{userId}/{multiSelected}")
-		public RestAPIResult2 doBatchSaveRel(@PathVariable("userId") java.lang.Long userId , @PathVariable("multiSelected") String multiSelected ,HttpServletRequest request)  {
+		public RestApiResult2 doBatchSaveRel(@PathVariable("userId") java.lang.Long userId , @PathVariable("multiSelected") String multiSelected ,HttpServletRequest request)  {
 		    String[] multiSelectedTmp;
 		    if (multiSelected.indexOf(',') >= 0) {
 		      multiSelectedTmp = multiSelected.split(",");
@@ -126,7 +126,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 		        
 		}
 				
-		return new RestAPIResult2();
+		return new RestApiResult2();
 	}
 		
 	/** 显示 */
@@ -143,9 +143,9 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	/** 物理删除 */
 	@ApiOperation(value = "物理删除")
 	@DeleteMapping(value="/api/UpmUserAndUpmRole/{id}")
-	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
+	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		 upmUserAndUpmRoleService.deleteByPrimaryKey(id);
-		return new RestAPIResult2();
+		return new RestApiResult2();
 	}
 
 	/** 显示 */
@@ -165,10 +165,10 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmUserAndUpmRole/queryList")
-	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
+	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);
-			return new RestAPIResult2().respData(list);
+			return new RestApiResult2().respData(list);
 	}
 	
 	@ApiOperation(value = "列表")

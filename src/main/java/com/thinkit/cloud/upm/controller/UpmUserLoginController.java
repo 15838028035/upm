@@ -14,7 +14,7 @@ import com.thinkit.cloud.upm.bean.UpmUser;
 import com.thinkit.cloud.upm.service.UpmUserService;
 import com.thinkit.cloud.upm.util.JwtUtil;
 import com.thinkit.cloud.upm.util.Md5Util;
-import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 
 import io.swagger.annotations.Api;
@@ -43,9 +43,9 @@ public class UpmUserLoginController extends BaseController {
 	 */
 	@ApiOperation(value = "登录")
 	@PostMapping(value = "/api/UpmUser/login")
-	public RestAPIResult2 login( UpmUser upmUser, HttpServletRequest request, RedirectAttributes attributes) {
+	public RestApiResult2 login( UpmUser upmUser, HttpServletRequest request, RedirectAttributes attributes) {
 
-		RestAPIResult2 restAPIResult = new RestAPIResult2();
+	  RestApiResult2 restAPIResult = new RestApiResult2();
 		restAPIResult.setRespCode(1);
 		restAPIResult.setRespMsg("登录成功");
 

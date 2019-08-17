@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkit.cloud.upm.bean.UpmRole;
 import com.thinkit.cloud.upm.service.UpmRoleService;
-import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
 import com.zhongkexinli.micro.serv.common.util.StringUtil;
@@ -52,7 +52,7 @@ public class UpmRoleController extends BaseController{
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmRole")
-		public RestAPIResult2 create(@ModelAttribute UpmRole upmRole,String operate ,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmRole upmRole,String operate ,HttpServletRequest request)  {
 			
 			try {
 				
@@ -74,15 +74,15 @@ public class UpmRoleController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[角色信息表]-->新增失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmRole/{id}")
-		public RestAPIResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRole upmRole,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRole upmRole,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
@@ -93,10 +93,10 @@ public class UpmRoleController extends BaseController{
 					
 				}catch(Exception e) {
 					logger.error("[角色信息表]-->更新失败" ,e);
-					return new RestAPIResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
+					return new RestApiResult2().respCode(0).respMsg("更新失败 {}" ,e.getMessage());
 				}
 				
-				return new RestAPIResult2();
+				return new RestApiResult2();
 	}
 		
 	/** 显示 */
@@ -113,9 +113,9 @@ public class UpmRoleController extends BaseController{
 	/** 逻辑删除 */
 	@ApiOperation(value = "逻辑删除")
 	@DeleteMapping(value="/api/UpmRole/{id}")
-	public RestAPIResult2 delete(@PathVariable("id") java.lang.Long id ) {
+	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		upmRoleService.deleteByPrimaryKey(id);
-		return new RestAPIResult2();
+		return new RestApiResult2();
 	}
 
 	/** 显示 */
@@ -135,10 +135,10 @@ public class UpmRoleController extends BaseController{
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmRole/queryList")
-	public RestAPIResult2 queryList(@RequestParam Map<String, Object> params) {
+	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
 			List<UpmRole> list = upmRoleService.selectByExample(query);
-			return new RestAPIResult2().respData(list);
+			return new RestApiResult2().respData(list);
 	}
 	
 	@ApiOperation(value = "权限树")
