@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thinkit.cloud.upm.filter.JwtAuthenticationFilter;
-import com.zhongkexinli.micro.serv.common.bean.RestAPIResult2;
+import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -77,17 +77,17 @@ public class UpmApplication {
 	
 	@ApiOperation(value = "添加token到黑名单中")
 	@PostMapping(value = "/api/addTokenToBlack/{token}")
-	public RestAPIResult2 addTokenToBlack(@PathVariable("token") java.lang.String token,HttpServletRequest request)  {
+	public RestApiResult2 addTokenToBlack(@PathVariable("token") java.lang.String token,HttpServletRequest request)  {
 		
 		try {
 				
 			JwtAuthenticationFilter.addToken(token);
 			}catch(Exception e) {
 				logger.error("添加token到黑名单中失败" ,e);
-				return new RestAPIResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
+				return new RestApiResult2().respCode(0).respMsg("新增失败 {}" ,e.getMessage());
 			}
 			
-			return new RestAPIResult2();
+			return new RestApiResult2();
 	}
 	
 	 /**
