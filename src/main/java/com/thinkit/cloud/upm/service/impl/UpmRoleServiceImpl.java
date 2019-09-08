@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,9 +131,10 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 		    if (permissions != null && !"".equals(permissions)) {
 		      permission = permissions.split(",");
 		    }
-		    for (int i = 0; i < permission.length; i++) {
-		      addPermissionToRole(roleId, appId, Long.valueOf(permission[i]));
-		}
+		    
+		    Arrays.asList(permission).forEach(permissionTmp->{
+		            addPermissionToRole(roleId, appId, Long.valueOf(String.valueOf(permissionTmp)));
+		    });
 	  }
 	  
 	  /**
