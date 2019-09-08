@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.assertj.core.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,32 +100,32 @@ public class UpmUserAndUpmRoleController extends BaseController{
 		    
 		    Long createBy = getLoginId(request);
 		    
-		    for (int i = 0; i < multiSelectedTmp.length; i++) {
-		      Long selectedId = Long.parseLong(multiSelectedTmp[i].trim());
+		    Arrays.asList(multiSelectedTmp).forEach(str->{
+		        Long selectedId = Long.parseLong(String.valueOf(str));
 
-		        List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(new Query().putFilter("userId", userId));
-		        if (list.isEmpty()) {
-			         UpmUserAndUpmRole upmUserAndUpmRole = new UpmUserAndUpmRole();
-			         upmUserAndUpmRole.setUserId(userId);
-			         upmUserAndUpmRole.setRoleId(selectedId);
-		          
-		          	upmUserAndUpmRole.setCreateUserId(createBy);
-					upmUserAndUpmRole.setCreateUserName(getUserName(request));
-					upmUserAndUpmRole.setCreateTime(new Date());
-					upmUserAndUpmRoleService.insertSelective(upmUserAndUpmRole);
+            List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(new Query().putFilter("userId", userId));
+            if (list.isEmpty()) {
+               UpmUserAndUpmRole upmUserAndUpmRole = new UpmUserAndUpmRole();
+               upmUserAndUpmRole.setUserId(userId);
+               upmUserAndUpmRole.setRoleId(selectedId);
+              
+                upmUserAndUpmRole.setCreateUserId(createBy);
+          upmUserAndUpmRole.setCreateUserName(getUserName(request));
+          upmUserAndUpmRole.setCreateTime(new Date());
+          upmUserAndUpmRoleService.insertSelective(upmUserAndUpmRole);
 
-		        } else {
-		        		UpmUserAndUpmRole upmUserAndUpmRole =  list.get(0);
-				         upmUserAndUpmRole.setUserId(userId);
-				         upmUserAndUpmRole.setRoleId(selectedId);
-			          
-			          	upmUserAndUpmRole.setUpdateUserId(createBy);
-						upmUserAndUpmRole.setUpdateUserName(getUserName(request));
-						upmUserAndUpmRole.setUpdateTime(new Date());
-						upmUserAndUpmRoleService.updateByPrimaryKeySelective(upmUserAndUpmRole);
-		        }
+            } else {
+                UpmUserAndUpmRole upmUserAndUpmRole =  list.get(0);
+                 upmUserAndUpmRole.setUserId(userId);
+                 upmUserAndUpmRole.setRoleId(selectedId);
+                
+                  upmUserAndUpmRole.setUpdateUserId(createBy);
+            upmUserAndUpmRole.setUpdateUserName(getUserName(request));
+            upmUserAndUpmRole.setUpdateTime(new Date());
+            upmUserAndUpmRoleService.updateByPrimaryKeySelective(upmUserAndUpmRole);
+            }
+		    });
 		        
-		}
 				
 		return new RestApiResult2();
 	}
