@@ -32,7 +32,7 @@ public class UpmUserLoginController extends BaseController {
 	/**
 	 * token超时时间
 	 */
-	@Value("${jtwTokenTimeOut}")
+	@Value("${jtwTokenTimeOut:60000}")
 	private Long jtwTokenTimeOut;
 	
 	@Autowired

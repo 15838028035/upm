@@ -27,7 +27,7 @@ public class JwtUtil {
     /**
      * token前缀
      */
-    @Value("${jtwTokenPrefix}")
+    @Value("${jtwTokenPrefix:TOKEN_PRE}")
     public   String tokenPrefix;
     public static final String HEADER_STRING = "TOKEN";
     
