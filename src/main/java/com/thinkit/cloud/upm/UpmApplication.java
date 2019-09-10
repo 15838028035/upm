@@ -56,8 +56,7 @@ public class UpmApplication {
 	
 	@Bean
 	public JwtAuthenticationFilter filter() {
-		JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
-		return filter;
+		return new JwtAuthenticationFilter();
 	}
 	
 	@Bean
