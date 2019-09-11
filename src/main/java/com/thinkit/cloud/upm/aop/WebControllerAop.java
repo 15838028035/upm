@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
  
 /**
@@ -45,7 +45,7 @@ public class WebControllerAop {
      * @param joinPoint
      */
     @Before("executeService()")
-    public void doBeforeAdvice(JoinPoint joinPoint){
+    public void doBeforeAdvice(JoinPoint joinPoint) {
         logger.info("我是前置通知!!!");
         //获取目标方法的参数信息
         Object[] obj = joinPoint.getArgs();
@@ -69,9 +69,17 @@ public class WebControllerAop {
             String parameter = enumeration.nextElement();
             parameterMap.put(parameter,request.getParameter(parameter));
         }
-        String str = JSON.toJSONString(parameterMap);
-        if(obj.length > 0) {
-            logger.info("请求的参数信息为：{}" , str);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        
+        try {
+	        String str = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(parameterMap);
+	        
+	        if(obj.length > 0) {
+	            logger.info("请求的参数信息为：{}" , str);
+	        }
+        }catch( Exception  ex) {
+        	logger.error("json参数转换异常", ex);
         }
     }
  

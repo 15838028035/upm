@@ -62,7 +62,6 @@
 <logger name="java.sql.ResultSet" level="DEBUG" />
 
 <logger name="com.thinkit.cloud.upm.dao" level="DEBUG"></logger>
-    
 	<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />  
     <!-- 日志输出级别   这样设置不打印日志 -->
     <root level="INFO">
