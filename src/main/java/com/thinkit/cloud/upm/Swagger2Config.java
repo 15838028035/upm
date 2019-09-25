@@ -29,7 +29,7 @@ public class Swagger2Config {
 	/**
 	 * 是否启用swagger
 	 */
-	@Value("${swagger2.enable}")
+	@Value("${swagger2.enable:false}")
     private boolean swagger2Enable;
 
 	/**

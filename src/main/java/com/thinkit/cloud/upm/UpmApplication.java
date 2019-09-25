@@ -45,13 +45,13 @@ public class UpmApplication {
 	/**
 	 * 上传文件最大值
 	 */
-	@Value("${maxFileSize}")
+	@Value("${maxFileSize:51200MB}")
 	private String maxFileSize;
 	
 	/**
 	 * 最大请求数
 	 */
-	@Value("${maxRequestSize}")
+	@Value("${maxRequestSize:51200MB}")
 	private String maxRequestSize;
 	
 	@Bean
