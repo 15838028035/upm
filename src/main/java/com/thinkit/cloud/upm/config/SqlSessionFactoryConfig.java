@@ -27,6 +27,9 @@ public class SqlSessionFactoryConfig implements TransactionManagementConfigurer 
 
     @Autowired
     private DataSourceProperties dataSourceProperties;
+    
+    @Autowired(required=false)
+    private Interceptor interceptor;
 
     /**
      * 创建sqlSessionFactoryBean 
@@ -39,7 +42,9 @@ public class SqlSessionFactoryConfig implements TransactionManagementConfigurer 
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage(dataSourceProperties.getTypeAliasPackage());
         
-        bean.setPlugins(new Interceptor[]{ new SqlCostInterceptor()});
+        if(interceptor!=null) {
+        	bean.setPlugins(new Interceptor[]{interceptor});
+        }
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         bean.setMapperLocations(resolver.getResources(dataSourceProperties.getMapperLocations()));
