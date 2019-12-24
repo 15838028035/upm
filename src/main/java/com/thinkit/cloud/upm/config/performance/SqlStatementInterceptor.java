@@ -23,7 +23,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.CollectionUtils;
 
 import com.alibaba.druid.sql.SQLUtils;
@@ -48,12 +47,6 @@ public class SqlStatementInterceptor implements Interceptor {
   private static Logger logger = LoggerFactory.getLogger(SqlStatementInterceptor.class);
  
   private Properties properties;
-  
-  /**
-	 * 上传文件最大值
-	 */
-	@Value("${mybatis.formatSql:true}")
-	private Boolean mybatisFormatSql;
 	
  
   public Object intercept(Invocation invocation) throws Throwable {
@@ -75,7 +68,7 @@ public class SqlStatementInterceptor implements Interceptor {
       String sqlId = ms.getId();// 获取到节点的id,即sql语句的id
       BoundSql boundSql = ms.getBoundSql(parameter);  // BoundSql就是封装myBatis最终产生的sql类
       Configuration configuration = ms.getConfiguration();  // 获取节点的配置
-      String sql = getSql(configuration, boundSql, sqlId, time); // 获取到最终的sql语句
+      getSql(configuration, boundSql, sqlId, time); // 获取到最终的sql语句
     } catch (Exception e) {
       logger.error("拦截sql处理出错" + e.getMessage());
     }
@@ -91,7 +84,7 @@ public class SqlStatementInterceptor implements Interceptor {
     String begin = "============================sql begin================================";
     String end = "============================sql end==================================";
     logger.info(begin);
-    if(mybatisFormatSql) {
+    if(("true").equals(properties.getOrDefault("mybatisFormatSql", "true"))) {
     	  String sqlType = JdbcConstants.MYSQL;
   		sql= SQLUtils.format(sql,sqlType);
     }
@@ -158,8 +151,7 @@ public class SqlStatementInterceptor implements Interceptor {
     return Plugin.wrap(arg0, this);
   }
  
- 
-  public void setProperties(Properties arg0) {
-    this.properties = arg0;
+  public void setProperties(Properties properties) {
+    this.properties = properties;
   }
 }
