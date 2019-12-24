@@ -17,9 +17,8 @@ public class PerformanceConfig {
     @Profile({"dev", "test"})// 设置 dev test 环境开启
     public Interceptor performanceInterceptor() {
 
-        Interceptor sqlCostInterceptor = new SqlCostInterceptor();
+        Interceptor sqlCostInterceptor = new SqlStatementInterceptor();
         Properties properties = new Properties();
-        properties.setProperty(SqlCostInterceptor.TIME_LIMIT_KEY, SqlCostInterceptor.DEFAULT_TIME_LIMIT);
         sqlCostInterceptor.setProperties(properties);
         return sqlCostInterceptor;
     }
