@@ -9,16 +9,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thinkit.cloud.upm.config.JwtUtil;
 import com.zhongkexinli.micro.serv.common.util.StringUtil;
 
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
     @Autowired
@@ -49,8 +56,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
             return;
         }
+      
+      //sql,xss过滤
+        HttpServletRequest httpServletRequest=(HttpServletRequest)request;
+        logger.info("CrosXssFilter.......orignal url:{},ParameterMap:{}",request.getRequestURI(), JSONObject.toJSONString(request.getParameterMap()));
+        XssHttpServletRequestWrapper xssHttpServletRequestWrapper=new XssHttpServletRequestWrapper(
+                httpServletRequest);
         //如果jwt令牌通过了检测, 那么就把request传递给后面的RESTful api
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(xssHttpServletRequestWrapper, response);
+        ObjectMapper mapper = new ObjectMapper();
+        
+        String jsonStr = "";
+        try {
+             jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(xssHttpServletRequestWrapper.getParameterMap());
+        }catch( Exception  ex) {
+        }
+        
+        logger.info("CrosXssFilter..........doFilter url:{},ParameterMap:{}",xssHttpServletRequestWrapper.getRequestURI(), jsonStr);
     }
 
     //我们只对地址 /api 开头的api检查jwt. 不然的话登录/login也需要jwt
