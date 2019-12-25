@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private static String key = "and|exec|insert|select|delete|update|count|*|%|chr|mid|master|truncate|char|declare|;|or|-|+";
-    private static Set<String> notAllowedKeyWords = new HashSet<String>(0);
+    private static Set<String> notAllowedKeyWords = new HashSet<>(0);
     private static String replacedString="INVALID";
     static {
         String keyStr[] = key.split("\\|");

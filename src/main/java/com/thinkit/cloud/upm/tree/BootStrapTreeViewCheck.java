@@ -100,8 +100,7 @@ public class BootStrapTreeViewCheck {
     BootStrapTreeViewCheck bootStrapTreeViewCheck = new BootStrapTreeViewCheck(rootId, rootText);
     ObjectMapper mapper = new ObjectMapper();
     try {
-        String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bootStrapTreeViewCheck.getRootNode());
-        return jsonStr;
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bootStrapTreeViewCheck.getRootNode());
     }catch( Exception  ex) {
     }
     
