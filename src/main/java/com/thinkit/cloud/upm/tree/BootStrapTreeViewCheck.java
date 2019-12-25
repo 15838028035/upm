@@ -6,9 +6,6 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 /**
  * bootstrap树
  */
@@ -81,11 +78,9 @@ public class BootStrapTreeViewCheck {
    * @return String 以json方式返回对象
    */
   public String toJsonString()  {
-    
     ObjectMapper mapper = new ObjectMapper();
     try {
-        String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
-        return jsonStr;
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
     }catch( Exception  ex) {
     }
     
@@ -231,7 +226,13 @@ public class BootStrapTreeViewCheck {
 
       return bootStrapTreeViewCheck.toJsonString();
     } else {
-      return JSONArray.fromObject(bootStrapTreeViewList).toString();
+      ObjectMapper mapper = new ObjectMapper();
+      try {
+          return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bootStrapTreeViewList);
+      }catch( Exception  ex) {
+      }
+      
+      return null;
     }
 
   }
