@@ -95,11 +95,27 @@ public class WebControllerAop {
     @AfterReturning(value = "execution(* com.thinkit.cloud.upm.controller..*.*(..))",returning = "keys")
     public void doAfterReturningAdvice1(JoinPoint joinPoint,Object keys){
         logger.info("第一个后置返回通知的返回值：{} ",keys);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+	        String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(keys);
+	        logger.info("第一个后置返回通知的返回值：{}" , jsonStr);
+        }catch( Exception  ex) {
+        	logger.error("json参数转换异常", ex);
+        }
     }
  
     @AfterReturning(value = "execution(* com.thinkit.cloud.upm.controller..*.*(..))",returning = "keys",argNames = "keys")
     public void doAfterReturningAdvice2(String keys){
         logger.info("第二个后置返回通知的返回值：{} ",keys);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+	        String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(keys);
+	        logger.info("第二个后置返回通知的返回值：{}" , jsonStr);
+        }catch( Exception  ex) {
+        	logger.error("json参数转换异常", ex);
+        }
     }
  
     /**

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -79,7 +81,15 @@ public class BootStrapTreeViewCheck {
    * @return String 以json方式返回对象
    */
   public String toJsonString()  {
-    return JSONObject.fromObject(rootNode).toString();
+    
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+        String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+        return jsonStr;
+    }catch( Exception  ex) {
+    }
+    
+    return null;
   }
 
   /**
@@ -93,7 +103,15 @@ public class BootStrapTreeViewCheck {
    */
   public static String defaultBootStrapTreeViewCheck(String rootId, String rootText) {
     BootStrapTreeViewCheck bootStrapTreeViewCheck = new BootStrapTreeViewCheck(rootId, rootText);
-    return JSONObject.fromObject(bootStrapTreeViewCheck.getRootNode()).toString();
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+        String jsonStr = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(bootStrapTreeViewCheck.getRootNode());
+        return jsonStr;
+    }catch( Exception  ex) {
+    }
+    
+    return null;
+    
   }
 
   /**
