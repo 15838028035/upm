@@ -1,5 +1,6 @@
 package com.thinkit.cloud.upm.config;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.plugin.Interceptor;
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -30,6 +32,12 @@ public class SqlSessionFactoryConfig implements TransactionManagementConfigurer 
     
     @Autowired(required=false)
     private Interceptor interceptor;
+    
+    /**
+     * 扫描包路径
+     */
+    @Value("${spring.datasource.mapperLocations}")
+    private String packageSearchPath;    
 
     /**
      * 创建sqlSessionFactoryBean 
@@ -51,6 +59,12 @@ public class SqlSessionFactoryConfig implements TransactionManagementConfigurer 
 
         return bean.getObject();
     }
+    
+    @PostConstruct
+    public void postConstruct()  throws Exception {
+    	new RefreshMapperCache(createSqlSessionFactoryBean(),packageSearchPath).run();
+    	
+   }
 
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {

@@ -248,7 +248,6 @@
 	 select 
 		<include refid="Base_Column_List"/>
    	       	   from upm_user WHERE 1=1  
-	  
 			<if test="id != null ">
 			and   id = #{id,jdbcType=BIGINT}
 			</if>
