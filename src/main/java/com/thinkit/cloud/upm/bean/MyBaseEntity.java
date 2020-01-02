@@ -62,6 +62,18 @@ public class MyBaseEntity {
 	 */
 	private String updateTimeEnd;
 	
+	/**
+	 * 分页数
+	 */
+	@ApiModelProperty(value = "分页数")
+	private Integer page = 1;
+	
+	/**
+	 * 分页默认每页10条
+	 */
+	@ApiModelProperty(value = "分页默认每页10条")
+	private Integer limit = 10;
+	
 	public Long getCreateUserId() {
 		return createUserId;
 	}
@@ -123,5 +135,17 @@ public class MyBaseEntity {
     public void setUpdateUserName(String updateUserName) {
         this.updateUserName = updateUserName;
     }
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getLimit() {
+		return limit;
+	}
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
 
 }

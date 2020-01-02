@@ -21,7 +21,7 @@ public interface UpmUserService  {
 
     public java.lang.Long updateByPrimaryKey(UpmUser upmUser);
 
-    public LayUiTableResultResponse	 selectByQuery(Query query) ;
+    public LayUiTableResultResponse<UpmUser>	 selectByQuery(Query query) ;
 
     public  List<UpmUser> selectByExample(Query query);
 }

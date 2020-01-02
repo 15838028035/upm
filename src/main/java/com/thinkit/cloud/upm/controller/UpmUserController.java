@@ -25,6 +25,7 @@ import com.thinkit.cloud.upm.util.Md5Util;
 import com.zhongkexinli.micro.serv.common.bean.RestApiResult2;
 import com.zhongkexinli.micro.serv.common.msg.LayUiTableResultResponse;
 import com.zhongkexinli.micro.serv.common.pagination.Query;
+import com.zhongkexinli.micro.serv.common.util.MapAndObject;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,10 +45,11 @@ public class UpmUserController extends BaseController{
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmUser")
-	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
-	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
-			Query query= new Query(params);
-			return  upmUserService.selectByQuery(query);
+	public LayUiTableResultResponse<UpmUser> page(@RequestParam UpmUser upmUser ) {
+		    Map<String,Object> map =new HashMap<>();
+			Map map2 = new MapAndObject(map,upmUser);
+			Query query= new Query(map2);
+			return upmUserService.selectByQuery(query);
 	}
 	 
 		@ApiOperation(value = "新增")

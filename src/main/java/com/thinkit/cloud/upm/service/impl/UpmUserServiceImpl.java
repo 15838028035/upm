@@ -50,7 +50,7 @@ public class UpmUserServiceImpl  implements UpmUserService{
 	}
 
 	@Override
-	 public LayUiTableResultResponse selectByQuery(Query query) {
+	 public LayUiTableResultResponse<UpmUser> selectByQuery(Query query) {
 	        com.github.pagehelper.Page<Object> result = PageHelper.startPage(query.getPage(), query.getLimit());
 	        List<Map<String,Object>> list  = upmUserMapper.selectByPageExample(query);
 	        return new LayUiTableResultResponse(result.getTotal(), list);

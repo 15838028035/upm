@@ -8,6 +8,9 @@
 访问
 http://127.0.0.1:8085/swagger-ui.html#/
 
+接口地址:
+http://127.0.0.1:8085/doc.html
+
 登陆首页:
 http://127.0.0.1:8085/login.html
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,6 +31,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
 	private JwtUtil jwtUtil;
+    
+    /**
+	 * 开启过滤器
+	 */
+	@Value("${isOpenFilter:true}")
+	private Boolean isOpenFilter;
     
     /**
      * token黑名单
@@ -77,11 +84,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     //我们只对地址 /api 开头的api检查jwt. 不然的话登录/login也需要jwt
     private boolean isProtectedUrl(HttpServletRequest request) {
-    	if(request.getServletPath().contains("/api/UpmUser/login")){//登陆不校验
-    		return false;
-    	}
+    	if(isOpenFilter) {
+	    	if(request.getServletPath().contains("/api/UpmUser/login")){//登陆不校验
+	    		return false;
+	    	}
+	    	
+	        return pathMatcher.match("/api/**", request.getServletPath());
+	    	}
     	
-        return pathMatcher.match("/api/**", request.getServletPath());
+    	return false;
     }
 
     /**
