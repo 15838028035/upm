@@ -119,6 +119,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -129,17 +130,17 @@
 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork><!-- 如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
-			     </configuration>
-			</plugin>
-		</plugins>
-	</build>
+<!-- 	<build> -->
+<!-- 		<plugins> -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.springframework.boot</groupId> -->
+<!-- 				<artifactId>spring-boot-maven-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<fork>true</fork>如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
+<!-- 			     </configuration> -->
+<!-- 			</plugin> -->
+<!-- 		</plugins> -->
+<!-- 	</build> -->
 
 	<profiles>
 		<profile>
@@ -175,6 +176,9 @@
 		</profile>
 		<profile>
             <id>profile2</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
     <plugins>
         <plugin>
@@ -196,7 +200,7 @@
                     </manifest>
                     <manifestEntries>
                         <!-- 在Class-Path下添加配置文件的路径 -->
-                        <Class-Path>conf/</Class-Path>
+                        <Class-Path>config/</Class-Path>
                     </manifestEntries>
                 </archive>
             </configuration>
@@ -254,6 +258,7 @@
 </build>
         </profile>
 
+    
 
 	</profiles>
 
