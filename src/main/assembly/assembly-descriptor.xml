@@ -62,14 +62,31 @@
             <fileMode>0755</fileMode>
             <includes></includes>
         </fileSet>
-      <fileSet>
+    <!--   <fileSet>
         <directory>${project.basedir}/target</directory> 
          <outputDirectory>/</outputDirectory>
          <fileMode>0755</fileMode>
          <includes>
                 <include>*.jar</include>
             </includes>
-       </fileSet>  
+       </fileSet>  -->
+       
+        <!-- 将项目启动jar打包到boot目录中 -->
+        <fileSet>
+            <directory>${build.directory}</directory>
+            <outputDirectory>/</outputDirectory>
+            <fileMode>0755</fileMode>
+            <includes>
+                <include>${project.build.finalName}.jar</include>
+            </includes>
+        </fileSet>
+        
+        <!-- 将第三方依赖打包到lib目录中 -->
+        <fileSet>
+            <directory>${build.directory}/lib</directory>
+            <outputDirectory>lib</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet> 
        
 	</fileSets>
 	
