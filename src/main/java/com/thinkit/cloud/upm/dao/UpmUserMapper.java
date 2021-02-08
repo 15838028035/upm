@@ -10,15 +10,15 @@ public interface UpmUserMapper  {
 
     public java.lang.Long deleteByPrimaryKey(java.lang.Long id);
 
-    public java.lang.Long insert(UpmUser upmUser);
+    public java.lang.Long insert(UpmUser UpmUser);
 
-    public java.lang.Long insertSelective(UpmUser upmUser);
+    public java.lang.Long insertSelective(UpmUser UpmUser);
 
     public UpmUser selectByPrimaryKey(java.lang.Long id);
 
-    public java.lang.Long updateByPrimaryKeySelective(UpmUser upmUser);
+    public java.lang.Long updateByPrimaryKeySelective(UpmUser UpmUser);
 
-    public java.lang.Long updateByPrimaryKey(UpmUser upmUser);
+    public java.lang.Long updateByPrimaryKey(UpmUser UpmUser);
 
    /**
      * 根据条件查询列表

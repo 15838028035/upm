@@ -4,9 +4,7 @@ RUN echo "Asia/Shanghai" > /etc/timezone
 VOLUME /tmp
 RUN mkdir app
 RUN mkdir -p /app/config
-RUN mkdir -p /app/lib
 
-COPY target/lib/* /app/lib
 COPY config/* /app/config/
 ADD upm-0.0.1-SNAPSHOT.jar /app/upm-0.0.1-SNAPSHOT.jar
 

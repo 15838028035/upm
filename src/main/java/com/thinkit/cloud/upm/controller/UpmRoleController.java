@@ -40,37 +40,37 @@ public class UpmRoleController extends BaseController{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private UpmRoleService upmRoleService;
+	private UpmRoleService UpmRoleService;
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmRole")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			return  upmRoleService.selectByQuery(query);
+			return  UpmRoleService.selectByQuery(query);
 	}
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmRole")
-		public RestApiResult2 create(@ModelAttribute UpmRole upmRole,String operate ,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmRole UpmRole,String operate ,HttpServletRequest request)  {
 			
 			try {
 				
 					Long createBy = getLoginId(request);
 					
 					if("edit".equals(operate)) {
-						upmRole.setUpdateUserId(createBy);
-						upmRole.setUpdateUserName(getUserName(request));
-						upmRole.setUpdateTime(new Date());
-						upmRoleService.updateByPrimaryKeySelective(upmRole);
+						UpmRole.setUpdateUserId(createBy);
+						UpmRole.setUpdateUserName(getUserName(request));
+						UpmRole.setUpdateTime(new Date());
+						UpmRoleService.updateByPrimaryKeySelective(UpmRole);
 					}else {
-						upmRole.setCreateUserId(createBy);
-						upmRole.setCreateUserName(getUserName(request));
-						upmRole.setCreateTime(new Date());
-						upmRoleService.insertSelective(upmRole);
+						UpmRole.setCreateUserId(createBy);
+						UpmRole.setCreateUserName(getUserName(request));
+						UpmRole.setCreateTime(new Date());
+						UpmRoleService.insertSelective(UpmRole);
 					}
 					
-					upmRoleService.addPermissionToRole(upmRole.getPermissions(), upmRole.getAppId(), upmRole.getId());
+					UpmRoleService.addPermissionToRole(UpmRole.getPermissions(), UpmRole.getAppId(), UpmRole.getId());
 					
 				}catch(Exception e) {
 					logger.error("[角色信息表]-->新增失败" ,e);
@@ -82,14 +82,14 @@ public class UpmRoleController extends BaseController{
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmRole/{id}")
-		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRole upmRole,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmRole UpmRole,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
-					upmRole.setUpdateUserId(createBy);
-					upmRole.setUpdateUserName(getUserName(request));
-					upmRole.setUpdateTime(new Date());
-					upmRoleService.updateByPrimaryKeySelective(upmRole);
+					UpmRole.setUpdateUserId(createBy);
+					UpmRole.setUpdateUserName(getUserName(request));
+					UpmRole.setUpdateTime(new Date());
+					UpmRoleService.updateByPrimaryKeySelective(UpmRole);
 					
 				}catch(Exception e) {
 					logger.error("[角色信息表]-->更新失败" ,e);
@@ -103,18 +103,18 @@ public class UpmRoleController extends BaseController{
 	@ApiOperation(value = "查看")
 	@GetMapping(value="/api/UpmRole/{id}")
 	public UpmRole show(@PathVariable("id") java.lang.Long id )  {
-		UpmRole upmRole =upmRoleService.selectByPrimaryKey(id);
-		if(upmRole== null) {
-			upmRole = new UpmRole();
+		UpmRole UpmRole =UpmRoleService.selectByPrimaryKey(id);
+		if(UpmRole== null) {
+			UpmRole = new UpmRole();
 		}
-		return upmRole;
+		return UpmRole;
 	}
 		
 	/** 逻辑删除 */
 	@ApiOperation(value = "逻辑删除")
 	@DeleteMapping(value="/api/UpmRole/{id}")
 	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		upmRoleService.deleteByPrimaryKey(id);
+		UpmRoleService.deleteByPrimaryKey(id);
 		return new RestApiResult2();
 	}
 
@@ -123,12 +123,12 @@ public class UpmRoleController extends BaseController{
 	@GetMapping(value="/api/UpmRole/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
-		UpmRole upmRole =upmRoleService.selectByPrimaryKey(id);
-		if(upmRole== null) {
-			upmRole = new UpmRole();
+		UpmRole UpmRole =UpmRoleService.selectByPrimaryKey(id);
+		if(UpmRole== null) {
+			UpmRole = new UpmRole();
 		}
 		
-		retMap.put("upmRole", upmRole);
+		retMap.put("UpmRole", UpmRole);
 		
 		return retMap;
 	}
@@ -137,7 +137,7 @@ public class UpmRoleController extends BaseController{
 	@GetMapping(value = "/api/UpmRole/queryList")
 	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			List<UpmRole> list = upmRoleService.selectByExample(query);
+			List<UpmRole> list = UpmRoleService.selectByExample(query);
 			return new RestApiResult2().respData(list);
 	}
 	
@@ -148,7 +148,7 @@ public class UpmRoleController extends BaseController{
 	    if (StringUtil.isBlank(strRoleId)) {
 	      strRoleId = "0";
 	    }
-	    String jsonData = upmRoleService.getPermissionTreeDataJson(Integer.valueOf(strRoleId), appId,
+	    String jsonData = UpmRoleService.getPermissionTreeDataJson(Integer.valueOf(strRoleId), appId,
 	        this.getLoginId(request));
 
 	    if (StringUtil.isBlank(jsonData)) {

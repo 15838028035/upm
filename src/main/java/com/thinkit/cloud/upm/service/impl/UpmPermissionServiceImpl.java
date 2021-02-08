@@ -17,48 +17,48 @@ import com.zhongkexinli.micro.serv.common.pagination.Query;
 public class UpmPermissionServiceImpl  implements UpmPermissionService{
 	
 	@Autowired
-	private UpmPermissionMapper upmPermissionMapper;
+	private UpmPermissionMapper UpmPermissionMapper;
 	
 	@Override
 	public java.lang.Long deleteByPrimaryKey(java.lang.Long id) {
-		return upmPermissionMapper.deleteByPrimaryKey(id);
+		return UpmPermissionMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long insert(UpmPermission upmPermission){
-		return upmPermissionMapper.insert(upmPermission);
+	public java.lang.Long insert(UpmPermission UpmPermission){
+		return UpmPermissionMapper.insert(UpmPermission);
 	}
 
 	@Override
-	public java.lang.Long insertSelective(UpmPermission upmPermission) {
-		return upmPermissionMapper.insertSelective(upmPermission);
+	public java.lang.Long insertSelective(UpmPermission UpmPermission) {
+		return UpmPermissionMapper.insertSelective(UpmPermission);
 	}
 
 	@Override
 	public UpmPermission selectByPrimaryKey(java.lang.Long id) {
-		return upmPermissionMapper.selectByPrimaryKey(id);
+		return UpmPermissionMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKeySelective(UpmPermission upmPermission) {
-		return upmPermissionMapper.updateByPrimaryKeySelective(upmPermission);
+	public java.lang.Long updateByPrimaryKeySelective(UpmPermission UpmPermission) {
+		return UpmPermissionMapper.updateByPrimaryKeySelective(UpmPermission);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKey(UpmPermission upmPermission) {
-		return upmPermissionMapper.updateByPrimaryKey(upmPermission);
+	public java.lang.Long updateByPrimaryKey(UpmPermission UpmPermission) {
+		return UpmPermissionMapper.updateByPrimaryKey(UpmPermission);
 	}
 
 	@Override
 	 public LayUiTableResultResponse selectByQuery(Query query) {
 	        com.github.pagehelper.Page<Object> result = PageHelper.startPage(query.getPage(), query.getLimit());
-	        List<Map<String,Object>> list  = upmPermissionMapper.selectByPageExample(query);
+	        List<Map<String,Object>> list  = UpmPermissionMapper.selectByPageExample(query);
 	        return new LayUiTableResultResponse(result.getTotal(), list);
 	}
 
 	@Override
 	public List<UpmPermission> selectByExample(Query query) {
-		return upmPermissionMapper.selectByExample(query);
+		return UpmPermissionMapper.selectByExample(query);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class UpmPermissionServiceImpl  implements UpmPermissionService{
 	   * @return 根据appId查询permissionId
 	   */
 	  public Long findRootPermissionIdByAppId(String appId)  {
-		  List<UpmPermission> list =  upmPermissionMapper.selectByExample(new Query().putFilter("appId", appId).putFilter("state", "1"));
+		  List<UpmPermission> list =  UpmPermissionMapper.selectByExample(new Query().putFilter("appId", appId).putFilter("state", "1"));
 		  
 		  if(list.isEmpty()){
 			  return null;

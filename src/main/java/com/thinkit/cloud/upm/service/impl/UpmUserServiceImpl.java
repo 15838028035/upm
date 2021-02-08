@@ -17,48 +17,48 @@ import com.zhongkexinli.micro.serv.common.pagination.Query;
 public class UpmUserServiceImpl  implements UpmUserService{
 	
 	@Autowired
-	private UpmUserMapper upmUserMapper;
+	private UpmUserMapper UpmUserMapper;
 	
 	@Override
 	public java.lang.Long deleteByPrimaryKey(java.lang.Long id) {
-		return upmUserMapper.deleteByPrimaryKey(id);
+		return UpmUserMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long insert(UpmUser upmUser){
-		return upmUserMapper.insert(upmUser);
+	public java.lang.Long insert(UpmUser UpmUser){
+		return UpmUserMapper.insert(UpmUser);
 	}
 
 	@Override
-	public java.lang.Long insertSelective(UpmUser upmUser) {
-		return upmUserMapper.insertSelective(upmUser);
+	public java.lang.Long insertSelective(UpmUser UpmUser) {
+		return UpmUserMapper.insertSelective(UpmUser);
 	}
 
 	@Override
 	public UpmUser selectByPrimaryKey(java.lang.Long id) {
-		return upmUserMapper.selectByPrimaryKey(id);
+		return UpmUserMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKeySelective(UpmUser upmUser) {
-		return upmUserMapper.updateByPrimaryKeySelective(upmUser);
+	public java.lang.Long updateByPrimaryKeySelective(UpmUser UpmUser) {
+		return UpmUserMapper.updateByPrimaryKeySelective(UpmUser);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKey(UpmUser upmUser) {
-		return upmUserMapper.updateByPrimaryKey(upmUser);
+	public java.lang.Long updateByPrimaryKey(UpmUser UpmUser) {
+		return UpmUserMapper.updateByPrimaryKey(UpmUser);
 	}
 
 	@Override
 	 public LayUiTableResultResponse<UpmUser> selectByQuery(Query query) {
 	        com.github.pagehelper.Page<Object> result = PageHelper.startPage(query.getPage(), query.getLimit());
-	        List<Map<String,Object>> list  = upmUserMapper.selectByPageExample(query);
+	        List<Map<String,Object>> list  = UpmUserMapper.selectByPageExample(query);
 	        return new LayUiTableResultResponse(result.getTotal(), list);
 	}
 
 	@Override
 	public List<UpmUser> selectByExample(Query query) {
-		return upmUserMapper.selectByExample(query);
+		return UpmUserMapper.selectByExample(query);
 	}
 
 }

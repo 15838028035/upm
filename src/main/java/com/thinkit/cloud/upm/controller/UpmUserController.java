@@ -41,28 +41,28 @@ public class UpmUserController extends BaseController{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private UpmUserService upmUserService;
+	private UpmUserService UpmUserService;
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmUser")
-	public LayUiTableResultResponse<UpmUser> page(@RequestParam UpmUser upmUser ) {
+	public LayUiTableResultResponse<UpmUser> page(@RequestParam UpmUser UpmUser ) {
 		    Map<String,Object> map =new HashMap<>();
-			Map map2 = new MapAndObject(map,upmUser);
+			Map map2 = new MapAndObject(map,UpmUser);
 			Query query= new Query(map2);
-			return upmUserService.selectByQuery(query);
+			return UpmUserService.selectByQuery(query);
 	}
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmUser")
-		public RestApiResult2 create(@ModelAttribute UpmUser upmUser,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmUser UpmUser,HttpServletRequest request)  {
 			
 			try {
 					Long createBy = getLoginId(request);
-					upmUser.setCreateUserId(createBy);
-					upmUser.setCreateUserName(getUserName(request));
-					upmUser.setCreateTime(new Date());
-					upmUser.setUserPass(Md5Util.md5(upmUser.getUserPass()));
-					upmUserService.insertSelective(upmUser);
+					UpmUser.setCreateUserId(createBy);
+					UpmUser.setCreateUserName(getUserName(request));
+					UpmUser.setCreateTime(new Date());
+					UpmUser.setUserPass(Md5Util.md5(UpmUser.getUserPass()));
+					UpmUserService.insertSelective(UpmUser);
 					
 				}catch(Exception e) {
 					logger.error("[系统用户表]-->新增失败" ,e);
@@ -74,18 +74,18 @@ public class UpmUserController extends BaseController{
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmUser/{id}")
-		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUser upmUser,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUser UpmUser,HttpServletRequest request)  {
 			try {
-					UpmUser user = upmUserService.selectByPrimaryKey(id);
-		            if (!user.getUserPass().equals(upmUser.getUserPass())){
-		            	upmUser.setUserPass(Md5Util.md5(upmUser.getUserPass()));
+					UpmUser user = UpmUserService.selectByPrimaryKey(id);
+		            if (!user.getUserPass().equals(UpmUser.getUserPass())){
+		            	UpmUser.setUserPass(Md5Util.md5(UpmUser.getUserPass()));
 		            }
 	            
 					Long createBy = getLoginId(request);
-					upmUser.setUpdateUserId(createBy);
-					upmUser.setUpdateUserName(getUserName(request));
-					upmUser.setUpdateTime(new Date());
-					upmUserService.updateByPrimaryKeySelective(upmUser);
+					UpmUser.setUpdateUserId(createBy);
+					UpmUser.setUpdateUserName(getUserName(request));
+					UpmUser.setUpdateTime(new Date());
+					UpmUserService.updateByPrimaryKeySelective(UpmUser);
 					
 				}catch(Exception e) {
 					logger.error("[系统用户表]-->更新失败" ,e);
@@ -99,18 +99,18 @@ public class UpmUserController extends BaseController{
 	@ApiOperation(value = "查看")
 	@GetMapping(value="/api/UpmUser/{id}")
 	public UpmUser show(@PathVariable("id") java.lang.Long id )  {
-		UpmUser upmUser =upmUserService.selectByPrimaryKey(id);
-		if(upmUser== null) {
-			upmUser = new UpmUser();
+		UpmUser UpmUser =UpmUserService.selectByPrimaryKey(id);
+		if(UpmUser== null) {
+			UpmUser = new UpmUser();
 		}
-		return upmUser;
+		return UpmUser;
 	}
 		
 	/** 物理删除 */
 	@ApiOperation(value = "物理删除")
 	@DeleteMapping(value="/api/UpmUser/{id}")
 	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		upmUserService.deleteByPrimaryKey(id);
+		UpmUserService.deleteByPrimaryKey(id);
 		return new RestApiResult2();
 	}
 
@@ -119,12 +119,12 @@ public class UpmUserController extends BaseController{
 	@GetMapping(value="/api/UpmUser/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
-		UpmUser upmUser =upmUserService.selectByPrimaryKey(id);
-		if(upmUser== null) {
-			upmUser = new UpmUser();
+		UpmUser UpmUser =UpmUserService.selectByPrimaryKey(id);
+		if(UpmUser== null) {
+			UpmUser = new UpmUser();
 		}
 		
-		retMap.put("upmUser", upmUser);
+		retMap.put("UpmUser", UpmUser);
 		
 		return retMap;
 	}
@@ -133,7 +133,7 @@ public class UpmUserController extends BaseController{
 	@GetMapping(value = "/api/UpmUser/queryList")
 	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			List<UpmUser> list = upmUserService.selectByExample(query);
+			List<UpmUser> list = UpmUserService.selectByExample(query);
 			return new RestApiResult2().respData(list);
 	}
 }

@@ -36,7 +36,7 @@ public class UpmUserLoginController extends BaseController {
 	private Long jtwTokenTimeOut;
 	
 	@Autowired
-	private UpmUserService upmUserService;
+	private UpmUserService UpmUserService;
 
 	/**
 	 * 用户登录
@@ -45,23 +45,23 @@ public class UpmUserLoginController extends BaseController {
 	 */
 	@ApiOperation(value = "登录")
 	@PostMapping(value = "/api/UpmUser/login")
-	public RestApiResult2 login( UpmUser upmUser, HttpServletRequest request, RedirectAttributes attributes) {
+	public RestApiResult2 login( UpmUser UpmUser, HttpServletRequest request, RedirectAttributes attributes) {
 
 	  RestApiResult2 restAPIResult = new RestApiResult2();
 		restAPIResult.setRespCode(1);
 		restAPIResult.setRespMsg("登录成功");
 
-		if (upmUser.getUserNo() == null || "".equals(upmUser.getUserNo()) || upmUser.getUserPass() == null
-				|| "".equals(upmUser.getUserPass())) {
+		if (UpmUser.getUserNo() == null || "".equals(UpmUser.getUserNo()) || UpmUser.getUserPass() == null
+				|| "".equals(UpmUser.getUserPass())) {
 			restAPIResult.setRespCode(0);
 			restAPIResult.setRespMsg("参数为空");
 			return restAPIResult;
 		}
 		
-		Query query = new Query().putFilter("userNo", upmUser.getUserNo())
-								 .putFilter("userPass", Md5Util.md5(upmUser.getUserPass()));
+		Query query = new Query().putFilter("userNo", UpmUser.getUserNo())
+								 .putFilter("userPass", Md5Util.md5(UpmUser.getUserPass()));
 
-		List<UpmUser> list = upmUserService.selectByExample(query);
+		List<UpmUser> list = UpmUserService.selectByExample(query);
 		if (list.isEmpty()) {
 			restAPIResult.setRespCode(0);
 			restAPIResult.setRespMsg("用户名或密码输入错误");

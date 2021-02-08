@@ -40,26 +40,26 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private UpmUserAndUpmRoleService upmUserAndUpmRoleService;
+	private UpmUserAndUpmRoleService UpmUserAndUpmRoleService;
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmUserAndUpmRole")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			return  upmUserAndUpmRoleService.selectByQuery(query);
+			return  UpmUserAndUpmRoleService.selectByQuery(query);
 	}
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmUserAndUpmRole")
-		public RestApiResult2 create(@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmUserAndUpmRole UpmUserAndUpmRole,HttpServletRequest request)  {
 			
 			try {
 					Long createBy = getLoginId(request);
-					upmUserAndUpmRole.setCreateUserId(createBy);
-					upmUserAndUpmRole.setCreateUserName(getUserName(request));
-					upmUserAndUpmRole.setCreateTime(new Date());
-					upmUserAndUpmRoleService.insertSelective(upmUserAndUpmRole);
+					UpmUserAndUpmRole.setCreateUserId(createBy);
+					UpmUserAndUpmRole.setCreateUserName(getUserName(request));
+					UpmUserAndUpmRole.setCreateTime(new Date());
+					UpmUserAndUpmRoleService.insertSelective(UpmUserAndUpmRole);
 					
 				}catch(Exception e) {
 					logger.error("[用户角色关联表]-->新增失败" ,e);
@@ -71,14 +71,14 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmUserAndUpmRole/{id}")
-		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUserAndUpmRole upmUserAndUpmRole,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmUserAndUpmRole UpmUserAndUpmRole,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
-					upmUserAndUpmRole.setUpdateUserId(createBy);
-					upmUserAndUpmRole.setUpdateUserName(getUserName(request));
-					upmUserAndUpmRole.setUpdateTime(new Date());
-					upmUserAndUpmRoleService.updateByPrimaryKeySelective(upmUserAndUpmRole);
+					UpmUserAndUpmRole.setUpdateUserId(createBy);
+					UpmUserAndUpmRole.setUpdateUserName(getUserName(request));
+					UpmUserAndUpmRole.setUpdateTime(new Date());
+					UpmUserAndUpmRoleService.updateByPrimaryKeySelective(UpmUserAndUpmRole);
 					
 				}catch(Exception e) {
 					logger.error("[用户角色关联表]-->更新失败" ,e);
@@ -103,26 +103,26 @@ public class UpmUserAndUpmRoleController extends BaseController{
 		    Arrays.asList(multiSelectedTmp).forEach(str->{
 		        Long selectedId = Long.parseLong(String.valueOf(str));
 
-            List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(new Query().putFilter("userId", userId));
+            List<UpmUserAndUpmRole> list = UpmUserAndUpmRoleService.selectByExample(new Query().putFilter("userId", userId));
             if (list.isEmpty()) {
-               UpmUserAndUpmRole upmUserAndUpmRole = new UpmUserAndUpmRole();
-               upmUserAndUpmRole.setUserId(userId);
-               upmUserAndUpmRole.setRoleId(selectedId);
+               UpmUserAndUpmRole UpmUserAndUpmRole = new UpmUserAndUpmRole();
+               UpmUserAndUpmRole.setUserId(userId);
+               UpmUserAndUpmRole.setRoleId(selectedId);
               
-                upmUserAndUpmRole.setCreateUserId(createBy);
-          upmUserAndUpmRole.setCreateUserName(getUserName(request));
-          upmUserAndUpmRole.setCreateTime(new Date());
-          upmUserAndUpmRoleService.insertSelective(upmUserAndUpmRole);
+                UpmUserAndUpmRole.setCreateUserId(createBy);
+          UpmUserAndUpmRole.setCreateUserName(getUserName(request));
+          UpmUserAndUpmRole.setCreateTime(new Date());
+          UpmUserAndUpmRoleService.insertSelective(UpmUserAndUpmRole);
 
             } else {
-                UpmUserAndUpmRole upmUserAndUpmRole =  list.get(0);
-                 upmUserAndUpmRole.setUserId(userId);
-                 upmUserAndUpmRole.setRoleId(selectedId);
+                UpmUserAndUpmRole UpmUserAndUpmRole =  list.get(0);
+                 UpmUserAndUpmRole.setUserId(userId);
+                 UpmUserAndUpmRole.setRoleId(selectedId);
                 
-                  upmUserAndUpmRole.setUpdateUserId(createBy);
-            upmUserAndUpmRole.setUpdateUserName(getUserName(request));
-            upmUserAndUpmRole.setUpdateTime(new Date());
-            upmUserAndUpmRoleService.updateByPrimaryKeySelective(upmUserAndUpmRole);
+                  UpmUserAndUpmRole.setUpdateUserId(createBy);
+            UpmUserAndUpmRole.setUpdateUserName(getUserName(request));
+            UpmUserAndUpmRole.setUpdateTime(new Date());
+            UpmUserAndUpmRoleService.updateByPrimaryKeySelective(UpmUserAndUpmRole);
             }
 		    });
 		        
@@ -134,18 +134,18 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	@ApiOperation(value = "查看")
 	@GetMapping(value="/api/UpmUserAndUpmRole/{id}")
 	public UpmUserAndUpmRole show(@PathVariable("id") java.lang.Long id )  {
-		UpmUserAndUpmRole upmUserAndUpmRole =upmUserAndUpmRoleService.selectByPrimaryKey(id);
-		if(upmUserAndUpmRole== null) {
-			upmUserAndUpmRole = new UpmUserAndUpmRole();
+		UpmUserAndUpmRole UpmUserAndUpmRole =UpmUserAndUpmRoleService.selectByPrimaryKey(id);
+		if(UpmUserAndUpmRole== null) {
+			UpmUserAndUpmRole = new UpmUserAndUpmRole();
 		}
-		return upmUserAndUpmRole;
+		return UpmUserAndUpmRole;
 	}
 		
 	/** 物理删除 */
 	@ApiOperation(value = "物理删除")
 	@DeleteMapping(value="/api/UpmUserAndUpmRole/{id}")
 	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
-		 upmUserAndUpmRoleService.deleteByPrimaryKey(id);
+		 UpmUserAndUpmRoleService.deleteByPrimaryKey(id);
 		return new RestApiResult2();
 	}
 
@@ -154,12 +154,12 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	@GetMapping(value="/api/UpmUserAndUpmRole/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		Map<String,Object> retMap =new HashMap<>();
-		UpmUserAndUpmRole upmUserAndUpmRole =upmUserAndUpmRoleService.selectByPrimaryKey(id);
-		if(upmUserAndUpmRole== null) {
-			upmUserAndUpmRole = new UpmUserAndUpmRole();
+		UpmUserAndUpmRole UpmUserAndUpmRole =UpmUserAndUpmRoleService.selectByPrimaryKey(id);
+		if(UpmUserAndUpmRole== null) {
+			UpmUserAndUpmRole = new UpmUserAndUpmRole();
 		}
 		
-		retMap.put("upmUserAndUpmRole", upmUserAndUpmRole);
+		retMap.put("UpmUserAndUpmRole", UpmUserAndUpmRole);
 		
 		return retMap;
 	}
@@ -168,7 +168,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	@GetMapping(value = "/api/UpmUserAndUpmRole/queryList")
 	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);
+			List<UpmUserAndUpmRole> list = UpmUserAndUpmRoleService.selectByExample(query);
 			return new RestApiResult2().respData(list);
 	}
 	
@@ -176,7 +176,7 @@ public class UpmUserAndUpmRoleController extends BaseController{
 	@GetMapping(value = "/api/UpmUserAndUpmRole/exist")
 	public Boolean exist(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			List<UpmUserAndUpmRole> list = upmUserAndUpmRoleService.selectByExample(query);
+			List<UpmUserAndUpmRole> list = UpmUserAndUpmRoleService.selectByExample(query);
 			return !list.isEmpty();
 	}
 }

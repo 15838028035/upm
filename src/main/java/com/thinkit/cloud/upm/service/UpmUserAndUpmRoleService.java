@@ -11,15 +11,15 @@ public interface UpmUserAndUpmRoleService  {
 
     public java.lang.Long deleteByPrimaryKey(java.lang.Long id);
 
-    public java.lang.Long insert(UpmUserAndUpmRole upmUserAndUpmRole);
+    public java.lang.Long insert(UpmUserAndUpmRole UpmUserAndUpmRole);
 
-    public java.lang.Long insertSelective(UpmUserAndUpmRole upmUserAndUpmRole);
+    public java.lang.Long insertSelective(UpmUserAndUpmRole UpmUserAndUpmRole);
 
     public UpmUserAndUpmRole selectByPrimaryKey(java.lang.Long id);
 
-    public java.lang.Long updateByPrimaryKeySelective(UpmUserAndUpmRole upmUserAndUpmRole);
+    public java.lang.Long updateByPrimaryKeySelective(UpmUserAndUpmRole UpmUserAndUpmRole);
 
-    public java.lang.Long updateByPrimaryKey(UpmUserAndUpmRole upmUserAndUpmRole);
+    public java.lang.Long updateByPrimaryKey(UpmUserAndUpmRole UpmUserAndUpmRole);
 
     public LayUiTableResultResponse	 selectByQuery(Query query) ;
 

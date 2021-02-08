@@ -26,56 +26,56 @@ import com.zhongkexinli.micro.serv.common.pagination.Query;
 public class UpmRoleServiceImpl  implements UpmRoleService{
 	
 	@Autowired
-	private UpmRoleMapper upmRoleMapper;
+	private UpmRoleMapper UpmRoleMapper;
 	
 	@Autowired
-	private UpmPermissionService upmPermissionService;
+	private UpmPermissionService UpmPermissionService;
 	
 	@Autowired
-	private UpmRoleAndPermissionRelMapper upmRoleAndPermissionRelMapper;
+	private UpmRoleAndPermissionRelMapper UpmRoleAndPermissionRelMapper;
 	
 	@Override
 	@Transactional
 	public java.lang.Long deleteByPrimaryKey(java.lang.Long id) {
-		upmRoleAndPermissionRelMapper.deletePermissionById(id);
-		return upmRoleMapper.deleteByPrimaryKey(id);
+		UpmRoleAndPermissionRelMapper.deletePermissionById(id);
+		return UpmRoleMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long insert(UpmRole upmRole){
-		return upmRoleMapper.insert(upmRole);
+	public java.lang.Long insert(UpmRole UpmRole){
+		return UpmRoleMapper.insert(UpmRole);
 	}
 
 	@Override
-	public java.lang.Long insertSelective(UpmRole upmRole) {
-		return upmRoleMapper.insertSelective(upmRole);
+	public java.lang.Long insertSelective(UpmRole UpmRole) {
+		return UpmRoleMapper.insertSelective(UpmRole);
 	}
 
 	@Override
 	public UpmRole selectByPrimaryKey(java.lang.Long id) {
-		return upmRoleMapper.selectByPrimaryKey(id);
+		return UpmRoleMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKeySelective(UpmRole upmRole) {
-		return upmRoleMapper.updateByPrimaryKeySelective(upmRole);
+	public java.lang.Long updateByPrimaryKeySelective(UpmRole UpmRole) {
+		return UpmRoleMapper.updateByPrimaryKeySelective(UpmRole);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKey(UpmRole upmRole) {
-		return upmRoleMapper.updateByPrimaryKey(upmRole);
+	public java.lang.Long updateByPrimaryKey(UpmRole UpmRole) {
+		return UpmRoleMapper.updateByPrimaryKey(UpmRole);
 	}
 
 	@Override
 	 public LayUiTableResultResponse selectByQuery(Query query) {
 	        com.github.pagehelper.Page<Object> result = PageHelper.startPage(query.getPage(), query.getLimit());
-	        List<Map<String,Object>> list  = upmRoleMapper.selectByPageExample(query);
+	        List<Map<String,Object>> list  = UpmRoleMapper.selectByPageExample(query);
 	        return new LayUiTableResultResponse(result.getTotal(), list);
 	}
 
 	@Override
 	public List<UpmRole> selectByExample(Query query) {
-		return upmRoleMapper.selectByExample(query);
+		return UpmRoleMapper.selectByExample(query);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   */
 	  public String getPermissionTreeDataJson(Integer roleId, String appId, Long operatorId)  {
 	    Query query = new Query().putFilter("appId", appId).putFilter("operatorId", operatorId).putFilter("parentId", 0).putFilter("sortName", " parent_id id sort_no");
-	    List<UpmPermission> list = upmPermissionService.selectByExample(query);
+	    List<UpmPermission> list = UpmPermissionService.selectByExample(query);
 
 	    if (null != list && !list.isEmpty()) {
 	      List<Long> permissionIds = getRolePermissionIds(roleId);
@@ -109,7 +109,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	        treeNodeList.add(BootStrapTreeViewCheck.createNew(id, text, checked, parentId));
 	      }
 
-	      Long rootId = upmPermissionService.findRootPermissionIdByAppId(appId);
+	      Long rootId = UpmPermissionService.findRootPermissionIdByAppId(appId);
 	      return BootStrapTreeViewCheck.valueOfString(treeNodeList, rootId.toString());
 	    }
 	    return null;
@@ -125,7 +125,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   */
 	  public void addPermissionToRole(String permissions, String appId, Long roleId)  {
 		  
-		  upmRoleAndPermissionRelMapper.deletePermissionById(roleId);
+		  UpmRoleAndPermissionRelMapper.deletePermissionById(roleId);
 
 		    String[] permission = new String[] {};
 		    if (permissions != null && !"".equals(permissions)) {
@@ -146,12 +146,12 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   */
 	  public void addPermissionToRole(Long roleId, String appId, Long permissionId)  {
 	   
-	   UpmRoleAndPermissionRel upmRoleAndPermissionRel = new UpmRoleAndPermissionRel();
-	   upmRoleAndPermissionRel.setRoleId(roleId);
-	   upmRoleAndPermissionRel.setAppId(appId);
-	   upmRoleAndPermissionRel.setPermissionId(permissionId);
+	   UpmRoleAndPermissionRel UpmRoleAndPermissionRel = new UpmRoleAndPermissionRel();
+	   UpmRoleAndPermissionRel.setRoleId(roleId);
+	   UpmRoleAndPermissionRel.setAppId(appId);
+	   UpmRoleAndPermissionRel.setPermissionId(permissionId);
 	   
-	   upmRoleAndPermissionRelMapper.insertSelective(upmRoleAndPermissionRel);
+	   UpmRoleAndPermissionRelMapper.insertSelective(UpmRoleAndPermissionRel);
 	  }
 
 	  /**
@@ -161,7 +161,7 @@ public class UpmRoleServiceImpl  implements UpmRoleService{
 	   * @return 权限ID列表
 	   */
 	  public List<Long> getRolePermissionIds(Integer roleId) {
-	    return  upmRoleAndPermissionRelMapper.findRolePermissionIds(roleId);
+	    return  UpmRoleAndPermissionRelMapper.findRolePermissionIds(roleId);
 	  }
 
 }

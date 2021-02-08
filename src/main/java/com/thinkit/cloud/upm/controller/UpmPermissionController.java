@@ -41,29 +41,29 @@ public class UpmPermissionController extends BaseController{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private UpmPermissionService upmPermissionService;
+	private UpmPermissionService UpmPermissionService;
 	
 	@Autowired
-	private UpmRoleAndPermissionRelService upmRoleAndPermissionRelService;
+	private UpmRoleAndPermissionRelService UpmRoleAndPermissionRelService;
 	
 	@ApiOperation(value = "列表")
 	@GetMapping(value = "/api/UpmPermission")
 	public LayUiTableResultResponse page(@RequestParam(defaultValue = "10") int limit,
 	      @RequestParam(defaultValue = "1") int offset,@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			return  upmPermissionService.selectByQuery(query);
+			return  UpmPermissionService.selectByQuery(query);
 	}
 	 
 		@ApiOperation(value = "新增")
 		@PostMapping(value = "/api/UpmPermission")
-		public RestApiResult2 create(@ModelAttribute UpmPermission upmPermission,HttpServletRequest request)  {
+		public RestApiResult2 create(@ModelAttribute UpmPermission UpmPermission,HttpServletRequest request)  {
 			
 			try {
 					Long createBy = getLoginId(request);
-					upmPermission.setCreateUserId(createBy);
-					upmPermission.setCreateUserName(getUserName(request));
-					upmPermission.setCreateTime(new Date());
-					upmPermissionService.insertSelective(upmPermission);
+					UpmPermission.setCreateUserId(createBy);
+					UpmPermission.setCreateUserName(getUserName(request));
+					UpmPermission.setCreateTime(new Date());
+					UpmPermissionService.insertSelective(UpmPermission);
 					
 				}catch(Exception e) {
 					logger.error("[权限信息表]-->新增失败" ,e);
@@ -75,14 +75,14 @@ public class UpmPermissionController extends BaseController{
 	 
 		@ApiOperation(value = "更新")
 		@PutMapping(value="/api/UpmPermission/{id}")
-		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmPermission upmPermission,HttpServletRequest request)  {
+		public RestApiResult2 update(@PathVariable("id") java.lang.Long id ,@ModelAttribute UpmPermission UpmPermission,HttpServletRequest request)  {
 			try {
 					
 					Long createBy = getLoginId(request);
-					upmPermission.setUpdateUserId(createBy);
-					upmPermission.setUpdateUserName(getUserName(request));
-					upmPermission.setUpdateTime(new Date());
-					upmPermissionService.updateByPrimaryKeySelective(upmPermission);
+					UpmPermission.setUpdateUserId(createBy);
+					UpmPermission.setUpdateUserName(getUserName(request));
+					UpmPermission.setUpdateTime(new Date());
+					UpmPermissionService.updateByPrimaryKeySelective(UpmPermission);
 					
 				}catch(Exception e) {
 					logger.error("[权限信息表]-->更新失败" ,e);
@@ -96,11 +96,11 @@ public class UpmPermissionController extends BaseController{
 	@ApiOperation(value = "查看")
 	@GetMapping(value="/api/UpmPermission/{id}")
 	public UpmPermission show(@PathVariable("id") java.lang.Long id )  {
-		UpmPermission upmPermission =upmPermissionService.selectByPrimaryKey(id);
-		if(upmPermission== null) {
-			upmPermission = new UpmPermission();
+		UpmPermission UpmPermission =UpmPermissionService.selectByPrimaryKey(id);
+		if(UpmPermission== null) {
+			UpmPermission = new UpmPermission();
 		}
-		return upmPermission;
+		return UpmPermission;
 	}
 		
 	/** 物理删除 */
@@ -109,13 +109,13 @@ public class UpmPermissionController extends BaseController{
 	public RestApiResult2 delete(@PathVariable("id") java.lang.Long id ) {
 		
 		Query query= new Query().putFilter("permissionId", id);
-		List<UpmRoleAndPermissionRel> list = upmRoleAndPermissionRelService.selectByExample(query);
+		List<UpmRoleAndPermissionRel> list = UpmRoleAndPermissionRelService.selectByExample(query);
 		
 		if(!list.isEmpty()) {
 			return new RestApiResult2().respCode(0).respMsg("对不起，存在有关联的{} 个角色,请先解除角色权限关系", String.valueOf(list.size()));
 		}
 		
-		 upmPermissionService.deleteByPrimaryKey(id);
+		 UpmPermissionService.deleteByPrimaryKey(id);
 		return new RestApiResult2();
 	}
 
@@ -124,12 +124,12 @@ public class UpmPermissionController extends BaseController{
 	@GetMapping(value="/api/UpmPermission/showInfo/{id}")
 	public  Map<String,Object> showInfo(@PathVariable("id") java.lang.Long id ){
 		HashMap<String,Object> retMap =new HashMap<>();
-		UpmPermission upmPermission =upmPermissionService.selectByPrimaryKey(id);
-		if(upmPermission== null) {
-			upmPermission = new UpmPermission();
+		UpmPermission UpmPermission =UpmPermissionService.selectByPrimaryKey(id);
+		if(UpmPermission== null) {
+			UpmPermission = new UpmPermission();
 		}
 		
-		retMap.put("upmPermission", upmPermission);
+		retMap.put("UpmPermission", UpmPermission);
 		
 		return retMap;
 	}
@@ -138,7 +138,7 @@ public class UpmPermissionController extends BaseController{
 	@GetMapping(value = "/api/UpmPermission/queryList")
 	public RestApiResult2 queryList(@RequestParam Map<String, Object> params) {
 			Query query= new Query(params);
-			List<UpmPermission> list = upmPermissionService.selectByExample(query);
+			List<UpmPermission> list = UpmPermissionService.selectByExample(query);
 			return new RestApiResult2().respData(list);
 	}
 }

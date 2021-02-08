@@ -10,15 +10,15 @@ public interface UpmRoleMapper  {
 
     public java.lang.Long deleteByPrimaryKey(java.lang.Long id);
 
-    public java.lang.Long insert(UpmRole upmRole);
+    public java.lang.Long insert(UpmRole UpmRole);
 
-    public java.lang.Long insertSelective(UpmRole upmRole);
+    public java.lang.Long insertSelective(UpmRole UpmRole);
 
     public UpmRole selectByPrimaryKey(java.lang.Long id);
 
-    public java.lang.Long updateByPrimaryKeySelective(UpmRole upmRole);
+    public java.lang.Long updateByPrimaryKeySelective(UpmRole UpmRole);
 
-    public java.lang.Long updateByPrimaryKey(UpmRole upmRole);
+    public java.lang.Long updateByPrimaryKey(UpmRole UpmRole);
 
    /**
      * 根据条件查询列表

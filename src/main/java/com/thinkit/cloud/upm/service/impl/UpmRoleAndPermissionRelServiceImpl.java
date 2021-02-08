@@ -18,48 +18,48 @@ import com.zhongkexinli.micro.serv.common.pagination.Query;
 public class UpmRoleAndPermissionRelServiceImpl  implements UpmRoleAndPermissionRelService{
 	
 	@Autowired
-	private UpmRoleAndPermissionRelMapper upmRoleAndPermissionRelMapper;
+	private UpmRoleAndPermissionRelMapper UpmRoleAndPermissionRelMapper;
 	
 	@Override
 	public java.lang.Long deleteByPrimaryKey(java.lang.Long id) {
-		return upmRoleAndPermissionRelMapper.deleteByPrimaryKey(id);
+		return UpmRoleAndPermissionRelMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long insert(UpmRoleAndPermissionRel upmRoleAndPermissionRel){
-		return upmRoleAndPermissionRelMapper.insert(upmRoleAndPermissionRel);
+	public java.lang.Long insert(UpmRoleAndPermissionRel UpmRoleAndPermissionRel){
+		return UpmRoleAndPermissionRelMapper.insert(UpmRoleAndPermissionRel);
 	}
 
 	@Override
-	public java.lang.Long insertSelective(UpmRoleAndPermissionRel upmRoleAndPermissionRel) {
-		return upmRoleAndPermissionRelMapper.insertSelective(upmRoleAndPermissionRel);
+	public java.lang.Long insertSelective(UpmRoleAndPermissionRel UpmRoleAndPermissionRel) {
+		return UpmRoleAndPermissionRelMapper.insertSelective(UpmRoleAndPermissionRel);
 	}
 
 	@Override
 	public UpmRoleAndPermissionRel selectByPrimaryKey(java.lang.Long id) {
-		return upmRoleAndPermissionRelMapper.selectByPrimaryKey(id);
+		return UpmRoleAndPermissionRelMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKeySelective(UpmRoleAndPermissionRel upmRoleAndPermissionRel) {
-		return upmRoleAndPermissionRelMapper.updateByPrimaryKeySelective(upmRoleAndPermissionRel);
+	public java.lang.Long updateByPrimaryKeySelective(UpmRoleAndPermissionRel UpmRoleAndPermissionRel) {
+		return UpmRoleAndPermissionRelMapper.updateByPrimaryKeySelective(UpmRoleAndPermissionRel);
 	}
 
 	@Override
-	public java.lang.Long updateByPrimaryKey(UpmRoleAndPermissionRel upmRoleAndPermissionRel) {
-		return upmRoleAndPermissionRelMapper.updateByPrimaryKey(upmRoleAndPermissionRel);
+	public java.lang.Long updateByPrimaryKey(UpmRoleAndPermissionRel UpmRoleAndPermissionRel) {
+		return UpmRoleAndPermissionRelMapper.updateByPrimaryKey(UpmRoleAndPermissionRel);
 	}
 
 	@Override
 	 public LayUiTableResultResponse selectByQuery(Query query) {
 	        com.github.pagehelper.Page<Object> result = PageHelper.startPage(query.getPage(), query.getLimit());
-	        List<Map<String,Object>> list  = upmRoleAndPermissionRelMapper.selectByPageExample(query);
+	        List<Map<String,Object>> list  = UpmRoleAndPermissionRelMapper.selectByPageExample(query);
 	        return new LayUiTableResultResponse(result.getTotal(), list);
 	}
 
 	@Override
 	public List<UpmRoleAndPermissionRel> selectByExample(Query query) {
-		return upmRoleAndPermissionRelMapper.selectByExample(query);
+		return UpmRoleAndPermissionRelMapper.selectByExample(query);
 	}
 
 }

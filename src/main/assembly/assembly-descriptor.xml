@@ -74,7 +74,7 @@
         <!-- 将项目启动jar打包到boot目录中 -->
         <fileSet>
             <directory>${build.directory}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>${file.separator}</outputDirectory>
             <fileMode>0755</fileMode>
             <includes>
                 <include>${project.build.finalName}.jar</include>
@@ -89,5 +89,21 @@
         </fileSet> 
        
 	</fileSets>
+	
+	  <dependencySets>
+            <dependencySet>
+                <useProjectArtifact>true</useProjectArtifact>
+                <outputDirectory>lib</outputDirectory>
+                <scope>runtime</scope>
+                <includes>
+                    <include>*:*</include>
+                </includes>
+                <excludes>
+                    <exclude>${groupId}:${artifactId}</exclude>
+                    <exclude>org.springframework.boot:spring-boot-devtools</exclude>
+                </excludes>
+            </dependencySet>
+        </dependencySets>
+       
 	
 </assembly>
