@@ -33,7 +33,6 @@ public class WebControllerAop {
 	
 	protected Logger logger = LoggerFactory.getLogger(WebControllerAop.class);
 	
- 
     //匹配com.zkn.learnspringboot.web.controller包及其子包下的所有类的所有方法
     @Pointcut("execution(* com.thinkit.cloud.upm.controller..*.*(..))")
     public void executeService(){
@@ -149,11 +148,12 @@ public class WebControllerAop {
      *   环绕通知非常强大，可以决定目标方法是否执行，什么时候执行，执行时是否需要替换方法参数，执行完毕是否需要替换返回值。
      *   环绕通知第一个参数必须是org.aspectj.lang.ProceedingJoinPoint类型
      */
-    @Around("execution(* com.thinkit.cloud.upm.controller..*.testAround*(..))")
+    @Around("execution(* com.thinkit.cloud.upm.controller..*.*(..))")
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint){
         logger.info("环绕通知的目标方法名{}",proceedingJoinPoint.getSignature().getName());
         try {//obj之前可以写目标方法执行前的逻辑
-           return proceedingJoinPoint.proceed();//调用执行目标方法
+          	 Object result = proceedingJoinPoint.proceed();//调用执行目标方法
+           return result;
         } catch (Throwable throwable) {
             logger.error("error",throwable);
         return null;
