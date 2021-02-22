@@ -2,13 +2,12 @@ package com.thinkit.cloud.upm.aop;
 
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.MDC;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -26,9 +25,10 @@ public class NovaResponseBodyAdvice implements ResponseBodyAdvice {
  @Override
  public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
          Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-  
-	 HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-	 String logTraceId = httpServletRequest.getHeader("traceId");
+	 
+	 ServletServerHttpRequest servletServerHttpRequest =(ServletServerHttpRequest) request;
+	 
+	String  logTraceId = servletServerHttpRequest.getServletRequest().getHeader("traceId");
 	 
 	 if(logTraceId == null) {
 		 String uuid = UUID.randomUUID().toString();
