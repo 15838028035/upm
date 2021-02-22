@@ -2,6 +2,8 @@ package com.thinkit.cloud.upm.aop;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.MDC;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -18,9 +20,6 @@ public class NovaResponseBodyAdvice implements ResponseBodyAdvice {
 	
  @Override
  public boolean supports(MethodParameter returnType, Class converterType) {
-	 String uuid = UUID.randomUUID().toString();
-     MDC.put(LOG_TRACE_ID, uuid);
-     
      return true;
  }
 
@@ -28,12 +27,20 @@ public class NovaResponseBodyAdvice implements ResponseBodyAdvice {
  public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
          Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
   
-  if( body instanceof RestApiResult2) {
-	  String traceId = MDC.get(LOG_TRACE_ID);
-	  RestApiResult2 restApiResult2 = ((RestApiResult2)body);
-	  restApiResult2.setTraceId(traceId);
-      return restApiResult2;
-  }
+	 HttpServletRequest httpServletRequest = (HttpServletRequest)request;
+	 String logTraceId = httpServletRequest.getHeader("traceId");
+	 
+	 if(logTraceId == null) {
+		 String uuid = UUID.randomUUID().toString();
+	     MDC.put(LOG_TRACE_ID, uuid);
+	 }
+     
+	  if( body instanceof RestApiResult2) {
+		  String traceId = MDC.get(LOG_TRACE_ID);
+		  RestApiResult2 restApiResult2 = ((RestApiResult2)body);
+		  restApiResult2.setTraceId(traceId);
+	      return restApiResult2;
+	  }
   
   MDC.remove(LOG_TRACE_ID);
   
