@@ -5,9 +5,9 @@
 <!--     <include resource="org/springframework/boot/logging/logback/base.xml" /> -->
 	<jmxConfigurator/>
     <!--定义日志文件的存储地址和前缀名-->
-    <springProperty scope="context" name="LOG_PATH" source="log.path"/>
-    <springProperty scope="context" name="LOG_PREFIX" source="log.prefix"/>
-    <springProperty scope="context" name="LOG_LEVEL" source="log.level"/>
+    <springProperty scope="context" name="LOG_PATH" source="log.path" defaultValue="../logs" />
+    <springProperty scope="context" name="LOG_PREFIX" source="log.prefix" defaultValue="spring.application.name"/>
+    <springProperty scope="context" name="LOG_LEVEL" source="log.level" defaultValue="info"/>
 
     <!-- 一般信息按照每天生成日志文件 -->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -47,7 +48,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             if(isProtectedUrl(request)) {
-        	   String token = request.getHeader("TOKEN");
+        	   String token = "";
+        	   
+        	   Cookie[] cookies =request.getCookies();
+               if(cookies != null){
+                    for(Cookie cookie : cookies){
+                        if(cookie.getName().equalsIgnoreCase("TOKEN")){
+                        	token = cookie.getValue();
+                        }
+                    }
+               }
+               
+               if (StringUtil.isBlank(token)) {
+                   token = request.getHeader("TOKEN");
+               }
+               
                if (StringUtil.isBlank(token)) {
                    token = request.getParameter("TOKEN");
                }
